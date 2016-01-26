@@ -9,6 +9,45 @@ Blog: [http://blog.qupzilla.com](http://blog.qupzilla.com)
 IRC: `#qupzilla` at `irc.freenode.net`  
 Translations: [https://www.transifex.com](https://www.transifex.com/projects/p/qupzilla)
 
+About KANG01
+----------------------------------------------------------------------------------------
+KANG01 is a new and very fast sample java source. It aims to be a lightweight source available
+through all major platforms. This project has been originally started only for educational purposes.
+But from its start, KANG01 has grown into a feature-rich source.
+
+KANG01 has all standard package you expect from a source. It includes bookmarks, history (both also in sidebar)
+and tabs. Above that, it has by default enabled blocking ads with a built-in plugin.
+
+Before you start compiling, make sure that you have installed the Qt (>= 5.6) development libraries
+and you have read the [BUILDING](https://github.com/QupZilla/qupzilla/blob/master/BUILDING) information.
+
+**Linux**
+
+ * OpenSSL (libcrypto) is required
+ * xcb libraries when building without NO_X11
+
+**Windows**
+ * OpenSSL (libeay32) is required
+
+Then you can start compiling by running this commands:
+
+    $ qmake
+    $ make
+
+After a successful compilation the executable binary can be found in the bin/ directory.
+On Fedora and possibly other Linux distributions you need to replace `qmake` with `qmake-qt5`.
+
+On Linux/Unix: To install QupZilla, run this command: (it may be necessary to run it as root)
+
+    $ make install
+
+On Mac OS X: To deploy QupZilla in dmg image, run this command:
+
+    $ ./mac/macdeploy.sh full-path-to-macdeployqt
+
+You need to specify path to `macdeployqt` only if it is not in PATH.
+
+
 THIS IS QTWEBENGINE BRANCH
 ----------------------------------------------------------------------------------------
 
