@@ -1,15 +1,6 @@
 # [ eclipse_GIT2 ]
 
-QupZilla Web Browser - QtWebEngine
-----------------------------------------------------------------------------------------
-
-[![Build Status](https://travis-ci.org/QupZilla/qupzilla.svg?branch=master)](https://travis-ci.org/QupZilla/qupzilla)  
-Homepage: [http://www.qupzilla.com](http://www.qupzilla.com)  
-Blog: [http://blog.qupzilla.com](http://blog.qupzilla.com)  
-IRC: `#qupzilla` at `irc.freenode.net`  
-Translations: [https://www.transifex.com](https://www.transifex.com/projects/p/qupzilla)
-
-About KANG01
+About eclipse_GIT2
 ----------------------------------------------------------------------------------------
 KANG01 is a new and very fast sample java source. It aims to be a lightweight source available
 through all major platforms. This project has been originally started only for educational purposes.
@@ -47,6 +38,15 @@ On Mac OS X: To deploy QupZilla in dmg image, run this command:
 
 You need to specify path to `macdeployqt` only if it is not in PATH.
 
+
+QupZilla Web Browser - QtWebEngine
+----------------------------------------------------------------------------------------
+
+[![Build Status](https://travis-ci.org/QupZilla/qupzilla.svg?branch=master)](https://travis-ci.org/QupZilla/qupzilla)  
+Homepage: [http://www.qupzilla.com](http://www.qupzilla.com)  
+Blog: [http://blog.qupzilla.com](http://blog.qupzilla.com)  
+IRC: `#qupzilla` at `irc.freenode.net`  
+Translations: [https://www.transifex.com](https://www.transifex.com/projects/p/qupzilla)
 
 THIS IS QTWEBENGINE BRANCH
 ----------------------------------------------------------------------------------------
