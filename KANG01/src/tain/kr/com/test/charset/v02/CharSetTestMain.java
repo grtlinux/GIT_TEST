@@ -43,7 +43,7 @@ public class CharSetTestMain {
 	private static void test01(String[] args) throws Exception {
 		
 		if (flag) {
-			String str = "°¡";
+			String str = "°¡";  // EUC-KR : B0 A1
 			
 			byte[] by1 = str.getBytes();
 			byte[] by2 = str.getBytes("euc-kr");
