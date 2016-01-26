@@ -43,16 +43,16 @@ public class CharSetTestMain {
 	private static void test01(String[] args) throws Exception {
 		
 		if (flag) {
-			String str = "°¡";  // EUC-KR : B0 A1
+			String str = "°¡";  // EUC-KR : B0 A1,  UTF-8 : EA B0 80
 			
 			byte[] by1 = str.getBytes();
 			byte[] by2 = str.getBytes("euc-kr");
 			byte[] by3 = str.getBytes("utf-8");
 			
 			if (flag) {
-				log.debug(BinToHex(by1));
-				log.debug(BinToHex(by2));
-				log.debug(BinToHex(by3));
+				log.debug("byte[] by1 = str.getBytes();          -->" + BinToHex(by1));
+				log.debug("byte[] by2 = str.getBytes('euc-kr');  -->" + BinToHex(by2));
+				log.debug("byte[] by3 = str.getBytes('utf-8');   -->" + BinToHex(by3));
 			}
 
 			String hex1 = BinToHex(by1);
@@ -282,8 +282,8 @@ public class CharSetTestMain {
 
 	public static void main(String[] args) throws Exception {
 		
-		if (!flag) test01(args);
+		if (flag) test01(args);
 		if (!flag) test02(args);
-		if (flag) test03(args);
+		if (!flag) test03(args);
 	}
 }
