@@ -90,6 +90,17 @@ public class EnumProtoTestMain {
 			byte[] bytes = EnumProtoTR0200.makeBytes();
 			EnumProtoTR0200.FILLER2.fill(bytes, (byte) '-');
 			if (flag) log.debug("TR0200 > " + new String(bytes));
+			
+			if (flag) log.debug("TR_LEN   : [" + EnumProtoTR0200.TR_LEN  .getVal(bytes) + "]");
+			if (flag) log.debug("TR_CODE  : [" + EnumProtoTR0200.TR_CODE .getVal(bytes) + "]");
+			if (flag) log.debug("TR_DATE  : [" + EnumProtoTR0200.TR_DATE .getVal(bytes) + "]");
+			if (flag) log.debug("TR_TIME  : [" + EnumProtoTR0200.TR_TIME .getVal(bytes) + "]");
+			if (flag) log.debug("TR_USER  : [" + EnumProtoTR0200.TR_USER .getVal(bytes) + "]");
+			if (flag) log.debug("TR_PASS  : [" + EnumProtoTR0200.TR_PASS .getVal(bytes) + "]");
+			if (flag) log.debug("KEY_CODE : [" + EnumProtoTR0200.KEY_CODE.getVal(bytes) + "]");
+			if (flag) log.debug("DATA_LEN : [" + EnumProtoTR0200.DATA_LEN.getVal(bytes) + "]");
+			if (flag) log.debug("FILLER1  : [" + EnumProtoTR0200.FILLER1 .getVal(bytes) + "]");
+			if (flag) log.debug("FILLER2  : [" + EnumProtoTR0200.FILLER2 .getVal(bytes) + "]");
 		}
 
 	}
