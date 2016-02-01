@@ -46,6 +46,8 @@ public class Hello {
 		if (flag) {
 			System.out.println("Hello, world....");
 			log.debug("Hello, world !!!  °¡");
+			
+			log.debug("this class is -> " + new Object(){}.getClass().getEnclosingClass().getName());
 		}
 	}
 }

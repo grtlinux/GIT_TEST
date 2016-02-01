@@ -43,9 +43,17 @@ public class DateTimeFormatTestMain {
 		}
 	}
 	
+	private static void test03(String[] args) throws Exception {
+		
+		if (flag) {
+			log.debug(">" + new SimpleDateFormat("yyyyMMdd HHmmss", Locale.KOREA).format(new Date()));
+		}
+	}
+	
 	public static void main(String[] args) throws Exception {
 		
-		if (flag) test01(args);
-		if (flag) test02(args);
+		if (!flag) test01(args);
+		if (!flag) test02(args);
+		if (flag) test03(args);
 	}
 }
