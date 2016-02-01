@@ -57,7 +57,7 @@ public class SocketClientTestMain {
 			 * first socket program
 			 */
 			
-			for (int idxThread = 0; idxThread < 1; idxThread ++) {
+			for (int idxThread = 0; idxThread < 10; idxThread ++) {
 
 				Thread thr = new SocketClientThread(idxThread, HOST, PORT);
 				
