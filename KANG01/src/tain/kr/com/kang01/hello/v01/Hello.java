@@ -17,23 +17,35 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.test.enumtest.v02;
+package tain.kr.com.kang01.hello.v01;
+
+import org.apache.log4j.Logger;
 
 /**
  * Code Templates > Comments > Types
  *
  * <PRE>
- *   1. ClassName  : 
- *   2. FileName   : EnumClient.java
- *   3. Package    : tain.kr.com.test.enumtest.v02
- *   4. Comment    :
- *   5. Author     : taincokr
- *   6. First Date : 2016. 2. 1. ¿ÀÈÄ 3:58:40
+ *   -. FileName   : Hello.java
+ *   -. Package    : tain.kr.com.kang01.hello.v01
+ *   -. Comment    :
+ *   -. Author     : taincokr
+ *   -. First Date : 2016. 2. 1. {time}
  * </PRE>
  *
  * @author taincokr
  *
  */
-public class EnumClient {
+public class Hello {
 
+	private static boolean flag = true;
+
+	private static final Logger log = Logger.getLogger(Hello.class);
+
+	public static void main(String[] args) {
+		
+		if (flag) {
+			System.out.println("Hello, world....");
+			log.debug("Hello, world !!!  °¡");
+		}
+	}
 }
