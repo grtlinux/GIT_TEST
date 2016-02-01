@@ -73,7 +73,7 @@ public class SocketServerThread extends Thread {
 				
 				if (flag) {
 					/*
-					 * recv a packet for response
+					 * recv a packet for request
 					 */
 					byte[] trLen = recv(4);
 					int size = Integer.parseInt(new String(trLen));
@@ -88,6 +88,12 @@ public class SocketServerThread extends Thread {
 				
 				if (flag) {
 					/*
+					 * process for request and then result for response
+					 */
+				}
+				
+				if (flag) {
+					/*
 					 * make a packet for sending
 					 */
 					bytes = EnumTR0001.makeBytes();
@@ -96,7 +102,7 @@ public class SocketServerThread extends Thread {
 				
 				if (flag) {
 					/*
-					 * send a packet for request
+					 * send a packet for response
 					 */
 					dos.write(bytes, 0, EnumTR0001.getLength());
 					if (flag) log.debug(String.format("-> SEND DATA [%s]", new String(bytes)));

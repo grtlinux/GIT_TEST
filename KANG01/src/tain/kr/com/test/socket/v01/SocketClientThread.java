@@ -80,6 +80,12 @@ public class SocketClientThread extends Thread {
 				
 				if (flag) {
 					/*
+					 * create request
+					 */
+				}
+				
+				if (flag) {
+					/*
 					 * make a packet for sending
 					 */
 					bytes = EnumTR0000.makeBytes();
@@ -107,6 +113,12 @@ public class SocketClientThread extends Thread {
 					
 					bytes = EnumTR0001.setBytes(trLen, trData);
 					if (flag) log.debug(String.format("<- RECV [%s]", new String(bytes)));
+				}
+				
+				if (flag) {
+					/*
+					 * finish response
+					 */
 				}
 				
 			} catch (Exception e) {

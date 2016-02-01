@@ -137,15 +137,15 @@ public enum EnumTR0000 {
 		}
 	}
 	
-	public void setVal(byte[] bytes, String val) {
+	public void setVal(byte[] bytes, String stVal) {
 		
-		if (val == null) {
+		if (stVal == null) {
 			setVal(bytes);
 			return;
 		}
 
 		try {
-			setVal(bytes, val.getBytes("EUC-KR"));
+			setVal(bytes, stVal.getBytes("EUC-KR"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
