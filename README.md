@@ -9,6 +9,19 @@ But from its start, KANG01 has grown into a feature-rich source.
 KANG01 has all standard package you expect from a source. It includes bookmarks, history (both also in sidebar)
 and tabs. Above that, it has by default enabled blocking ads with a built-in plugin.
 
+	<?xml version="1.0" encoding="UTF-8"?>
+	<classpath>
+		<classpathentry kind="src" path="src"/>
+		<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+		<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/KANG01_libs"/>
+		<classpathentry kind="output" path="bin"/>
+	</classpath>
+
+	ant.jar
+	commons-net-3.3.jar
+	log4j-1.2.17.jar
+		
+
 Before you start compiling, make sure that you have installed the Qt (>= 5.6) development libraries
 and you have read the [BUILDING](https://github.com/QupZilla/qupzilla/blob/master/BUILDING) information.
 
