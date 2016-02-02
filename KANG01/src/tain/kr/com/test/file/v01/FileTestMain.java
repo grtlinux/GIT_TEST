@@ -244,7 +244,7 @@ public class FileTestMain {
 			}
 		}
 
-		if (!flag) {
+		if (flag) {
 			/*
 			 * 5. File[] File.listFiles(FilenameFilter)
 			 */
@@ -253,7 +253,7 @@ public class FileTestMain {
 			
 			try {
 				// create new file
-				file = new File("D:/PROJ");
+				file = new File("D:/PROG_P");
 				
 				// create new filename filter
 				FilenameFilter filenameFilter = new FilenameFilter() {
@@ -261,7 +261,7 @@ public class FileTestMain {
 					@Override
 					public boolean accept(File dir, String name) {
 						
-						if (!flag) log.debug("1 > " + dir.getName() + "   " + name);
+						if (flag) log.debug("1 > " + dir.getName() + "   " + name);
 						if (flag) log.debug("1 > " + dir.getAbsolutePath() + "   " + name);
 						if (flag) return true;
 						
@@ -341,9 +341,9 @@ public class FileTestMain {
 	
 	public static void main(String[] args) throws Exception {
 		
-		if (flag) log.debug("This program is to process the class File to do usefully..");
+		if (flag) log.debug("This program is to process the class File to do usefully.." + new Object(){}.getClass().getEnclosingClass().getName());
 		
-		if (!flag) test01(args);
+		if (flag) test01(args);
 		if (flag) test02(args);
 		if (flag) test03(args);
 	}

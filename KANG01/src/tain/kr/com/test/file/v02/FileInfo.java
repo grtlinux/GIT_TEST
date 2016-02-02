@@ -20,6 +20,8 @@
 package tain.kr.com.test.file.v02;
 
 import java.io.File;
+import java.io.FileFilter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +54,7 @@ public class FileInfo {
 	private String timeDiff = null;
 	private String timeApply = null;
 	
+	@SuppressWarnings("unused")
 	private Map<String,FileInfo> mapFileInfo = null;
 	
 	//////////////////////////////////////////////////////////////////////////////////////////
@@ -77,16 +80,86 @@ public class FileInfo {
 			
 			File base = new File(this.basePath);
 			
-			processFileInfo(base, mapFileInfo);
+			processFileInfo(base);
 		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 	
-	private void processFileInfo(File folder, Map<String,FileInfo> map) throws Exception {
+	private void processFileInfo(File folder) throws Exception {
 		
 		if (flag) {
 			
+			File[] files = null;
+			
+			try {
+				
+				files = folder.listFiles(new FileFilter() {
+					@Override
+					public boolean accept(File file) {
+						
+						if (flag) {
+							String tmCal = null;
+							
+							if (flag) {
+								long lm = file.lastModified();
+								long ms = lm % 1000;
+								long sec = (lm / 1000) % 60;
+								long min = (lm / 1000 / 60) % 60;
+								long hour = (lm / 1000 / 60 / 60 + 9) % 24;
+								tmCal = String.format("[%02d:%02d:%02d.%03d]", hour, min, sec, ms);
+							}
+							
+							try {
+								StringBuffer sb = new StringBuffer();
+								sb.append(String.format("1 > "));
+								sb.append(String.valueOf(file.getName())).append(" - ");
+								sb.append(String.valueOf(file.getAbsolutePath())).append(" - ");
+								sb.append(String.valueOf(file.getCanonicalPath())).append(" - ");
+								sb.append(String.valueOf(file.lastModified())).append(" - ").append(String.valueOf(new Date(file.lastModified()))).append(" - ").append(tmCal).append(" - ");
+								sb.append(String.valueOf(file.length())).append(" - ");
+								
+								log.debug(sb.toString());
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+						
+						if (flag) {
+							// get name of file
+							String name = file.getName();
+							
+							// get last index of '.' char.
+							int lastIndex = name.lastIndexOf('.');
+							
+							if (lastIndex > 0) {
+								// get extension
+								String ext = name.substring(lastIndex);
+								
+								// match each name extension
+								if (".iso".equals(ext)) {
+									return true;
+								}
+							}
+						}
+
+						return true;
+					}
+				});
+				
+				if (flag) {
+					/*
+					 * print files
+					 */
+					for (File f : files) {
+						log.debug(">" + f);
+					}
+				}
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				
+			}
 		}
 	}
 }
