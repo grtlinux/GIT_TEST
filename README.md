@@ -22,8 +22,8 @@ and tabs. Above that, it has by default enabled blocking ads with a built-in plu
 	log4j-1.2.17.jar
 
 You have a choice -> Window > Preferences > type filter text : `encod`
-1. General > Content Types
-2. General > Workspace > Text file encoding : EUC-KR, New text file line delimiter : unix
+ * General > Content Types
+ * General > Workspace > Text file encoding : EUC-KR, New text file line delimiter : unix
 
 ----------------------------------------------------------------------------------------
 
