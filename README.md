@@ -20,7 +20,12 @@ and tabs. Above that, it has by default enabled blocking ads with a built-in plu
 	ant.jar
 	commons-net-3.3.jar
 	log4j-1.2.17.jar
-		
+
+You have a choice -> Window > Preferences > type filter text : `encod`
+1. General > Content Types
+2. General > Workspace > Text file encoding : EUC-KR, New text file line delimiter : unix
+
+----------------------------------------------------------------------------------------
 
 Before you start compiling, make sure that you have installed the Qt (>= 5.6) development libraries
 and you have read the [BUILDING](https://github.com/QupZilla/qupzilla/blob/master/BUILDING) information.
