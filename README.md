@@ -25,6 +25,8 @@ You have a choice -> Window > Preferences > type filter text : `encod`
  * General > Content Types
  * General > Workspace > Text file encoding : EUC-KR, New text file line delimiter : unix
 
+You have to set Preferences > Java > Code Style > Code Templates > Import : codetemplates_20160201.xml 
+
 ----------------------------------------------------------------------------------------
 
 Before you start compiling, make sure that you have installed the Qt (>= 5.6) development libraries
