@@ -17,7 +17,7 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.test.socket.v02;
+package tain.kr.com.test.socket.v03;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -103,7 +103,7 @@ public class TainServerThread extends Thread {
 			}
 		}
 		
-		if (flag) {
+		if (!flag) {
 			/*
 			 * 1st test logic
 			 */
@@ -150,6 +150,68 @@ public class TainServerThread extends Thread {
 				}
 				
 				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (this.dis != null) try { this.dis.close(); } catch (Exception e) {}
+				if (this.dos != null) try { this.dos.close(); } catch (Exception e) {}
+				if (this.socket != null) try { this.socket.close(); } catch (Exception e) {}
+			}
+		}
+		
+		if (flag) {
+			/*
+			 * 2nd transaction logic
+			 */
+			try {
+				
+				byte[] packet = null;
+
+				if (flag) {
+					/*
+					 * recv a request
+					 */
+					
+					packet = recv(PacketHeader.getLength());
+					if (flag) log.debug(String.format("<- REQ RECV DATA [%s]", new String(packet)));
+				}
+				
+				if (flag) {
+					/*
+					 * process for the request and then make a result for response
+					 */
+					String trCode = PacketHeader.TR_CODE.getString(packet);
+					if (flag) log.debug("> TR_CODE = " + trCode);
+
+					if ("TR0200".equals(trCode)) {
+						packet = new TainServerTR0201(this.socket, this.dis, this.dos, packet).execute();
+					} else if ("TR0500".equals(trCode)) {
+						packet = new TainServerTR0501(this.socket, this.dis, this.dos, packet).execute();
+					} else {
+						PacketHeader.RET_CODE.setVal(packet, "99999");
+						PacketHeader.FILLER.setVal(packet, "NO_TR_CODE");
+					}
+					
+					if (!flag) log.debug("[" + new String(packet) + "]");
+				}
+				
+				if (flag) {
+					/*
+					 * send the response of the request
+					 */
+					
+					dos.write(packet, 0, PacketHeader.getLength());
+					if (flag) log.debug(String.format("-> RES SEND DATA [%s]", new String(packet)));
+				}
+				
+				if (!flag) {
+					/*
+					 * finish
+					 */
+					
+					try { Thread.sleep(2000); } catch (InterruptedException e) {}
+				}
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {

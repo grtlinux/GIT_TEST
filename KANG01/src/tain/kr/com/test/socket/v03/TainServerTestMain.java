@@ -17,7 +17,10 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.test.socket.v02;
+package tain.kr.com.test.socket.v03;
+
+import java.net.ServerSocket;
+import java.net.Socket;
 
 import org.apache.log4j.Logger;
 
@@ -25,7 +28,7 @@ import org.apache.log4j.Logger;
  * Code Templates > Comments > Types
  *
  * <PRE>
- *   -. FileName   : TainClientTestMain.java
+ *   -. FileName   : TainServerTestMain.java
  *   -. Package    : tain.kr.com.test.socket.v02
  *   -. Comment    :
  *   -. Author     : taincokr
@@ -35,22 +38,42 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class TainClientTestMain {
+public class TainServerTestMain {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TainClientTestMain.class);
+	private static final Logger log = Logger.getLogger(TainServerTestMain.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
-
-	private static final String HOST = "127.0.0.1";
+	
 	private static final String PORT = "2025";
 	
-	private static final int CNT_THREAD = 1;
+	private static void execute() throws Exception {
+		
+		if (flag) {
+			/*
+			 * 1st socket program
+			 */
+			
+			@SuppressWarnings("resource")
+			ServerSocket serverSocket = new ServerSocket(Integer.parseInt(PORT));
+			if (flag) log.debug(String.format("SERVER : listening by port %s [%s]", PORT, serverSocket.toString()));
+			
+			for (int idxThr = 0; ; idxThr ++) {
+				if (idxThr > 100000000)
+					idxThr = 0;
+				
+				Socket socket = serverSocket.accept();
+				if (flag) log.debug(String.format("SERVER : accept the connection(%d)", idxThr));
+				
+				new TainServerThread(idxThr, socket).start();
+			}
+		}
+	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,20 +84,10 @@ public class TainClientTestMain {
 	private static void test01(String[] args) throws Exception {
 		
 		if (flag) {
-			/*
-			 * 1st socket program
-			 */
-			
-			for (int idxThr = 0; idxThr < CNT_THREAD; idxThr ++) {
-				
-				Thread thr = new TainClientThread(idxThr, HOST, PORT);
-				
-				thr.start(); // start thread
-				
-				thr.join();  // wait for thread exit
-			}
+			execute();
 		}
 	}
+	
 	public static void main(String[] args) throws Exception {
 		
 		if (flag) log.debug(">" + new Object(){}.getClass().getEnclosingClass().getName());

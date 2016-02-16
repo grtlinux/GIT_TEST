@@ -17,7 +17,7 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.test.socket.v02;
+package tain.kr.com.test.socket.v03;
 
 import org.apache.log4j.Logger;
 
@@ -50,8 +50,6 @@ public class TainClientTestMain {
 	private static final String HOST = "127.0.0.1";
 	private static final String PORT = "2025";
 	
-	private static final int CNT_THREAD = 1;
-	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,25 +58,57 @@ public class TainClientTestMain {
 	
 	private static void test01(String[] args) throws Exception {
 		
-		if (flag) {
+		if (!flag) {
 			/*
-			 * 1st socket program
+			 * file transfer
 			 */
 			
-			for (int idxThr = 0; idxThr < CNT_THREAD; idxThr ++) {
-				
-				Thread thr = new TainClientThread(idxThr, HOST, PORT);
-				
-				thr.start(); // start thread
-				
-				thr.join();  // wait for thread exit
-			}
+			Thread thr = new TainClientTR0000(HOST, PORT);
+			
+			thr.start(); // start thread
+			
+			thr.join();  // wait for thread exit
+		}
+
+		if (!flag) {
+			/*
+			 * file transfer
+			 */
+			
+			Thread thr = new TainClientTR0200(HOST, PORT);
+			
+			thr.start(); // start thread
+			
+			thr.join();  // wait for thread exit
+		}
+
+		if (flag) {
+			/*
+			 * file transfer
+			 */
+			
+			Thread thr = new TainClientTR0500(HOST, PORT);
+			
+			thr.start(); // start thread
+			
+			thr.join();  // wait for thread exit
 		}
 	}
+	
+	private static void test02(String[] args) throws Exception {
+		
+	}
+	
+	private static void test03(String[] args) throws Exception {
+		
+	}
+	
 	public static void main(String[] args) throws Exception {
 		
 		if (flag) log.debug(">" + new Object(){}.getClass().getEnclosingClass().getName());
 		
 		if (flag) test01(args);
+		if (!flag) test02(args);
+		if (!flag) test03(args);
 	}
 }
