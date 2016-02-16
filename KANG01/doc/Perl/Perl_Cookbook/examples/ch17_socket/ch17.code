@@ -436,7 +436,7 @@ my $proto = getprotobyname('tcp');
 
 # create a socket, make it reusable
 socket(SOCKET, PF_INET, SOCKET_STREAM, $proto) or die "Can't open socket $!\n";
-setsocket(SOCKET, SOL_SOCKET, SO_REUSEADDR, 1) or die "Can't set socket option to SO_REUSEADDR $!\n";
+setsockopt(SOCKET, SOL_SOCKET, SO_REUSEADDR, 1) or die "Can't set socket option to SO_REUSEADDR $!\n";
 
 # bind to a port, then listen
 bind(SOCKET, pack('Sn4x8', AF_INET, $port, "\0\0\0\0")) or die "Can't bind to port $port! \n";
