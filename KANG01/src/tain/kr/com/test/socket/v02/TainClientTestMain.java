@@ -50,7 +50,7 @@ public class TainClientTestMain {
 	private static final String HOST = "127.0.0.1";
 	private static final String PORT = "2025";
 	
-	private static final int CNT_THREAD = 100;
+	private static final int CNT_THREAD = 1;
 	
 	private static void execute() throws Exception {
 		

@@ -22,6 +22,8 @@ package tain.kr.com.test.socket.v02;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.util.Iterator;
+import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
@@ -72,22 +74,18 @@ public class TainServerThread extends Thread {
 
 		if (!flag) {
 			/*
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
+			 * get resource properties
 			 */
+			if (flag) log.debug("this.getName() >" + this.getName());
+			if (flag) log.debug("this.getClass().getName().replace() >" + this.getClass().getName().replace('.', '/'));
+			
+			ResourceBundle rb = ResourceBundle.getBundle(this.getClass().getName().replace('.', '/'));
+			
+			Iterator<String> iter = rb.keySet().iterator();
+			while (iter.hasNext()) {
+				String key = iter.next();
+				if (flag) log.debug("> [" + key + ":" + rb.getString(key) + "]");
+			}
 		}
 		
 		if (flag) {
