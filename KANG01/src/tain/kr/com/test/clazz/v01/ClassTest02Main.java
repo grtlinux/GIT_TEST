@@ -17,7 +17,9 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.test.socket.v02;
+package tain.kr.com.test.clazz.v01;
+
+import java.lang.reflect.Method;
 
 import org.apache.log4j.Logger;
 
@@ -25,8 +27,8 @@ import org.apache.log4j.Logger;
  * Code Templates > Comments > Types
  *
  * <PRE>
- *   -. FileName   : TainClientThread.java
- *   -. Package    : tain.kr.com.test.socket.v02
+ *   -. FileName   : ClassTest02Main.java
+ *   -. Package    : tain.kr.com.test.clazz.v01
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 2. 16. {time}
@@ -35,29 +37,43 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class TainClientThread extends Thread {
+public class ClassTest02Main {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TainClientThread.class);
+	private static final Logger log = Logger.getLogger(ClassTest02Main.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	public TainClientThread(int idxThr, String host, String port) {
+	public static void main(String[] args)
+	{
+		if (flag) log.debug(">" + new Object(){}.getClass().getEnclosingClass().getName());
 		
+		try {
+			Super obj = new Sub();
+			Class<?> cls = obj.getClass();
+			Method method = cls.getMethod("print", new Class[] {});
+			
+			Integer ret = (Integer) method.invoke(obj, new Object[] {});
+			System.out.println(">" + ret);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+}
+
+interface Super
+{
 	
-	public void run() {
-		
+}
+
+class Sub implements Super
+{
+	public int print()
+	{
+		System.out.println("Hello");
+		return 1;
 	}
-	
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
 }

@@ -17,7 +17,7 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.test.socket.v02;
+package tain.kr.com.test.resourcebundle.v01;
 
 import java.util.ResourceBundle;
 
@@ -27,8 +27,8 @@ import org.apache.log4j.Logger;
  * Code Templates > Comments > Types
  *
  * <PRE>
- *   -. FileName   : TainClientTestMain.java
- *   -. Package    : tain.kr.com.test.socket.v02
+ *   -. FileName   : ResourceBundleTestMain.java
+ *   -. Package    : tain.kr.com.test.resourcebundle.v01
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 2. 16. {time}
@@ -37,42 +37,12 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class TainClientTestMain {
+public class ResourceBundleTestMain {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TainClientTestMain.class);
+	private static final Logger log = Logger.getLogger(ResourceBundleTestMain.class);
 
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-
-	private static final String HOST = "127.0.0.1";
-	private static final String PORT = "2025";
-	
-	private static final int CNT_THREAD = 10;
-	
-	private static void execute() throws Exception {
-		
-		if (flag) {
-			/*
-			 * 1st socket program
-			 */
-			
-			for (int idxThr = 0; idxThr < CNT_THREAD; idxThr ++) {
-				Thread thr = new TainClientThread(idxThr, HOST, PORT);
-				
-				thr.start(); // start thread
-				
-				thr.join(); // wait for thread exit
-			}
-		}
-	}
-	
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,7 +50,12 @@ public class TainClientTestMain {
 	private static void test01(String[] args) throws Exception {
 		
 		if (flag) {
-			execute();
+			String name = new Object(){}.getClass().getEnclosingClass().getName().replace('.', '/');
+			
+			ResourceBundle rb = ResourceBundle.getBundle(name);
+			
+			if (flag) log.debug(">" + rb.getString("tain.list"));
+			if (flag) log.debug(">" + rb.getString("tain.lists"));
 		}
 	}
 	

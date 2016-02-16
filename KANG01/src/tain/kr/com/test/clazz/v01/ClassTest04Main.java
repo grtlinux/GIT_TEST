@@ -17,7 +17,7 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.test.socket.v02;
+package tain.kr.com.test.clazz.v01;
 
 import org.apache.log4j.Logger;
 
@@ -25,8 +25,8 @@ import org.apache.log4j.Logger;
  * Code Templates > Comments > Types
  *
  * <PRE>
- *   -. FileName   : TainClientThread.java
- *   -. Package    : tain.kr.com.test.socket.v02
+ *   -. FileName   : ClassTest04Main.java
+ *   -. Package    : tain.kr.com.test.clazz.v01
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 2. 16. {time}
@@ -35,29 +35,50 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class TainClientThread extends Thread {
+public class ClassTest04Main {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TainClientThread.class);
+	private static final Logger log = Logger.getLogger(ClassTest04Main.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-
-	public TainClientThread(int idxThr, String host, String port) {
+	
+	public ClassTest04Main()
+	{
+		if (flag) log.debug("Constructor in");
 		
+		if (flag) log.debug("1 >" + ClassTest04Main.class);
+		if (flag) log.debug("2 >" + getClass());
+		if (flag) log.debug("3 >" + getClass().getName());
+		
+		if (flag) log.debug("Constructor out");
 	}
 	
-	public void run() {
+	public void execute()
+	{
+		if (flag) log.debug("Method in");
 		
+		if (flag) log.debug("1 >" + ClassTest04Main.class);
+		if (flag) log.debug("2 >" + getClass());
+		if (flag) log.debug("3 >" + getClass().getName());
+		
+		if (flag) log.debug("Method out");
 	}
 	
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	
+	private static void test01(String[] args) throws Exception
+	{
+		if (flag) {
+			ClassTest04Main cls = new ClassTest04Main();
+			cls.execute();
+		}
+	}
+	
+	public static void main(String[] args) throws Exception
+	{
+		if (flag) test01(args);
+	}
 }
