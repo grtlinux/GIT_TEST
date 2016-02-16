@@ -50,9 +50,9 @@ public enum PacketHeader {
 	TR_USER           ('C', ' ',  24,  10, "TR_USER"       , "TR 사용자"       , "USER"           ),
 	TR_PASS           ('C', ' ',  34,  10, "TR_PASS"       , "TR 비밀번호"     , "PASS"           ),
 	KEY_CODE          ('C', ' ',  44,  10, "KEY_CODE"      , "키코드"          , "0000000000"     ),
-	RET_CODE          ('C', ' ',  54,   5, "RET_CODE"      , "리턴코드"        , "00000"          ),
+	RET_CODE          ('C', ' ',  54,   5, "RET_CODE"      , "리턴코드"        , ""               ),
 	DATA_LEN          ('N', '0',  59,  15, "DATA_LEN"      , "DATA 길이"       , "000000000000000"),
-	FILLER            ('C', '.',  74,  26, "FILLER"        , "RESERVED"        , ""               ),
+	FILLER            ('C', ' ',  74,  26, "FILLER"        , "RESERVED"        , ""               ),
 	;
 	
 	private final char type;
@@ -246,7 +246,7 @@ public enum PacketHeader {
 			TR_USER .setVal(bytes, "QWERT12345");
 			TR_PASS .setVal(bytes, "1Q2WER4RKD");
 			KEY_CODE.setVal(bytes, "FK39SXK3M3");
-			RET_CODE.setVal(bytes, "00000");
+			RET_CODE.setVal(bytes, "");
 			DATA_LEN.setVal(bytes, String.valueOf(0));
 			FILLER  .setVal(bytes, "");
 		}

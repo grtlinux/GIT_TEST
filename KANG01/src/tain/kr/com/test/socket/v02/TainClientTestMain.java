@@ -19,8 +19,6 @@
  */
 package tain.kr.com.test.socket.v02;
 
-import java.util.ResourceBundle;
-
 import org.apache.log4j.Logger;
 
 /**
@@ -52,7 +50,7 @@ public class TainClientTestMain {
 	private static final String HOST = "127.0.0.1";
 	private static final String PORT = "2025";
 	
-	private static final int CNT_THREAD = 10;
+	private static final int CNT_THREAD = 100;
 	
 	private static void execute() throws Exception {
 		
@@ -62,6 +60,7 @@ public class TainClientTestMain {
 			 */
 			
 			for (int idxThr = 0; idxThr < CNT_THREAD; idxThr ++) {
+				
 				Thread thr = new TainClientThread(idxThr, HOST, PORT);
 				
 				thr.start(); // start thread
