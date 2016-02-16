@@ -89,7 +89,7 @@ public class TainServerThread extends Thread {
 			}
 		}
 		
-		if (flag) {
+		if (!flag) {
 			/*
 			 * get resource properties enumeration set
 			 */
@@ -120,6 +120,7 @@ public class TainServerThread extends Thread {
 					/*
 					 * process for the request and then make a result for response
 					 */
+					if (flag) log.debug("> TR_CODE = " + PacketHeader.TR_CODE.getString(packet));
 					
 					PacketHeader.TR_CODE.setVal(packet, "TR0011");
 					PacketHeader.RET_CODE.setVal(packet, "00000");

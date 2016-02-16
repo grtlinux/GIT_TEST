@@ -183,8 +183,18 @@ public enum PacketHeader {
 		}
 	}
 
-	public String getVal(byte[] bytes) {
+	public String getString(byte[] bytes) {
 		return new String(bytes, this.off, this.len);
+	}
+	
+	public byte[] getBytes(byte[] bytes) {
+		byte[] ret = new byte[this.len];
+		
+		for (int i = 0; i < this.len; i++) {
+			ret[i] = bytes[this.off + i];
+		}
+		
+		return ret;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
