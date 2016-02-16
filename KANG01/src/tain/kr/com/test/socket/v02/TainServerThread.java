@@ -22,6 +22,7 @@ package tain.kr.com.test.socket.v02;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
@@ -74,7 +75,7 @@ public class TainServerThread extends Thread {
 
 		if (!flag) {
 			/*
-			 * get resource properties
+			 * get resource properties set
 			 */
 			if (flag) log.debug("this.getName() >" + this.getName());
 			if (flag) log.debug("this.getClass().getName().replace() >" + this.getClass().getName().replace('.', '/'));
@@ -84,6 +85,20 @@ public class TainServerThread extends Thread {
 			Iterator<String> iter = rb.keySet().iterator();
 			while (iter.hasNext()) {
 				String key = iter.next();
+				if (flag) log.debug("> [" + key + ":" + rb.getString(key) + "]");
+			}
+		}
+		
+		if (flag) {
+			/*
+			 * get resource properties enumeration set
+			 */
+			
+			ResourceBundle rb = ResourceBundle.getBundle(this.getClass().getName().replace('.', '/'));
+			
+			Enumeration<String> enumer = rb.getKeys();
+			while (enumer.hasMoreElements()) {
+				String key = enumer.nextElement();
 				if (flag) log.debug("> [" + key + ":" + rb.getString(key) + "]");
 			}
 		}
