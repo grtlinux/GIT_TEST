@@ -5110,6 +5110,14 @@ String.prototype.comma = Number.prototype.comma = function() {
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 [ Regular Expression ]
 ----------------------------------------------------------------------------------------------------
 
@@ -6365,6 +6373,14 @@ public class TestHTMLLinkExtractor {
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 [ oracle CLOB 자료 ]
 
 JDBC에서 Connection 처리 후  CLOB 쓸 때
@@ -6660,6 +6676,7 @@ public void insertReport(Report report) {
         params.put("source_type", getMessageTypeName(message.getSourceType()));
         params.put("msg_file", defalte(encode(message.getValue())));
         sqlMap.insert("insertToRetryQTable", params);
+        
         // SQL-Map
         <insert id="insertToRetryQTable" parameterClass="java.util.Map">
             INSERT INTO $retryTable$ (FILE_ID, SOURCE_TYPE, MSG_FILE) VALUES (#file_id#, #source_type#, #msg_file:BLOB# )
@@ -6791,8 +6808,10 @@ Groovy 시작입문   : http://www.slideshare.net/meadunhansa/groovy-42475432
     Git Repository : https://github.com/grtlinux/First.git
 
 ----------------------------------------------------------------------------------------------------
+[ Git ]
 
 Git에 관련된 기본적인 개념 설명은 다음 사이트들에 잘 정리되어 있으니 참고하도록 합니다.
+
 - http://rogerdudler.github.io/git-guide/index.ko.html
 - http://maskkwon.tistory.com/129
 
@@ -7385,11 +7404,10 @@ mvn install:install-file -Dfile=.\libs\terajdbc4.jar                      -Dgrou
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-Jakarta Commons Net API
-FTP, TFTP
-SMTP, POP3
-telnet
-Finger, Whois, Time, Echo 등
+[ Jakarta Commons Net API ]
+
+FTP, TFTP, SMTP, POP3, telnet, Finger, Whois, Time, Echo 등
+
 	Commons Net 라이브러리는 다양한 프로토콜에 대한 지원을 할 수 있는 구조를 갖고 있으며, 위 목록과 같이 이미 기존에 많이 사용되는 몇몇 프로토콜에 대한 클라이언트 모듈을 제공하고 있다. 또한, 개발자가 직접 프로토콜 처리를 하지 않아도 되기 때문에 관련 모듈을 빠르게 개발할 수 있는 장점도 있다.
 	Commons Net 라이브러리 설치하기
 	Commons Net 라이브러리는 http://jakarta.apache.org/commons/net 에서 다운로드 받을 수 있다. 현재 버전은 1.4.1 버전으로서, 다운로드 받은 파일의 압축을 풀면 commons-net-1.4.1.jar 파일이 생성되는데, 이 파일을 클래스패스에 추가해주면 된다
@@ -7698,33 +7716,37 @@ Finger, Whois, Time, Echo 등
 
 ----------------------------------------------------------------------------------------------------
 /*
-
-오라클
-스크립트로 Reverse Engineer 하여 Comment를 논리명으로 변경하기
-1)  Tools => Reverse Engineer
-    New Model Type : Logical/Physical 선택
-    Toget Database : Oracle / 10.x/11.x 선택
-    Next
-    Reverse Engineer From : Script File 선택하여 파일 지정
-2) Physical 모델 선택
-   테이블 전체 선택
-   테이블을 외 공간에서 마우스 오른쪽 클릭  => 메뉴 : Harden Physical Names 클릭
-3) Logical 모델 선택
-
-   Model => Domain dictionary
-   Macro Toolbox 버튼 클릭
-   Macros -> Attribute Macro -> %ColumnComment 선택
-   Colse 버튼 클릭
-   Name Inherited by Attribute : %ColumnComment 만 남기고 삭제
-   OK 버튼 클릭
-
-   Model => Attribute
-   Reset 버튼 클릭
-   Remove overrridden properties for : Reset all attributes in model 선택
-   Select Properties to Reset : Definition 제거 / Domain Parent 제거 / Logical Data Type 제거
-Logical Only 선택
-   OK 버튼 클릭
-4) 완료
+	오라클 스크립트로 Reverse Engineer 하여 Comment를 논리명으로 변경하기
+	
+	1)  Tools => Reverse Engineer
+	    New Model Type : Logical/Physical 선택
+	    Toget Database : Oracle / 10.x/11.x 선택
+	    Next
+	    Reverse Engineer From : Script File 선택하여 파일 지정
+	
+	2) Physical 모델 선택
+	
+	   	테이블 전체 선택
+	    테이블을 외 공간에서 마우스 오른쪽 클릭  => 메뉴 : Harden Physical Names 클릭
+	
+	3) Logical 모델 선택
+	
+	    Model => Domain dictionary
+	    Macro Toolbox 버튼 클릭
+	    Macros -> Attribute Macro -> %ColumnComment 선택
+	    Colse 버튼 클릭
+	    Name Inherited by Attribute : %ColumnComment 만 남기고 삭제
+	    OK 버튼 클릭
+	
+	    Model => Attribute
+	    Reset 버튼 클릭
+	    Remove overrridden properties for : Reset all attributes in model 선택
+	    Select Properties to Reset : Definition 제거 / Domain Parent 제거 / Logical Data Type 제거
+	
+	    Logical Only 선택
+	    OK 버튼 클릭
+	
+	4) 완료
 
 */
 
@@ -8333,7 +8355,12 @@ static 함수에서 자기 자신 클래스 명 알아내기
 => 오브젝트 배열을 하나 만들어서 그걸 품고(enclosing)하고 있는 클래스가 자기 자신이다.
 
 
-System.out.println(">" + new Object(){}.getClass().getEnclosingClass().getName());
+	1. System.out.println(">" + new Object(){}.getClass().getEnclosingClass().getName());
+	
+	2. System.out.println(">" + this.getClass().getName());
+	
+	3. System.out.println(">" + this.getName()); // print thread name
+
 
 [출처] static 함수에서 자기 자신 클래스 명 알아내기|작성자 캐나다여행
 
