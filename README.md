@@ -29,6 +29,10 @@ You have to set Preferences > Java > Code Style > Code Templates > Import : code
 
 ----------------------------------------------------------------------------------------
 
+1. [http://pyrasis.com/private/2014/07/19/open-windows-project-essential-utility-book](http://pyrasis.com/private/2014/07/19/open-windows-project-essential-utility-book)
+
+----------------------------------------------------------------------------------------
+
 Before you start compiling, make sure that you have installed the Qt (>= 5.6) development libraries
 and you have read the [BUILDING](https://github.com/QupZilla/qupzilla/blob/master/BUILDING) information.
 
