@@ -95,7 +95,8 @@
 
         > cd
         D:\SVN_TEST\Repos
-        > start svnserve -d -r .      <- .는 부모 저장소(Parent Repository)
+        > start svnserve -d -r .                         <- .는 부모 저장소(Parent Repository), default port = 3690
+        > start svnserve -d -r . --listen-port 13690     <- .는 부모 저장소(Parent Repository), port = 13690
 
     포트를 확인한다.
 
@@ -238,6 +239,63 @@ svn checkout svn://localhost/kang01/tags/0.1/src src
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
+
+REPO_01 : 테스트용
+REPO_02 : 자료용
+REPO_03 : Project용
+
+svn list svn://tain.iptime.org:13690/REPO_01
+svn list svn://tain.iptime.org:13690/REPO_02
+svn list svn://tain.iptime.org:13690/REPO_03
+
+----------------------------------------------------------------------------------------------------
+
+svn mkdir svn://tain.iptime.org:13690/REPO_01/trunk    -m "a" --username admin --password admin123
+svn mkdir svn://tain.iptime.org:13690/REPO_01/branches -m "a" --username admin --password admin123
+svn mkdir svn://tain.iptime.org:13690/REPO_01/tags     -m "a" --username admin --password admin123
+svn list svn://tain.iptime.org:13690/REPO_01
+
+svn import KANG01 svn://tain.iptime.org:13690/REPO_01/tags/0.1/KANG01 -m "a" --username admin --password admin123
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+[ SVN server ]
+
+	svnadmin create REPO_ZIP
+	svnserve -d -r . --listen-port 13690
+
+[ SVN client ]
+
+	svn list svn://tain.iptime.org:13690/REPO_ZIP
+	
+	svn mkdir svn://tain.iptime.org:13690/REPO_ZIP/eclipse    -m "a" --username admin --password admin123
+	svn mkdir svn://tain.iptime.org:13690/REPO_ZIP/java       -m "a" --username admin --password admin123
+	svn mkdir svn://tain.iptime.org:13690/REPO_ZIP/jar        -m "a" --username admin --password admin123
+	svn mkdir svn://tain.iptime.org:13690/REPO_ZIP/WORK       -m "a" --username admin --password admin123
+	svn mkdir svn://tain.iptime.org:13690/REPO_ZIP/KANG       -m "a" --username admin --password admin123
+	
+	svn list svn://tain.iptime.org:13690/REPO_ZIP
+	
+	svn import eclipse svn://tain.iptime.org:13690/REPO_ZIP/eclipse -m "a" --username admin --password admin123
+	svn import java    svn://tain.iptime.org:13690/REPO_ZIP/java    -m "a" --username admin --password admin123
+
+	svn list svn://tain.iptime.org:13690/REPO_ZIP/eclipse
+	svn list svn://tain.iptime.org:13690/REPO_ZIP/java
+
+	svn checkout svn://tain.iptime.org:13690/REPO_ZIP/eclipse
+
+	아래 명령어는 checkout 한 폴더 안에서만 작용한다.
+	svn log
+	svn status
+	
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 [ SVN ]
@@ -270,7 +328,7 @@ svn checkout svn://localhost/kang01/tags/0.1/src src
 	
 		$ rm ignore.txt
 	
-	4. (번외) 설정한 것을 수정 또는 확인하고 샆으실 경우 다음과 같이 합니다.
+	4. (번외) 설정한 것을 수정 또는 확인하고 받으실 경우 다음과 같이 합니다.
 	
 		$ svn propedit svn:ignore .
 	
