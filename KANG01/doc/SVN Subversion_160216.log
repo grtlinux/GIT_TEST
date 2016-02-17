@@ -243,6 +243,7 @@ svn checkout svn://localhost/kang01/tags/0.1/src src
 REPO_01 : 테스트용
 REPO_02 : 자료용
 REPO_03 : Project용
+REPO_ZIP : zip 파일 보관용
 
 svn list svn://tain.iptime.org:13690/REPO_01
 svn list svn://tain.iptime.org:13690/REPO_02
@@ -288,8 +289,18 @@ svn import KANG01 svn://tain.iptime.org:13690/REPO_01/tags/0.1/KANG01 -m "a" --u
 	svn log
 	svn status
 	
+	svn export svn://tain.iptime.org:13690/REPO_ZIP/eclipse eclipse   <- eclipse만 export한다.
+	svn export svn://tain.iptime.org:13690/REPO_01                    <- REPO_01만 export하면서 REPO_01폴더가 생긴다.
+
+	
+	
+	
+	
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
+
+	http://subclipse.tigris.org/update_1.10.x
+	
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
