@@ -27,6 +27,11 @@ You have a choice -> Window > Preferences > type filter text : `encod`
 
 You have to set Preferences > Java > Code Style > Code Templates > Import : codetemplates_20160201.xml 
 
+You have to set Preferences > General > Appearance > Colors and Fonts
+
+	Text Editor Block Selection Font  : ±¼¸²Ã¼-9
+	Text Font                         : ±¼¸²Ã¼-9
+
 ----------------------------------------------------------------------------------------
 
 1. [http://pyrasis.com/private/2014/07/19/open-windows-project-essential-utility-book](http://pyrasis.com/private/2014/07/19/open-windows-project-essential-utility-book)
