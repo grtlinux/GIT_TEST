@@ -4,7 +4,7 @@
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-M:\PROG\eclipse-java-luna-SR2-win32-x86_64\eclipse.exe -vm "M:\PROG\jdk1.8.0_51\bin\javaw.exe" -data "M:\WORK\workspaceluna" -showlocation "최종정리2차_java_luna" -nl ko_KR
+M:\PROG\eclipse-java-luna-SR2-win32-x86_64\eclipse.exe -vm "M:\PROG\jdk1.7.0_79\bin\javaw.exe" -data "M:\WORK\workspacejavaluna1" -showlocation "최종정리2차_java_luna1" -nl ko_KR
 
 M:\PROG\eclipse-java-luna-SR2-win32-x86_64\eclipse.exe
     -vm           "M:\PROG\jdk1.8.0_51\bin\javaw.exe"
