@@ -1,5 +1,23 @@
 ----------------------------------------------------------------------------------------------------
 
+:: PROGRAM : svn_process.bat
+::----------------------------
+:: @echo off
+
+D:
+
+cd D:\_KANG\KANG_20160219\SVN_REPOS\TEMP
+
+:: svn list svn://tain.iptime.org:13690/REPO_ZIP
+
+rmdir /S /Q SASEMARTCMS
+svn export svn://matcmsmine01/repo-tasks/SASEMARTCMS
+
+:: pause
+:: TIMEOUT 2
+
+----------------------------------------------------------------------------------------------------
+
 %% 파일 삭제하기 - delrcv.bat %%
 
 	@IF '%1'=='' GOTO USAGE
