@@ -28,8 +28,8 @@ You have a choice -> Window > Preferences > type filter text : `encod`
 You have to set Preferences > Java > Code Style > Code Templates > Import : codetemplates_20160201.xml 
 
 You have to set Preferences > type filter text : `fonts`
- * Basic > Text Editor Block Selection Font : ±¼¸²Ã¼ - 9
- * Basic > Text Font : ±¼¸²Ã¼ - 9
+ * Basic > Text Editor Block Selection Font : FONT - 9
+ * Basic > Text Font : FONT - 9
 
 ----------------------------------------------------------------------------------------
 
