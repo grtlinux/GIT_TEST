@@ -4148,6 +4148,25 @@ mvn install:install-file -Dfile=.\libs\scsl.jar                           -Dgrou
 mvn install:install-file -Dfile=.\libs\tdgssconfig.jar                    -DgroupId=kang.jar -DartifactId=tdgssconfig              -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
 mvn install:install-file -Dfile=.\libs\terajdbc4.jar                      -DgroupId=kang.jar -DartifactId=terajdbc4                -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
 
+		<!-- dependency><groupId>kang.jar</groupId><artifactId>commons-net            </artifactId><version>1.0</version></dependency -->
+		<dependency><groupId>kang.jar</groupId><artifactId>ibatis                 </artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.jar</groupId><artifactId>java-json              </artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.jar</groupId><artifactId>log4j                  </artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.jar</groupId><artifactId>modules.tain           </artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.jar</groupId><artifactId>sas.core               </artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.jar</groupId><artifactId>sas.core.nls           </artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.jar</groupId><artifactId>sas.rutil              </artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.jar</groupId><artifactId>sas.security.sspi      </artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.jar</groupId><artifactId>sas.servlet            </artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.jar</groupId><artifactId>sas.servlet.nls        </artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.jar</groupId><artifactId>sas.svc.connection     </artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.jar</groupId><artifactId>sas.svc.connection.nls </artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.jar</groupId><artifactId>sastpj.rutil           </artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.jar</groupId><artifactId>scsl                   </artifactId><version>1.0</version></dependency>
+		<!-- dependency><groupId>kang.jar</groupId><artifactId>smeapi                 </artifactId><version>1.0</version></dependency -->
+		<dependency><groupId>kang.jar</groupId><artifactId>tdgssconfig            </artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.jar</groupId><artifactId>terajdbc4              </artifactId><version>1.0</version></dependency>
+
 
 
 ----------------------------------------------------------------------------------------------------
