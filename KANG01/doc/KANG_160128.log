@@ -1,49 +1,102 @@
 ----------------------------------------------------------------------------------------------------
-[ ³×Æ®¿÷ µå¶óÀÌºê ]
 
-    (x) > subst E:     \\10.150.252.70\201506_½ºÅÛ±¸Ãà
+:: PROGRAM : svn_process.bat
+::----------------------------
+:: @echo off
 
-    net use \\IP\IPC$ ÆÐ½º¿öµå /USER:¾ÆÀÌµð
-    (o) > net use \\10.150.252.70\201506_½Ã½ºÅÛ±¸Ãà file123 /USER:file
+D:
 
-        192.168.253.13, ID°¡ Admin, ÆÐ½º¿öµå°¡ 1234 ÀÏ ¶§ ´ÙÀ½°ú °°½À´Ï´Ù.
+cd D:\_KANG\KANG_20160219\SVN_REPOS\TEMP
+
+:: svn list svn://tain.iptime.org:13690/REPO_ZIP
+
+rmdir /S /Q SASEMARTCMS
+svn export svn://matcmsmine01/repo-tasks/SASEMARTCMS
+
+:: pause
+:: TIMEOUT 2
+
+----------------------------------------------------------------------------------------------------
+
+%% íŒŒì¼ ì‚­ì œí•˜ê¸° - delrcv.bat %%
+
+	@IF '%1'=='' GOTO USAGE
+	@IF '%2'=='' GOTO USAGE
+	@FOR /R %1 %%1 IN (%2) DO DEL /S /Q "%%1"
+	@PAUSE 
+	GOTO END
+	
+	:USAGE
+	@ECHO delrcv[ì‹œìž‘í´ë”ìœ„ì¹˜] [íŒŒì¼ëª…]
+	
+	:END
+
+- ì‚¬ìš©ë²• delrcv [ì‹œìž‘í´ë”ìœ„ì¹˜] [íŒŒì¼ëª…]
+      ex> delrcv . *.bak
+
+%% í´ë” ì‚­ì œí•˜ê¸° - rmrcv.bat %%
+
+	@IF '%1'=='' GOTO USAGE
+	@IF '%2'=='' GOTO USAGE
+	@FOR /R %1 %%1 IN (%2) DO RMDIR /S /Q "%%1"
+	@PAUSE 
+	GOTO END
+	
+	:USAGE
+	@ECHO rmrcv [ì‹œìž‘í´ë”ìœ„ì¹˜] [í´ë”ëª…]
+	
+	:END
+
+- ì‚¬ìš©ë²• rmrcv [ì‹œìž‘í´ë”ìœ„ì¹˜] [í´ë”ëª…]
+      ex> rmrcv . .svn
+[ì¶œì²˜] DOS í•˜ìœ„í´ë”ê¹Œì§€ íŠ¹ì • íŒŒì¼ / í´ë” ì‚­ì œí•˜ê¸°|ìž‘ì„±ìž kalpalov
+
+----------------------------------------------------------------------------------------------------
+[ ë„¤íŠ¸ì› ë“œë¼ì´ë¸Œ ]
+
+    (x) > subst E:     \\10.150.252.70\201506_ìŠ¤í…œêµ¬ì¶•
+
+    net use \\IP\IPC$ íŒ¨ìŠ¤ì›Œë“œ /USER:ì•„ì´ë””
+    (o) > net use \\10.150.252.70\201506_ì‹œìŠ¤í…œêµ¬ì¶• file123 /USER:file
+
+        192.168.253.13, IDê°€ Admin, íŒ¨ìŠ¤ì›Œë“œê°€ 1234 ì¼ ë•Œ ë‹¤ìŒê³¼ ê°™ìŠµë‹ˆë‹¤.
         -> net use \\192.168.253.13\IPC$ 1234 /USER:Admin
 
 ----------------------------------------------------------------------------------------------------
-[ ·¹Áö½ºÆ® º¯°æ ]
+[ ë ˆì§€ìŠ¤íŠ¸ ë³€ê²½ ]
 
     > cmd /c reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f
-        HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system\ ¿¡¼­ ¿À¸¥ÂÊ Å¬¸¯ > »õ·Î ¸¸µé±â > DWORD(32bit) Å¬¸¯ÇÏ¿© °ªÀ» ¸¸µç ÈÄ,
-        ÀÌ¸§À» LocalAccountTokenFilterPolicy ·Î Á¤ÇÏ°í °ªÀ» 1·Î ¼¼ÆÃÇÕ´Ï´Ù.
+        HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system\ ì—ì„œ ì˜¤ë¥¸ìª½ í´ë¦­ > ìƒˆë¡œ ë§Œë“¤ê¸° > DWORD(32bit) í´ë¦­í•˜ì—¬ ê°’ì„ ë§Œë“  í›„,
+        ì´ë¦„ì„ LocalAccountTokenFilterPolicy ë¡œ ì •í•˜ê³  ê°’ì„ 1ë¡œ ì„¸íŒ…í•©ë‹ˆë‹¤.
 
 
 ----------------------------------------------------------------------------------------------------
-[ ¿ø°Ý ¼­¹ö Á¾·á ]
+[ ì›ê²© ì„œë²„ ì¢…ë£Œ ]
 
-    > shutdown -s -t ½Ã°£ÃÊ -m \\IP
+    > shutdown -s -t ì‹œê°„ì´ˆ -m \\IP
 
-    IP°¡ 192.168.253.13, ½Ã°£ÃÊ¸¦ 30000 ÀÌ¶ó°í ÇÒ ¶§ ´ÙÀ½°ú °°½À´Ï´Ù.
+    IPê°€ 192.168.253.13, ì‹œê°„ì´ˆë¥¼ 30000 ì´ë¼ê³  í•  ë•Œ ë‹¤ìŒê³¼ ê°™ìŠµë‹ˆë‹¤.
     > shutdown -s -t 30000 -m \\192.168.253.13
 
 
 
 
 ----------------------------------------------------------------------------------------------------
-[ ÀÌÅ¬¸³½º È¯°æ ]
+[ ì´í´ë¦½ìŠ¤ í™˜ê²½ ]
 
-    °³¹ß : eclipse luna 32bit jdk 1.7.0_45 32bit
+    ê°œë°œ : eclipse luna 32bit jdk 1.7.0_45 32bit
 
     D:\PROJ\PROG\eclipse_mars\eclipse.exe -vm "D:\PROJ\PROG\jdk1.8.0_60\bin\javaw.exe" -data "D:\PROJ\WORK\workspace_mars"
 
     N:\tools\eclipse\eclipse.exe -vm N:\tools\jdk\jdk1.7.0_45\bin\javaw.exe -data N:\workspace
 
-    Project ¼±ÅÃ > Properties > Project Facets > Java Version È®ÀÎ
+    Project ì„ íƒ > Properties > Project Facets > Java Version í™•ì¸
 
     subst N: .
 
     set KANG_DRIVE=K:    -> %KANG_DRIVE%
 
-    K:\PROG\eclipse\eclipse_mars\eclipse.exe -vm "K:\PROG\jdk\jdk1.8.0_60\bin\javaw.exe" -data "K:\WORK\workspace_mars" -showlocation "Á¦¸ñÇ¥½ÃÁÙ(Å¸ÀÌÆ²¹Ù)"
+    K:\PROG\eclipse\eclipse_mars\eclipse.exe -vm "K:\PROG\jdk\jdk1.8.0_60\bin\javaw.exe" -data "K:\WORK\workspace_mars" -showlocation "ì œëª©í‘œì‹œì¤„(íƒ€ì´í‹€ë°”)"
         -Xverify:none -XX+UseParallelGC -XXPermSize=20M -XXMaxNewSize=32M -XXNewSize=32M -vmargs -Xms512m -Xmx1024m
 
 
@@ -55,13 +108,13 @@
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-[ SVN À§Ä¡ ]
+[ SVN ìœ„ì¹˜ ]
 
     Server
 
         svn://mine01/repo-tasks
 
-    Server Á¾·á / ½ÇÇà
+    Server ì¢…ë£Œ / ì‹¤í–‰
 
         $ ps -ef | grep svnserv
         $ svnserve -d -r /sas/svn
@@ -88,8 +141,8 @@
         fic01524=Kang123!
 
 
-    È®ÀÎ1 : http://pyrasis.com/book/WindowsProjectEssentialUtility/Chapter01
-    È®ÀÎ2 : http://pyrasis.com/book/WindowsProjectEssentialUtility/Chapter02#section-1
+    í™•ì¸1 : http://pyrasis.com/book/WindowsProjectEssentialUtility/Chapter01
+    í™•ì¸2 : http://pyrasis.com/book/WindowsProjectEssentialUtility/Chapter02#section-1
 
 
 
@@ -97,9 +150,9 @@
 
 
 ----------------------------------------------------------------------------------------------------
-[ CI À§Ä¡ ]
+[ CI ìœ„ì¹˜ ]
 
-    Server Á¾·á / ½ÇÇà
+    Server ì¢…ë£Œ / ì‹¤í–‰
 
         $ cd /sas/jenkins/apache-tomcat-7.0.63/bin
 
@@ -112,9 +165,9 @@
     http://matcmsmine01:8080/jenkins/    :   sas/saspw94!@
 
 ----------------------------------------------------------------------------------------------------
-[ ¾µ¸ð¾ø´Â ¸ÞÀÏ »èÁ¦ ]
+[ ì“¸ëª¨ì—†ëŠ” ë©”ì¼ ì‚­ì œ ]
 
-    cat /dev/null > /var/spool/mail/[°èÁ¤]
+    cat /dev/null > /var/spool/mail/[ê³„ì •]
 
 
 ----------------------------------------------------------------------------------------------------
@@ -122,7 +175,7 @@
 
         /sas/sasuser/sas/.jenkins/jobs/EmartCMSDevDeploy/workspace/SASEMARTCMS
 
-    ¼³Ä¡
+    ì„¤ì¹˜
         $ sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
 
         .....
@@ -132,74 +185,74 @@
 
         .....
 
-        $ sudo service jenkins start              <- Jenkins¸¦ ±¸µ¿ÇÑ´Ù.
+        $ sudo service jenkins start              <- Jenkinsë¥¼ êµ¬ë™í•œë‹¤.
 
-        /etc/sysconfig/jenkins ÆÄÀÏÀÇ JENKINS_PORT = "8080" ºÎºÐÀ» ¼öÁ¤ÇÑ´Ù.
+        /etc/sysconfig/jenkins íŒŒì¼ì˜ JENKINS_PORT = "8080" ë¶€ë¶„ì„ ìˆ˜ì •í•œë‹¤.
 
-        $ sudo chkconfig jenkins on                <- Jenkins°¡ ÀÚµ¿À¸·Î ½ÃÀÛÇÏµµ·Ï ¼­ºñ½º µî·Ï
+        $ sudo chkconfig jenkins on                <- Jenkinsê°€ ìžë™ìœ¼ë¡œ ì‹œìž‘í•˜ë„ë¡ ì„œë¹„ìŠ¤ ë“±ë¡
 
 
-    Á¦°øÇÏ´Â ±â´É
+    ì œê³µí•˜ëŠ” ê¸°ëŠ¥
 
-        - ¹Ì·ÁÇÑ À¥ ÀÎÅÍÆäÀÌ½º¸¦ ÅëÇÑ °£ÆíÇÑ ¼³Á¤
-        - °­·ÂÇÏ°í Æí¸®ÇÑ ·¹Æ÷ÆÃ ±â´É
-        - Áö¼ÓÀûÀÎ ÀÚµ¿È­ ºôµå
-        - Áö¼ÓÀûÀÎ ÀÚµ¿È­ Å×½ºÆ®
-        - Ä¿¹ö¸®Áö °¨½Ã
-        - ÄÚµå Ç°Áú °¨½Ã
-        - ´Ù¾çÇÑ ÀÎÁõ±â¹Ý°ú °áÇÕÇÑ ÀÎÁõ ¹× ±ÇÇÑ°ü¸® ±â´É
-        - Groovy script¸¦ ÀÌ¿ëÇÑ °í¼öÁØÀÇ Àâ ½ºÄÉÁÙ¸µ ±â´É
-        - Ä¿¸Çµå¶óÀÎ ÀÎÅÍÆäÀÌ½º Á¦°ø
-        - ÀÚµ¿È­µÈ ¹èÆ÷ °ü¸®
-        - ºÐ»êºôµå ±â´É
-        - À©µµ¿ì Ä¿¸Çµå ½ºÄÉÁÙ¸µ ½ÇÇà±â´É
+        - ë¯¸ë ¤í•œ ì›¹ ì¸í„°íŽ˜ì´ìŠ¤ë¥¼ í†µí•œ ê°„íŽ¸í•œ ì„¤ì •
+        - ê°•ë ¥í•˜ê³  íŽ¸ë¦¬í•œ ë ˆí¬íŒ… ê¸°ëŠ¥
+        - ì§€ì†ì ì¸ ìžë™í™” ë¹Œë“œ
+        - ì§€ì†ì ì¸ ìžë™í™” í…ŒìŠ¤íŠ¸
+        - ì»¤ë²„ë¦¬ì§€ ê°ì‹œ
+        - ì½”ë“œ í’ˆì§ˆ ê°ì‹œ
+        - ë‹¤ì–‘í•œ ì¸ì¦ê¸°ë°˜ê³¼ ê²°í•©í•œ ì¸ì¦ ë° ê¶Œí•œê´€ë¦¬ ê¸°ëŠ¥
+        - Groovy scriptë¥¼ ì´ìš©í•œ ê³ ìˆ˜ì¤€ì˜ ìž¡ ìŠ¤ì¼€ì¤„ë§ ê¸°ëŠ¥
+        - ì»¤ë§¨ë“œë¼ì¸ ì¸í„°íŽ˜ì´ìŠ¤ ì œê³µ
+        - ìžë™í™”ëœ ë°°í¬ ê´€ë¦¬
+        - ë¶„ì‚°ë¹Œë“œ ê¸°ëŠ¥
+        - ìœˆë„ìš° ì»¤ë§¨ë“œ ìŠ¤ì¼€ì¤„ë§ ì‹¤í–‰ê¸°ëŠ¥
 
-        ÀÌ ¿Ü¿¡µµ ¼ö¸¹Àº ÇÃ·¯±×ÀÎÀ» ÅëÇØ °£´ÜÈ÷ ±â´ÉÀ» Ãß°¡/È®Àå ÇÒ ¼ö ÀÖ´Ù.
+        ì´ ì™¸ì—ë„ ìˆ˜ë§Žì€ í”ŒëŸ¬ê·¸ì¸ì„ í†µí•´ ê°„ë‹¨ížˆ ê¸°ëŠ¥ì„ ì¶”ê°€/í™•ìž¥ í•  ìˆ˜ ìžˆë‹¤.
 
-    ¼³Ä¡ÆÄÀÏ ´Ù¿î·Îµå
+    ì„¤ì¹˜íŒŒì¼ ë‹¤ìš´ë¡œë“œ
 
-        http://jenkins-ci.org/ »çÀÌÆ®¿¡¼­ jenkins.war ÆÄÀÏÀ» ´Ù¿î·Îµå ÇÑ´Ù.
+        http://jenkins-ci.org/ ì‚¬ì´íŠ¸ì—ì„œ jenkins.war íŒŒì¼ì„ ë‹¤ìš´ë¡œë“œ í•œë‹¤.
 
         > java -jar jenkins.war
 
         > sc delete jenkins
 
-    Jenkins ¼³Ä¡ ¹× ±¸µ¿ÇÏ±â
+    Jenkins ì„¤ì¹˜ ë° êµ¬ë™í•˜ê¸°
 
-        # Debian/Ubuntu È¯°æ¿¡¼­ ¼³Ä¡
+        # Debian/Ubuntu í™˜ê²½ì—ì„œ ì„¤ì¹˜
 
-        # jenkins Á¢¼Ó Å° Ãß°¡
+        # jenkins ì ‘ì† í‚¤ ì¶”ê°€
         wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
 
-        # jenkins ÀúÀå¼Ò À§Ä¡ Ãß°¡
+        # jenkins ì €ìž¥ì†Œ ìœ„ì¹˜ ì¶”ê°€
         sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
 
-        # apt-get °»½Å
+        # apt-get ê°±ì‹ 
         sudo apt-get update
 
-        # jenkins ¼³Ä¡
+        # jenkins ì„¤ì¹˜
         sudo apt-get install jenkins
 
-        # jenkins.war À§Ä¡ ÆÄ¾Ç
+        # jenkins.war ìœ„ì¹˜ íŒŒì•…
         dpkg -L jenkins
 
-        # ¼öµ¿À¸·Î jenkins ±¸µ¿
+        # ìˆ˜ë™ìœ¼ë¡œ jenkins êµ¬ë™
         java -jar /usr/share/jenkins/jenkins.war
 
-        # 8080 Æ÷Æ®¸¦ ÀÌ¹Ì ´Ù¸¥ ÇÁ·Î¼¼½º°¡ »ç¿ëÇÏ°í ÀÖ´Ù¸é ´ÙÀ½°ú °°Àº ¿¡·¯ ¹ß»ý
+        # 8080 í¬íŠ¸ë¥¼ ì´ë¯¸ ë‹¤ë¥¸ í”„ë¡œì„¸ìŠ¤ê°€ ì‚¬ìš©í•˜ê³  ìžˆë‹¤ë©´ ë‹¤ìŒê³¼ ê°™ì€ ì—ëŸ¬ ë°œìƒ
         Caused by: java.io.IOException: Failed to listen on port 8080
 
-        # ´Ù¸¥ Æ÷Æ®¸¦ »ç¿ëÇÏ¿© ±¸µ¿
+        # ë‹¤ë¥¸ í¬íŠ¸ë¥¼ ì‚¬ìš©í•˜ì—¬ êµ¬ë™
         java -jar /usr/share/jenkins/jenkins.war --httpPort=8888
 
-        # ¸®´ª½º ¼­ºñ½º·Î µî·ÏÇÏ¿© ±¸µ¿
+        # ë¦¬ëˆ…ìŠ¤ ì„œë¹„ìŠ¤ë¡œ ë“±ë¡í•˜ì—¬ êµ¬ë™
         sudo service jenkins start
 
-        # ¶Ç´Â ±âº» Æ÷Æ® º¯°æÇÏ°í ±¸µ¿
+        # ë˜ëŠ” ê¸°ë³¸ í¬íŠ¸ ë³€ê²½í•˜ê³  êµ¬ë™
         sudo vi /etc/default/jenkins
         HTTP_PORT=8080
 
-        # Á¢¼ÓÇØ º¸±â
+        # ì ‘ì†í•´ ë³´ê¸°
         http://127.0.0.1:8080
 
 
@@ -220,16 +273,16 @@
 
 ----------------------------------------------------------------------------------------------------
 
-1. Eclipse > SASEMARTCMS(¿ìÅ¬¸¯) > Team > Synchronize with Repository
+1. Eclipse > SASEMARTCMS(ìš°í´ë¦­) > Team > Synchronize with Repository
 2. SVN > Update
-3. Pom.xml(¿ìÅ¬¸¯) > Run As > Maven Clean
-4. »ó´Ü¸Þ´º > Project > Clean > Clean All Project > OK
-5. Pom.xml(¿ìÅ¬¸¯) > Run As > Maven Install
-6. SASEMARTCMS > target > EmartCampaign-1.0.0 À» È®ÀÎÇÑ´Ù.
+3. Pom.xml(ìš°í´ë¦­) > Run As > Maven Clean
+4. ìƒë‹¨ë©”ë‰´ > Project > Clean > Clean All Project > OK
+5. Pom.xml(ìš°í´ë¦­) > Run As > Maven Install
+6. SASEMARTCMS > target > EmartCampaign-1.0.0 ì„ í™•ì¸í•œë‹¤.
 
 ----------------------------------------------------------------------------------------------------
 
-1 µµ½º ¸í·É¾î
+1 ë„ìŠ¤ ëª…ë ¹ì–´
     1.1 APPEND
     1.2 ASSIGN
     1.3 ATTRIB
@@ -302,47 +355,47 @@
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-[ PC ¼¼ÆÃ ]
+[ PC ì„¸íŒ… ]
 
-    1. È¯°æº¯¼ö ¼¼ÆÃ : ÄÄÇ»ÅÍ > ¼Ó¼º
+    1. í™˜ê²½ë³€ìˆ˜ ì„¸íŒ… : ì»´í“¨í„° > ì†ì„±
 
-        ½Ã½ºÅÛ º¯¼ö
+        ì‹œìŠ¤í…œ ë³€ìˆ˜
 
             WORK_DRIVE=K:
-            JAVA_HOME=       <- º¯°æ°¡´É
+            JAVA_HOME=       <- ë³€ê²½ê°€ëŠ¥
 
-        »ç¿ëÀÚ º¯¼ö
+        ì‚¬ìš©ìž ë³€ìˆ˜
 
             PATH=%PATH%;%JAVA_HOME%\bin
 
-    2. jenkins ¼³Ä¡
+    2. jenkins ì„¤ì¹˜
 
-        jenkins-1.631.zip ÆÄÀÏÀ» ¾ÐÃàÇ®¾î¼­ setup.exe ÆÄÀÏÀ» ½ÇÇàÇÑ´Ù.
+        jenkins-1.631.zip íŒŒì¼ì„ ì••ì¶•í’€ì–´ì„œ setup.exe íŒŒì¼ì„ ì‹¤í–‰í•œë‹¤.
 
-    3. SVN (Subversion) ¼³Ä¡
+    3. SVN (Subversion) ì„¤ì¹˜
 
-        Setup-Subversion-1.6.6.msi ÆÄÀÏÀ» ½ÇÇàÇÑ´Ù.
+        Setup-Subversion-1.6.6.msi íŒŒì¼ì„ ì‹¤í–‰í•œë‹¤.
 
-        SVN Manager Tool  : SVNManager-1.1.2-Setup.msi             <- º°·Î
+        SVN Manager Tool  : SVNManager-1.1.2-Setup.msi             <- ë³„ë¡œ
         Eclipse Plugin    : Eclipse Subversion site-1.10.10.zip
         Subversion Client : TortoiseSVN-1.9.2.26806-x64-svn-1.9.2.msi
         Subversion SRC    : subversion_src-1.9.2.zip
 
-    4. MavenÀ» ¼³Ä¡ÇÑ´Ù.
+    4. Mavenì„ ì„¤ì¹˜í•œë‹¤.
 
-        apache-maven-3.3.3-bin.zip ÆÄÀÏÀ» Æ¯Á¤À§Ä¡¿¡ ¾ÐÃàÀ» Ç®¾î¼­ »ç¿ëÇÑ´Ù.
+        apache-maven-3.3.3-bin.zip íŒŒì¼ì„ íŠ¹ì •ìœ„ì¹˜ì— ì••ì¶•ì„ í’€ì–´ì„œ ì‚¬ìš©í•œë‹¤.
 
-    5. ¼³Ä¡ ÇÁ·Î±×·¥ È®ÀÎ-1 : Æú´õÈ®ÀÎ
+    5. ì„¤ì¹˜ í”„ë¡œê·¸ëž¨ í™•ì¸-1 : í´ë”í™•ì¸
 
         C:\Program Files (x86)\jenkins
         C:\Program Files (x86)\Subversion
 
-    6. ¼³Ä¡ ÇÁ·Î±×·¥ È®ÀÎ-2 : Á¦¾îÆÇ > ÇÁ·Î±×·¥
+    6. ì„¤ì¹˜ í”„ë¡œê·¸ëž¨ í™•ì¸-2 : ì œì–´íŒ > í”„ë¡œê·¸ëž¨
 
         Jenkins 1.631
         Subversion
 
-    7. ¼³Ä¡ ÇÁ·Î±×·¥ È®ÀÎ-3 : ¼­ºñ½º È®ÀÎ : ÄÄÇ»ÅÍ > °ü¸® > ¼­ºñ½º
+    7. ì„¤ì¹˜ í”„ë¡œê·¸ëž¨ í™•ì¸-3 : ì„œë¹„ìŠ¤ í™•ì¸ : ì»´í“¨í„° > ê´€ë¦¬ > ì„œë¹„ìŠ¤
 
         > sc qc     jenkins
         > sc query  jenkins
@@ -350,41 +403,41 @@
         > sc stop   jenkins
         > sc delete jenkins
 
-        ¼­ºñ½º¿¡´Â driver/service µÎ Á¾·ù°¡ ÀÖ´Ù.
+        ì„œë¹„ìŠ¤ì—ëŠ” driver/service ë‘ ì¢…ë¥˜ê°€ ìžˆë‹¤.
 
         > sc query               | more
         > sc query type= driver  | more
         > sc query type= service | more
         > sc query type= all     | more
 
-    8. SVN Repository »ý¼º
+    8. SVN Repository ìƒì„±
 
-        8.1. »ç¿ëÀÚ º¯¼öÀÇ PATH Ç×¸ñ¿¡ Ãß°¡ÇÑ´Ù.
+        8.1. ì‚¬ìš©ìž ë³€ìˆ˜ì˜ PATH í•­ëª©ì— ì¶”ê°€í•œë‹¤.
 
             PATH=%PATH%;%ProgramFiles(x86)%\Subversion\bin;
 
-        8.2. Repository root Æú´õ·Î ÀÌµ¿ÇÑ´Ù. ±×¸®°í ÇÁ·ÎÁ§Æ®¸¦ À§ÇÑ TEST_PRJ ÀúÀå¼Ò(repository)¸¦ »ý¼ºÇÑ´Ù.
-            ±×¸®°í »ý¼ºµÈ Æú´õ¸¦ È®ÀÎÇÑ´Ù. ÀÎÁõÀ» À§ÇÑ °èÁ¤À» ¸¸µç´Ù.
+        8.2. Repository root í´ë”ë¡œ ì´ë™í•œë‹¤. ê·¸ë¦¬ê³  í”„ë¡œì íŠ¸ë¥¼ ìœ„í•œ TEST_PRJ ì €ìž¥ì†Œ(repository)ë¥¼ ìƒì„±í•œë‹¤.
+            ê·¸ë¦¬ê³  ìƒì„±ëœ í´ë”ë¥¼ í™•ì¸í•œë‹¤. ì¸ì¦ì„ ìœ„í•œ ê³„ì •ì„ ë§Œë“ ë‹¤.
 
-            ¿¹) K:\PROG\_Repo_
+            ì˜ˆ) K:\PROG\_Repo_
 
             > svnadmin create TEST_PRJ
             > tree
 
-                SSD250DATA º¼·ý¿¡ ´ëÇÑ Æú´õ °æ·ÎÀÇ ¸ñ·ÏÀÔ´Ï´Ù.
-                º¼·ý ÀÏ·Ã ¹øÈ£´Â 8EB4-DD7FÀÔ´Ï´Ù.
+                SSD250DATA ë³¼ë¥¨ì— ëŒ€í•œ í´ë” ê²½ë¡œì˜ ëª©ë¡ìž…ë‹ˆë‹¤.
+                ë³¼ë¥¨ ì¼ë ¨ ë²ˆí˜¸ëŠ” 8EB4-DD7Fìž…ë‹ˆë‹¤.
                 K:.
-                ¦¦¦¡TEST_PRJ
-                    ¦§¦¡conf
-                    ¦§¦¡db
-                    ¦¢  ¦§¦¡revprops
-                    ¦¢  ¦¢  ¦¦¦¡0
-                    ¦¢  ¦§¦¡revs
-                    ¦¢  ¦¢  ¦¦¦¡0
-                    ¦¢  ¦§¦¡transactions
-                    ¦¢  ¦¦¦¡txn-protorevs
-                    ¦§¦¡hooks
-                    ¦¦¦¡locks
+                â””â”€TEST_PRJ
+                    â”œâ”€conf
+                    â”œâ”€db
+                    â”‚  â”œâ”€revprops
+                    â”‚  â”‚  â””â”€0
+                    â”‚  â”œâ”€revs
+                    â”‚  â”‚  â””â”€0
+                    â”‚  â”œâ”€transactions
+                    â”‚  â””â”€txn-protorevs
+                    â”œâ”€hooks
+                    â””â”€locks
 
             > type TEST_PRJ\conf\svnserve.conf
 
@@ -407,7 +460,7 @@
                 ### this configuration file.
                 ### If SASL is enabled (see below), this file will NOT be used.
                 ### Uncomment the line below to use the default password file.
-                password-db = passwd                                                         <- ÀÎÁõ°ü·Ã È®ÀÎ
+                password-db = passwd                                                         <- ì¸ì¦ê´€ë ¨ í™•ì¸
                 ### The authz-db option controls the location of the authorization
                 ### rules for path-based access control.  Unless you specify a path
                 ### starting with a /, the file's location is relative to the the
@@ -446,32 +499,32 @@
                 [users]
                 # harry = harryssecret
                 # sally = sallyssecret
-                admin = admin123                                                               <- °èÁ¤°ü·Ã È®ÀÎ
+                admin = admin123                                                               <- ê³„ì •ê´€ë ¨ í™•ì¸
 
 
-        8.3. SVN ¼­¹ö¸¦ ½ÇÇàÇÑ´Ù. ±×¸®°í È®ÀÎÇÑ´Ù.
+        8.3. SVN ì„œë²„ë¥¼ ì‹¤í–‰í•œë‹¤. ê·¸ë¦¬ê³  í™•ì¸í•œë‹¤.
 
-            > start svnserve -d -r .          <- ¼­¹ö°¡ ½ÇÇà ÇÏ´Â DOS Ã¢ÀÌ »õ·Î »ý±ä´Ù.
+            > start svnserve -d -r .          <- ì„œë²„ê°€ ì‹¤í–‰ í•˜ëŠ” DOS ì°½ì´ ìƒˆë¡œ ìƒê¸´ë‹¤.
 
             > netstat -nab | more
                 .....
-                 TCP    0.0.0.0:3690           0.0.0.0:0              LISTENING     <- »ç¿ëÆ÷Æ® 3690  ÇÁ·Î±×·¥ svnserve.exe
+                 TCP    0.0.0.0:3690           0.0.0.0:0              LISTENING     <- ì‚¬ìš©í¬íŠ¸ 3690  í”„ë¡œê·¸ëž¨ svnserve.exe
                 [svnserve.exe]
                 .....
 
-        8.4. ±âÁ¸ ÇÁ·ÎÁ§Æ®¸¦ PC·Î checkout ÇÑ´Ù.  -> È®ÀÎ¿ë
+        8.4. ê¸°ì¡´ í”„ë¡œì íŠ¸ë¥¼ PCë¡œ checkout í•œë‹¤.  -> í™•ì¸ìš©
 
             > svn checkout svn://matcmsmine01/repo-tasks/SASEMARTCMS
             .....
 
-        8.5. ±âÁ¸ ÇÁ·ÎÁ§Æ®¸¦ PC·Î export ÇÑ´Ù.
+        8.5. ê¸°ì¡´ í”„ë¡œì íŠ¸ë¥¼ PCë¡œ export í•œë‹¤.
 
-            > svn export svn://matcmsmine01/repo-tasks/SASEMARTCMS        <- Local PC¿¡ SASEMARTCMS Æú´õ°¡ »ý±ä´Ù.
+            > svn export svn://matcmsmine01/repo-tasks/SASEMARTCMS        <- Local PCì— SASEMARTCMS í´ë”ê°€ ìƒê¸´ë‹¤.
             .....
 
-        8.5. PC·Î export ÇÑ ¼Ò½º¸¦ ´Ù¸¥ SVN ÀúÀå¼Ò(repository)·Î import ÇÑ´Ù.
+        8.5. PCë¡œ export í•œ ì†ŒìŠ¤ë¥¼ ë‹¤ë¥¸ SVN ì €ìž¥ì†Œ(repository)ë¡œ import í•œë‹¤.
 
-            > svn import SASEMARTCMS svn://localhost/TEST_PRJ -m "svn ÀÓÆ÷Æ® ·Î±×" --username admin --password admin123
+            > svn import SASEMARTCMS svn://localhost/TEST_PRJ -m "svn ìž„í¬íŠ¸ ë¡œê·¸" --username admin --password admin123
             .....
 
 
@@ -486,15 +539,15 @@
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-[ ÇÑ±Ûº¯È¯ ]
+[ í•œê¸€ë³€í™˜ ]
 
     1. Eclipse > Window > Preference > General > Workspace > Text file encoding > Other : UTF-8
 
-    2. xml ÆÄÀÏ utf-8    <?xml version="1.0" encoding="utf-8"?>
+    2. xml íŒŒì¼ utf-8    <?xml version="1.0" encoding="utf-8"?>
 
     3. .bash_profile     export LANG=ko_KR.UTF-8    <->    export LANG=ko_KR.EUC-KR
 
-    4. Xshell µî·ÏÁ¤º¸¿¡¼­ ÅÍ¹Ì³Î > Ãâ·Âº¯È¯ > ÀÎÄÚµù : À¯´ÏÄÚµå(UTF-8)
+    4. Xshell ë“±ë¡ì •ë³´ì—ì„œ í„°ë¯¸ë„ > ì¶œë ¥ë³€í™˜ > ì¸ì½”ë”© : ìœ ë‹ˆì½”ë“œ(UTF-8)
 
 
 
@@ -506,23 +559,23 @@
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-1. »èÁ¦
+1. ì‚­ì œ
 
-    $CATALINA_BASE/bin/catalina.sh À» ÆíÁýÇÑ´Ù.
+    $CATALINA_BASE/bin/catalina.sh ì„ íŽ¸ì§‘í•œë‹¤.
 
         org.apache.catalina.startup.Bootstrap "%@" start >> "$CATALINA_BASE"/logs/catalina.out 2>&1 &
 
-    À§¿Í °°ÀÌ "$CATALINA_BASE"/logs/catalina.out À¸·Î ·Î±×¸¦ º¸³»´Â °ÍÀ» ¾Æ·¡¿Í °°ÀÌ º¯°æÇÏ¿© º¸³»Áö ¾Êµµ·Ï ÇÑ´Ù.
+    ìœ„ì™€ ê°™ì´ "$CATALINA_BASE"/logs/catalina.out ìœ¼ë¡œ ë¡œê·¸ë¥¼ ë³´ë‚´ëŠ” ê²ƒì„ ì•„ëž˜ì™€ ê°™ì´ ë³€ê²½í•˜ì—¬ ë³´ë‚´ì§€ ì•Šë„ë¡ í•œë‹¤.
 
         org.apache.catalina.startup.Bootstrap "%@" start >> /dev/null 2>&1 &
 
-    if else ·Î ±¸¼ºµÇ¾î¼­ ¾Æ¸¶ 2±ºµ¥¸¦ ÆíÁýÇØ¾ß ÇÒ °ÍÀÌ´Ù.
+    if else ë¡œ êµ¬ì„±ë˜ì–´ì„œ ì•„ë§ˆ 2êµ°ë°ë¥¼ íŽ¸ì§‘í•´ì•¼ í•  ê²ƒì´ë‹¤.
 
         touch "$CATALINA_BASE"/logs/catalina.out
 
-    ¾µµ¥¾ø±â ¶§¹®¿¡ ÁÖ¼®(#) Ã³¸®ÇÏ°Å³ª »èÁ¦ÇÑ´Ù.
+    ì“¸ë°ì—†ê¸° ë•Œë¬¸ì— ì£¼ì„(#) ì²˜ë¦¬í•˜ê±°ë‚˜ ì‚­ì œí•œë‹¤.
 
-2. rotatecatalinalog.shÀ» »ý¼ºÇÏ¿© cron¿¡ µî·ÏÇÑ´Ù.
+2. rotatecatalinalog.shì„ ìƒì„±í•˜ì—¬ cronì— ë“±ë¡í•œë‹¤.
 
         $ vi rotatecatalinalog.sh
 
@@ -532,7 +585,7 @@
         /bin/nice /bin/cp $LOG_DIR/catalina.out $LOG_DIR/$DATE.catalina.out
         /bin/nice /bin/cat /dev/null > $LOG_DIR/catalina.out
 
-    À§¿Í °°ÀÌ ÇØ´ç ³¯Â¥·Î º¹»çÇÏ°í ¿øÆÇ catalina.outÀº ºñ¿öÁÖ´Â shÀ» ¸¸µé¾î¼­ crontab¿¡ µî·ÏÇÑ´Ù.
+    ìœ„ì™€ ê°™ì´ í•´ë‹¹ ë‚ ì§œë¡œ ë³µì‚¬í•˜ê³  ì›íŒ catalina.outì€ ë¹„ì›Œì£¼ëŠ” shì„ ë§Œë“¤ì–´ì„œ crontabì— ë“±ë¡í•œë‹¤.
 
         $ chmod 755 rotatecatalinalog.sh
 
@@ -540,7 +593,7 @@
 
             59 23 * * * /util/esb/tomcat6/bin/rotatecatalinalog.sh
 
-3. cronolog»ç¿ë
+3. cronologì‚¬ìš©
 
     http://cronolog.org
 
@@ -558,7 +611,7 @@
 
         # ls -al /home/esb/cronolog/sbin
 
-    $CATALINA_BASE/bin/catalina.shÀ» ÆíÁýÇÑ´Ù.
+    $CATALINA_BASE/bin/catalina.shì„ íŽ¸ì§‘í•œë‹¤.
 
         org.apache.catalina.startup.Bootstrap "$@" start >> "$CATALINA_BASE"/logs/catalina.out 2>&1 &
 
@@ -573,24 +626,24 @@
 ----------------------------------------------------------------------------------------------------
 
 /*
- *  [ JAVA SSL PKIX path building failed ¿À·ù½Ã ]
+ *  [ JAVA SSL PKIX path building failed ì˜¤ë¥˜ì‹œ ]
  *
  *
- *  JSSE(Java Secure Socket Extension, J2SE 1.4 ÀÌÈÄ ¹öÀü¿¡´Â JSSE°¡ Æ÷ÇÔµÇ¾î ÀÖ´Ù.)¸¦ ÀÌ¿ëÇÏ¿©
- *  SSL ¿¬°áÀ» ½ÃµµÇÒ ¶§ ¾Æ·¡¿Í °°Àº exceptionÀÌ ¹ß»ýÇÒ ¼ö ÀÖ´Ù. °øÀÎ ÀÎÁõ±â°ü¿¡¼­ ¹ÞÀº ÀÎÁõ¼­°¡
- *  ¾Æ´Ñ °³ÀÎ ÀÎÁõ¼­¸¦ »ç¿ëÇÏ´Â °æ¿ì ¸¹ÀÌ ¹ß»ýÇÒ ¼ö ÀÖ´Ù.
+ *  JSSE(Java Secure Socket Extension, J2SE 1.4 ì´í›„ ë²„ì „ì—ëŠ” JSSEê°€ í¬í•¨ë˜ì–´ ìžˆë‹¤.)ë¥¼ ì´ìš©í•˜ì—¬
+ *  SSL ì—°ê²°ì„ ì‹œë„í•  ë•Œ ì•„ëž˜ì™€ ê°™ì€ exceptionì´ ë°œìƒí•  ìˆ˜ ìžˆë‹¤. ê³µì¸ ì¸ì¦ê¸°ê´€ì—ì„œ ë°›ì€ ì¸ì¦ì„œê°€
+ *  ì•„ë‹Œ ê°œì¸ ì¸ì¦ì„œë¥¼ ì‚¬ìš©í•˜ëŠ” ê²½ìš° ë§Žì´ ë°œìƒí•  ìˆ˜ ìžˆë‹¤.
  *
  *  javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path
  *  building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find
  *  valid certification path to requested target
  *
- *  ±×·¸´Ù¸é ¾î¶»°Ô ÇØ¾ß ÇÏ´À³Ä?? ¿©·¯ °¡Áö ¹æ¹ýÀÌ ÀÖÁö¸¸, °£´ÜÇÑ ¹æ¹ýÀº ¼­¹öÀÇ ÀÎÁõ¼­¸¦ ½Å·ÚÇÒ
- *  ¼ö ÀÖ´Â ÀÎÁõ¼­ ¸ñ·Ï(KeyStore)¿¡ Ãß°¡ÇÏ¸é µÈ´Ù. ÀÎÁõ¼­¸¦ Ãß°¡ÇÏ·Á¸é ¿ì¼± ÀÎÁõ¼­¸¦ ¹Þ¾Æ¾ß°Ú´Ù.
- *  ÀÎÁõ¼­´Â Ã·ºÎµÈ ÆÄÀÏ(installcert.java)À» ¹Þ¾Æ¼­ ÄÄÆÄÀÏÇÏ°í ½ÇÇàÇÏ¸é µÈ´Ù. ½ÇÇà½ÃÅ°¸é ¾Æ·¡¿Í
- *  °°Àº È­¸éÀÌ ³ªÅ¸³¯ °ÍÀÌ´Ù. "ecc.fedora.redhat.com" ºÎºÐ¿¡ ÀÎÁõ¼­¸¦ ¿øÇÏ´Â ¼­¹öÀÇ ip¿Í port¸¦
- *  ½áÁÖ¸é µÈ´Ù.
+ *  ê·¸ë ‡ë‹¤ë©´ ì–´ë–»ê²Œ í•´ì•¼ í•˜ëŠëƒ?? ì—¬ëŸ¬ ê°€ì§€ ë°©ë²•ì´ ìžˆì§€ë§Œ, ê°„ë‹¨í•œ ë°©ë²•ì€ ì„œë²„ì˜ ì¸ì¦ì„œë¥¼ ì‹ ë¢°í• 
+ *  ìˆ˜ ìžˆëŠ” ì¸ì¦ì„œ ëª©ë¡(KeyStore)ì— ì¶”ê°€í•˜ë©´ ëœë‹¤. ì¸ì¦ì„œë¥¼ ì¶”ê°€í•˜ë ¤ë©´ ìš°ì„  ì¸ì¦ì„œë¥¼ ë°›ì•„ì•¼ê² ë‹¤.
+ *  ì¸ì¦ì„œëŠ” ì²¨ë¶€ëœ íŒŒì¼(installcert.java)ì„ ë°›ì•„ì„œ ì»´íŒŒì¼í•˜ê³  ì‹¤í–‰í•˜ë©´ ëœë‹¤. ì‹¤í–‰ì‹œí‚¤ë©´ ì•„ëž˜ì™€
+ *  ê°™ì€ í™”ë©´ì´ ë‚˜íƒ€ë‚  ê²ƒì´ë‹¤. "ecc.fedora.redhat.com" ë¶€ë¶„ì— ì¸ì¦ì„œë¥¼ ì›í•˜ëŠ” ì„œë²„ì˜ ipì™€ portë¥¼
+ *  ì¨ì£¼ë©´ ëœë‹¤.
  *
- *          °ü·Ã ¼Ò½º : installcert.java
+ *          ê´€ë ¨ ì†ŒìŠ¤ : installcert.java
  *
  *      % java InstallCert ecc.fedora.redhat.com
  *      Loading KeyStore C:\Program Files\Java\jre1.5.0_08\lib\security\cacerts...
@@ -642,12 +695,12 @@
  *
  *      Enter certificate to add to trusted keystore or 'q' to quit: [1]
  *
- *  ½ÇÇà½ÃÅ°¸é SSL handshake°¡ ÀÏ¾î³­´Ù. È­¸é¿¡´Â exception ºÎºÐµµ Ãâ·ÂµÈ´Ù. exceptionÀÌ Ãâ·ÂµÇ´Â
- *  ÀÌÀ¯´Â ¼­¹ö¿¡¼­ »ç¿ëÇÏ´Â ÀÎÁõ¼­°¡ ¾ø±â ¶§¹®¿¡ SSL ¿¬°áÀ» ¼º°øÇÒ ¼ö ¾ø±â ¶§¹®ÀÌ´Ù. ÀÚ, ÀÎÁõ¼­¸¦
- *  ¹ÞÀÚ. ±×¸®°í È­¸é¿¡´Â trusted KeyStore¿¡ ÀÎÁõ¼­¸¦ Ãß°¡ÇÒ °ÍÀÎÁö ¹¯°í ÀÖ´Ù. sha1°ú md5¸¦ È®ÀÎÇØ¼­
- *  ¿Ã¹Ù¸¥ ÀÎÁõ¼­ÀÎÁö È®ÀÎÇÑ ´ÙÀ½, ¿Ã¹Ù¸¥ ÀÎÁõ¼­ÀÎ °æ¿ì "1"À» ÀÔ·ÂÇØ¼­ ÀÎÁõ¼­¸¦ ¹ÞÀ¸¸é µÇ°í,
- *  ¹Þ°í ½ÍÁö ¾ÊÀº °æ¿ì´Â "q"¸¦ ÀÔ·ÂÇØ¼­ ÇÁ·Î±×·¥À» Á¾·á½ÃÅ°¸é µÈ´Ù. ÀÎÁõ¼­¸¦ ¹Þ°Ô µÇ¸é ¾Æ·¡¿Í
- *  °°Àº È­¸éÀÌ Ãâ·ÂµÇ°í, "jssecacerts" ÆÄÀÏ·Î ÀÎÁõ¼­°¡ ÀúÀåµÈ´Ù.
+ *  ì‹¤í–‰ì‹œí‚¤ë©´ SSL handshakeê°€ ì¼ì–´ë‚œë‹¤. í™”ë©´ì—ëŠ” exception ë¶€ë¶„ë„ ì¶œë ¥ëœë‹¤. exceptionì´ ì¶œë ¥ë˜ëŠ”
+ *  ì´ìœ ëŠ” ì„œë²„ì—ì„œ ì‚¬ìš©í•˜ëŠ” ì¸ì¦ì„œê°€ ì—†ê¸° ë•Œë¬¸ì— SSL ì—°ê²°ì„ ì„±ê³µí•  ìˆ˜ ì—†ê¸° ë•Œë¬¸ì´ë‹¤. ìž, ì¸ì¦ì„œë¥¼
+ *  ë°›ìž. ê·¸ë¦¬ê³  í™”ë©´ì—ëŠ” trusted KeyStoreì— ì¸ì¦ì„œë¥¼ ì¶”ê°€í•  ê²ƒì¸ì§€ ë¬»ê³  ìžˆë‹¤. sha1ê³¼ md5ë¥¼ í™•ì¸í•´ì„œ
+ *  ì˜¬ë°”ë¥¸ ì¸ì¦ì„œì¸ì§€ í™•ì¸í•œ ë‹¤ìŒ, ì˜¬ë°”ë¥¸ ì¸ì¦ì„œì¸ ê²½ìš° "1"ì„ ìž…ë ¥í•´ì„œ ì¸ì¦ì„œë¥¼ ë°›ìœ¼ë©´ ë˜ê³ ,
+ *  ë°›ê³  ì‹¶ì§€ ì•Šì€ ê²½ìš°ëŠ” "q"ë¥¼ ìž…ë ¥í•´ì„œ í”„ë¡œê·¸ëž¨ì„ ì¢…ë£Œì‹œí‚¤ë©´ ëœë‹¤. ì¸ì¦ì„œë¥¼ ë°›ê²Œ ë˜ë©´ ì•„ëž˜ì™€
+ *  ê°™ì€ í™”ë©´ì´ ì¶œë ¥ë˜ê³ , "jssecacerts" íŒŒì¼ë¡œ ì¸ì¦ì„œê°€ ì €ìž¥ëœë‹¤.
  *
  *      [
  *      [
@@ -695,14 +748,14 @@
  *
  *      Added certificate to keystore 'jssecacerts' using alias 'ecc.fedora.redhat.com-1'
  *
- *  ÀÌÁ¦ ÀÌ ÀÎÁõ¼­¸¦ ¾î¶»°Ô »ç¿ëÇÒ±î?? ¿©±â¿¡µµ ¸î °¡Áö ¹æ¹ýÀÌ ÀÖ´Ù. °¡Àå °£´ÜÇÑ ¹æ¹ýÀº
- *  "$JAVA_HOME/jre/lib/security" Æú´õ¿¡ ¹ÞÀº ÀÎÁõ¼­ ÆÄÀÏÀ» º¹»çÇÏ´Â ¹æ¹ýÀÌ´Ù. (ÀÌ °æ¿ì´Â
- *  ÆÄÀÏ¸íÀ» º¯°æÇÏ¸é ÀÎÁõ¼­¸¦ Ã£Áö ¸ø ÇÑ´Ù. ¿øÀÎÀº ¾ÆÁ÷±îÁö´Â Àß ¸ð¸£°Ú´Ù. º»ÀÎÀº
- *  ÀÌ ¹æ¹ý ´ë½Å ´ÙÀ½ ¹æ¹ýÀ» »ç¿ëÇÑ´Ù.)
- *  ±×¸®°í ´Ù¸¥ ¹æ¹ýÀº ÀÎÁõ¼­¸¦ ¿øÇÏ´Â À§Ä¡·Î ¿Å±â°í (ÀÌ °æ¿ì´Â ÆÄÀÏ¸íÀ» º¯°æÇØµµ »ó°ü ¾ø´Ù.)
- *  SSL ¿¬°áÀÌ ÇÊ¿äÇÑ java ¸í·ÉÀ» ½ÇÇàÇÒ ¶§, VM ¿É¼ÇÀ¸·Î "-Djavax.net.ssl.trustStore=ÀÎÁõ¼­ÀÇ
- *  °æ·Î(ÀÎÁõ¼­ ÆÄÀÏ¸í Æ÷ÇÔ)"¸¦ Ãß°¡ÇØÁÖ¸é µÈ´Ù. ´Ù½Ã Ã·ºÎ ÆÄÀÏÀ» ½ÇÇà½ÃÄ×À» ¶§, ¾Æ±î¿Í´Â
- *  ´Ù¸¥ ¾Æ·¡¿Í °°Àº È­¸éÀÌ Ãâ·ÂµÇ¸é ¼º°øÀÌ´Ù.
+ *  ì´ì œ ì´ ì¸ì¦ì„œë¥¼ ì–´ë–»ê²Œ ì‚¬ìš©í• ê¹Œ?? ì—¬ê¸°ì—ë„ ëª‡ ê°€ì§€ ë°©ë²•ì´ ìžˆë‹¤. ê°€ìž¥ ê°„ë‹¨í•œ ë°©ë²•ì€
+ *  "$JAVA_HOME/jre/lib/security" í´ë”ì— ë°›ì€ ì¸ì¦ì„œ íŒŒì¼ì„ ë³µì‚¬í•˜ëŠ” ë°©ë²•ì´ë‹¤. (ì´ ê²½ìš°ëŠ”
+ *  íŒŒì¼ëª…ì„ ë³€ê²½í•˜ë©´ ì¸ì¦ì„œë¥¼ ì°¾ì§€ ëª» í•œë‹¤. ì›ì¸ì€ ì•„ì§ê¹Œì§€ëŠ” ìž˜ ëª¨ë¥´ê² ë‹¤. ë³¸ì¸ì€
+ *  ì´ ë°©ë²• ëŒ€ì‹  ë‹¤ìŒ ë°©ë²•ì„ ì‚¬ìš©í•œë‹¤.)
+ *  ê·¸ë¦¬ê³  ë‹¤ë¥¸ ë°©ë²•ì€ ì¸ì¦ì„œë¥¼ ì›í•˜ëŠ” ìœ„ì¹˜ë¡œ ì˜®ê¸°ê³  (ì´ ê²½ìš°ëŠ” íŒŒì¼ëª…ì„ ë³€ê²½í•´ë„ ìƒê´€ ì—†ë‹¤.)
+ *  SSL ì—°ê²°ì´ í•„ìš”í•œ java ëª…ë ¹ì„ ì‹¤í–‰í•  ë•Œ, VM ì˜µì…˜ìœ¼ë¡œ "-Djavax.net.ssl.trustStore=ì¸ì¦ì„œì˜
+ *  ê²½ë¡œ(ì¸ì¦ì„œ íŒŒì¼ëª… í¬í•¨)"ë¥¼ ì¶”ê°€í•´ì£¼ë©´ ëœë‹¤. ë‹¤ì‹œ ì²¨ë¶€ íŒŒì¼ì„ ì‹¤í–‰ì‹œì¼°ì„ ë•Œ, ì•„ê¹Œì™€ëŠ”
+ *  ë‹¤ë¥¸ ì•„ëž˜ì™€ ê°™ì€ í™”ë©´ì´ ì¶œë ¥ë˜ë©´ ì„±ê³µì´ë‹¤.
  *
  *      % java InstallCert ecc.fedora.redhat.com
  *      Loading KeyStore jssecacerts...
@@ -727,14 +780,14 @@
  *      q
  *      KeyStore not changed
  *
- *  À§ ÇÁ·Î±×·¥ ½ÇÇàÀ¸·Î »ý¼ºµÈ jssecacerts ÆÄÀÏÀ» %JAVA_HOME%/jre/lib/security ·Î º¹»çÇÑ´Ù.
- *  ±×¸®°í HttpsURLConnectionÀ» ½ÇÇàÇÏ¸é ¿¡·¯°¡ »ý¼ºµÇÁö ¾Ê´Â´Ù.
+ *  ìœ„ í”„ë¡œê·¸ëž¨ ì‹¤í–‰ìœ¼ë¡œ ìƒì„±ëœ jssecacerts íŒŒì¼ì„ %JAVA_HOME%/jre/lib/security ë¡œ ë³µì‚¬í•œë‹¤.
+ *  ê·¸ë¦¬ê³  HttpsURLConnectionì„ ì‹¤í–‰í•˜ë©´ ì—ëŸ¬ê°€ ìƒì„±ë˜ì§€ ì•ŠëŠ”ë‹¤.
  *
  *      javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX
  *          path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable
  *          to find valid certification path to requested target
  *
- *  À§ ¿¡·¯°¡ ÇØ°áµÈ´Ù.
+ *  ìœ„ ì—ëŸ¬ê°€ í•´ê²°ëœë‹¤.
  *
  */
 
@@ -1069,45 +1122,46 @@ public class InstallCert2 {
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-[ https ÇÁ·ÎÅäÄÝ »ç¿ë ]
+[ https í”„ë¡œí† ì½œ ì‚¬ìš© ]
 
-	À¥¼­¹ö¿¡¼­ Á¾Á¾ Áß¿äÇÑ Á¤º¸±³È¯À» À§ÇØ SSLÀ» »ç¿ëÇÏ°ï ÇÑ´Ù.
-	ÀÌ¹øÀÇ °æ¿ì´Â HttpsURLConnectionÀ» ÅëÇØ SSL¿¬°áÀ» ÇÏ´Âµ¥ ÀÖ¾î ¹®Á¦µÇ¾ú´ø »çÇ×ÀÌ´Ù.
+	ì›¹ì„œë²„ì—ì„œ ì¢…ì¢… ì¤‘ìš”í•œ ì •ë³´êµí™˜ì„ ìœ„í•´ SSLì„ ì‚¬ìš©í•˜ê³¤ í•œë‹¤.
+	ì´ë²ˆì˜ ê²½ìš°ëŠ” HttpsURLConnectionì„ í†µí•´ SSLì—°ê²°ì„ í•˜ëŠ”ë° ìžˆì–´ ë¬¸ì œë˜ì—ˆë˜ ì‚¬í•­ì´ë‹¤.
 	
-	<È¯°æ>
+	<í™˜ê²½>
 		- Tomcat 5.5
-		- Apache 2.0 OpenSSL Æ÷ÇÔ ¹öÀü
+		- Apache 2.0 OpenSSL í¬í•¨ ë²„ì „
 		- J2EE 5.X
 	
-	<¹®Á¦>
-		SSL¿¬°á½Ã ¾Æ·¡¿Í °°Àº ExceptionÀÌ ¹ß»ýÇß´Ù.
+	<ë¬¸ì œ>
+		SSLì—°ê²°ì‹œ ì•„ëž˜ì™€ ê°™ì€ Exceptionì´ ë°œìƒí–ˆë‹¤.
 		
 		javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX
 		path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable
 		to find valid certification path to requested target
 		
-		javax.net.ssl.SSLHandshakeException Àº Á¢¼ÓÇÏ·Á´Â SSL¼­¹ö¿¡ À¯È¿ÇÑ ÀÎÁõ¼­°¡ ¾ø´Â °æ¿ì¸¦ ÀÇ¹ÌÇÑ´Ù.
-		ÀÌ·¯ÇÑ ÀÎÁõ¼­ÀÇ À§Ä¡´Â %JRE_HOME%\lib\security ¿¡ cacerts ÆÄÀÏ·Î Á¸ÀçÇÑ´Ù.
-		Áï, ÀÌÆÄÀÏ¿¡ ÇöÀç Á¢¼ÓÇÏ·Á´Â SSL¼­¹öÀÇ ÀÎÁõ¼­°¡ Á¸ÀçÇÏÁö ¾Ê´Â°ÍÀÌ´Ù.
+		javax.net.ssl.SSLHandshakeException ì€ ì ‘ì†í•˜ë ¤ëŠ” SSLì„œë²„ì— ìœ íš¨í•œ ì¸ì¦ì„œê°€ ì—†ëŠ” ê²½ìš°ë¥¼ ì˜ë¯¸í•œë‹¤.
+		ì´ëŸ¬í•œ ì¸ì¦ì„œì˜ ìœ„ì¹˜ëŠ” %JRE_HOME%\lib\security ì— cacerts íŒŒì¼ë¡œ ì¡´ìž¬í•œë‹¤.
+		ì¦‰, ì´íŒŒì¼ì— í˜„ìž¬ ì ‘ì†í•˜ë ¤ëŠ” SSLì„œë²„ì˜ ì¸ì¦ì„œê°€ ì¡´ìž¬í•˜ì§€ ì•ŠëŠ”ê²ƒì´ë‹¤.
 	
-	<ÇØ°á>
-		Ã·ºÎµÈ InstallCert.javaÀ» ¿­¸é ¼Ò½º »ó´ÜºÎºÐ¿¡
-		/************** ¼Ò½º 24Â°ÁÙ ***************/
-		String host = "127.0.0.1"; //SSL¼­¹öÀÇ µµ¸ÞÀÎÀÌ³ª IP
+	<í•´ê²°>
+		ì²¨ë¶€ëœ InstallCert.javaì„ ì—´ë©´ ì†ŒìŠ¤ ìƒë‹¨ë¶€ë¶„ì—
+		/************** ì†ŒìŠ¤ 24ì§¸ì¤„ ***************/
+		String host = "127.0.0.1"; //SSLì„œë²„ì˜ ë„ë©”ì¸ì´ë‚˜ IP
 		 int port = 443;
 		
-		À§¿Í°°ÀÌ host¸¦ ¼³Á¤ÇÏ´Â ºÎºÐÀÌ ÀÖ´Ù. host¿¡´Â Á¢¼ÓÇÏ·Á´Â SSL¼­¹öÀÇ IP³ª µµ¸ÞÀÎÀ» ¼³Á¤ÇÑ´Ù.
-		ÀÌ¼Ò½º´Â java.net.ssl.SSLHandshakeExceptionÀÌ ¹ß»ýÇÏ¸é ÇØ´ç ¼­¹ö¿¡¼­ ÀÎÁõ¼­¸¦ ¹Þ¾Æ ÆÄÀÏ·Î
-		ÀúÀåÇØÁÖ´Â ¿ªÇÒÀ» ÇÑ´Ù.
+		ìœ„ì™€ê°™ì´ hostë¥¼ ì„¤ì •í•˜ëŠ” ë¶€ë¶„ì´ ìžˆë‹¤. hostì—ëŠ” ì ‘ì†í•˜ë ¤ëŠ” SSLì„œë²„ì˜ IPë‚˜ ë„ë©”ì¸ì„ ì„¤ì •í•œë‹¤.
+		ì´ì†ŒìŠ¤ëŠ” java.net.ssl.SSLHandshakeExceptionì´ ë°œìƒí•˜ë©´ í•´ë‹¹ ì„œë²„ì—ì„œ ì¸ì¦ì„œë¥¼ ë°›ì•„ íŒŒì¼ë¡œ
+		ì €ìž¥í•´ì£¼ëŠ” ì—­í• ì„ í•œë‹¤.
 		
-		ÄÄÆÄÀÏÇÏ°í Å¬·¡½º¸¦ ½ÇÇàÇÏ¸é Àü°ú°°ÀÌ java.net.ssl.SSLHandshakeExceptionÀÌ ¹ß»ýÇÏ°í class¿Í
-		µ¿ÀÏÇÑ À§Ä¡¿¡ jssecacerts¶ó´Â ÀÎÁõ¼­ ÆÄÀÏÀÌ »ý¼ºµÈ´Ù. ÀÌ ÆÄÀÏÀ» J2EE 5 ¼³Ä¡½Ã »ý¼ºÇØ´ø
-		%JRE_HOME%\lib\security ¿¡ ³Ö¾îÁÖ¸é ¿Ï·áµÈ´Ù.
-		±âÁ¸ÀÇ cacertsÆÄÀÏ¿¡ ÀÎÁõ¼­°¡ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é jssecacerts¿¡¼­ Ã£´Â´Ù°í ÇÑ´Ù.
+		ì»´íŒŒì¼í•˜ê³  í´ëž˜ìŠ¤ë¥¼ ì‹¤í–‰í•˜ë©´ ì „ê³¼ê°™ì´ java.net.ssl.SSLHandshakeExceptionì´ ë°œìƒí•˜ê³  classì™€
+		ë™ì¼í•œ ìœ„ì¹˜ì— jssecacertsë¼ëŠ” ì¸ì¦ì„œ íŒŒì¼ì´ ìƒì„±ëœë‹¤. ì´ íŒŒì¼ì„ J2EE 5 ì„¤ì¹˜ì‹œ ìƒì„±í•´ë˜
+		%JRE_HOME%\lib\security ì— ë„£ì–´ì£¼ë©´ ì™„ë£Œëœë‹¤.
+		ê¸°ì¡´ì˜ cacertsíŒŒì¼ì— ì¸ì¦ì„œê°€ ì¡´ìž¬í•˜ì§€ ì•Šìœ¼ë©´ jssecacertsì—ì„œ ì°¾ëŠ”ë‹¤ê³  í•œë‹¤.
 
-	[ÃâÃ³] HttpsURLConnection À» »ç¿ëÇÑ SSL¼­¹ö Á¢¼Ó|ÀÛ¼ºÀÚ ¼Ò¿ä
+	[ì¶œì²˜] HttpsURLConnection ì„ ì‚¬ìš©í•œ SSLì„œë²„ ì ‘ì†|ìž‘ì„±ìž ì†Œìš”
 
 
+----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -1115,49 +1169,48 @@ public class InstallCert2 {
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
+
+Corp.  (corporation) : ë²•ì¸ ì¢…í•©ìƒì‚¬ë¡œ ë‹¨ì²´, ì‚¬ë‹¨ë²•ì¸ì„ ì¹­í•  ë•Œ ì‚¬ìš©í•©ë‹ˆë‹¤.
+    ë¯¸êµ­ì—ì„œëŠ” ë²•ì¸ì„ ëœ»í•˜ê³  ì˜êµ­ì—ì„œëŠ” ì£¼ì‹íšŒì‚¬ë¡œ í†µí•©ë‹ˆë‹¤.
+    ë³´í†µ ì´ê²ƒì€ ê·œëª¨ê°€ ì¢€ í° ê³³ì—ì„œ ì‚¬ìš©í•˜ëŠ” ê²ƒ ê°™ìŠµë‹ˆë‹¤.
+
+Co., Ltd. (Company Limited): . : ì£¼ì‹íšŒì‚¬ì´ë©´ì„œ ìœ í•œì±…ìž„íšŒì‚¬ì¸ ê²½ìš°ì— ì‚¬ìš©í•˜ëŠ” í‘œê¸° ìž…ë‹ˆë‹¤.
+    CompanyëŠ” ë§ê·¸ëŒ€ë¡œ íšŒì‚¬ì˜ ì•½ìžìž„ì„ ë‚˜íƒ€ë‚´ê³  limitedëŠ” ìœ í•œì±…ìž„ì„ ë‚˜íƒ€ë‚´ëŠ” ë§ìž…ë‹ˆë‹¤.
+    ì´ ë‹¨ì–´ëŠ” í‘œê¸°ì— ì£¼ì˜í•´ì•¼í•˜ëŠ”ë° .(ë§ˆì¹¨í‘œ)ëŠ” compantì˜ ì•½ìžì´ë¯€ë¡œ í‘œì‹œí•˜ëŠ”ê²ƒì´ê³  ,(ì½¤ë§ˆ) ëŠ”
+    company ì™€ limitedë¥¼ êµ¬ë¶„í‘œì‹œí•  ë•Œ ì‚¬ìš©í•˜ëŠ” ê²ƒì´ê¸° ë•Œë¬¸ì— ê¼­ ì‚¬ìš©í•´ì•¼ í•©ë‹ˆë‹¤.
+
+Inc.  (Incorporated) : ë¯¸êµ­ì—ì„œ ë§í•˜ëŠ” ì£¼ì‹íšŒì‚¬ëŠ” ì´ í‘œê¸°ë¥¼ ë§Žì´ ì‚¬ìš©í•©ë‹ˆë‹¤.
+
+    ì´ì™¸ì— ê°œì¸íšŒì‚¬ì˜ ê²½ìš°ì—ëŠ” Companyì˜ ì¤„ìž„ë§ì¸ Co.ë¥¼ ì‚¬ìš©í•˜ì‹œëŠ” ê²ƒì´ ì¢‹ìŠµë‹ˆë‹¤.
+
+PLC  (Public Limited Company) - ìƒìž¥ë²•ì¸ìœ¼ë¡œ ì´ê²ƒë„ ê°œì¸íšŒì‚¬ì˜ ê²½ìš° ë§Žì´ ì‚¬ìš©ë˜ëŠ”ë° ì˜êµ­ì—ì„œ ë§Žì´ ì‚¬ìš©ë©ë‹ˆë‹¤.
+    ë˜ ìš°ë¦¬ë‚˜ë¼ íšŒì‚¬ë²•ì œì—ì„œ ì¸ì •ë˜ì§€ ì•„ë‹ˆí•˜ëŠ” íšŒì‚¬í˜•íƒœë¡œ LLCë¼ëŠ” í˜•íƒœê°€ ìžˆìŠµë‹ˆë‹¤. ì´ëŠ”
+    ìœ í•œì±…ìž„ì´ë¼ëŠ” ì ì—ì„œ ì£¼ì‹íšŒì‚¬ì™€ ìœ ì‚¬í•˜ë‚˜ ë²•ì¸ì„¸ ë©´ì œì¡°ì¹˜ ë“± ì¸¡ë©´ì—ì„œ ì¡°í•©ì  ê²…ê²©ì´
+    ê°•ì¡°ë˜ëŠ” íšŒì‚¬ë¡œ ìœ í•œíšŒì‚¬ì™€ ì¡°í•©ì˜ ì¤‘ê°„ì •ë„ì˜ ì„±ê²©ì´ë¼ê³  ìƒê°í•˜ì‹œë©´ ë˜ëŠ” ê³³ìž…ë‹ˆë‹¤.
+
+    ì´ëŠ” ëª…í™•ížˆ êµ¬ë¶„í•˜ê¸° íž˜ë“¤ ìˆ˜ë„ ìžˆëŠ”ë° ì´ë“¤ì˜ ê°€ìž¥ í° ì°¨ì´ì ì€ ë¬¸ì œë°œìƒì‹œ ì±…ìž„ì„ ì–´ë””ê¹Œì§€
+    ì§€ëŠ”ê°€ìž…ë‹ˆë‹¤. Corp.ì˜ ê²½ìš°ì—ëŠ” ê°œì¸ì‚¬ì—…ìžì™€ ë™ì¼í•œ ì±…ìž„ì„ ì§€ëŠ” ë¬´í•œì±…ìž„íšŒì‚¬ë¥¼ ë§í•©ë‹ˆë‹¤.
+    ë³´í†µí•©ìžíšŒì‚¬ì˜ ê²½ìš° ë¬´í•œì±…ìž„ì„ ì§‘ë‹ˆë‹¤. ì¦‰, ìžì‹ ë“¤ì´ íˆ¬ìží•œ íšŒì‚¬ëˆì´ ì±„ê¶Œìžë“¤ì—ê²Œ ì¤„ëˆë³´ë‹¤
+    ë¶€ì¡±í•˜ë©´ ì‚¬ìž¬ë¥¼ í„¸ì–´ì„œë¼ë„ ê°šì•„ì•¼ í•©ë‹ˆë‹¤. ê·¸ëŸ¬ë‚˜ Co.,LtdëŠ” ìœ í•œì±…ìž„íšŒì‚¬ì´ê¸° ë•Œë¬¸ì— íšŒì‚¬ê°€
+    íŒŒì‚°í•œë‹¤ê³ í•´ë„ ì‚¬ì£¼ì—ê²Œ ì±…ìž„ì„ ë¬¼ì„ ìˆ˜ ì—†ëŠ” ê³³ì„ íšŒì‚¬ì˜ ì‚¬ì£¼ê°€ ì¶œìží•œ ë²”ìœ„ë‚´ì—ì„œë§Œ íšŒì‚¬ì˜
+    ìžë³¸ìœ„ì—„ì— ëŒ€í•œ ì±…ìž„ì„ ì§‘ë‹ˆë‹¤.
+
 ----------------------------------------------------------------------------------------------------
-
-Corp.  (corporation) : ¹ýÀÎ Á¾ÇÕ»ó»ç·Î ´ÜÃ¼, »ç´Ü¹ýÀÎÀ» ÄªÇÒ ¶§ »ç¿ëÇÕ´Ï´Ù.
-    ¹Ì±¹¿¡¼­´Â ¹ýÀÎÀ» ¶æÇÏ°í ¿µ±¹¿¡¼­´Â ÁÖ½ÄÈ¸»ç·Î ÅëÇÕ´Ï´Ù.
-    º¸Åë ÀÌ°ÍÀº ±Ô¸ð°¡ Á» Å« °÷¿¡¼­ »ç¿ëÇÏ´Â °Í °°½À´Ï´Ù.
-
-Co., Ltd. (Company Limited): . : ÁÖ½ÄÈ¸»çÀÌ¸é¼­ À¯ÇÑÃ¥ÀÓÈ¸»çÀÎ °æ¿ì¿¡ »ç¿ëÇÏ´Â Ç¥±â ÀÔ´Ï´Ù.
-    Company´Â ¸»±×´ë·Î È¸»çÀÇ ¾àÀÚÀÓÀ» ³ªÅ¸³»°í limited´Â À¯ÇÑÃ¥ÀÓÀ» ³ªÅ¸³»´Â ¸»ÀÔ´Ï´Ù.
-    ÀÌ ´Ü¾î´Â Ç¥±â¿¡ ÁÖÀÇÇØ¾ßÇÏ´Âµ¥ .(¸¶Ä§Ç¥)´Â compantÀÇ ¾àÀÚÀÌ¹Ç·Î Ç¥½ÃÇÏ´Â°ÍÀÌ°í ,(ÄÞ¸¶) ´Â
-    company ¿Í limited¸¦ ±¸ºÐÇ¥½ÃÇÒ ¶§ »ç¿ëÇÏ´Â °ÍÀÌ±â ¶§¹®¿¡ ²À »ç¿ëÇØ¾ß ÇÕ´Ï´Ù.
-
-Inc.  (Incorporated) : ¹Ì±¹¿¡¼­ ¸»ÇÏ´Â ÁÖ½ÄÈ¸»ç´Â ÀÌ Ç¥±â¸¦ ¸¹ÀÌ »ç¿ëÇÕ´Ï´Ù.
-
-    ÀÌ¿Ü¿¡ °³ÀÎÈ¸»çÀÇ °æ¿ì¿¡´Â CompanyÀÇ ÁÙÀÓ¸»ÀÎ Co.¸¦ »ç¿ëÇÏ½Ã´Â °ÍÀÌ ÁÁ½À´Ï´Ù.
-
-PLC  (Public Limited Company) - »óÀå¹ýÀÎÀ¸·Î ÀÌ°Íµµ °³ÀÎÈ¸»çÀÇ °æ¿ì ¸¹ÀÌ »ç¿ëµÇ´Âµ¥ ¿µ±¹¿¡¼­ ¸¹ÀÌ »ç¿ëµË´Ï´Ù.
-    ¶Ç ¿ì¸®³ª¶ó È¸»ç¹ýÁ¦¿¡¼­ ÀÎÁ¤µÇÁö ¾Æ´ÏÇÏ´Â È¸»çÇüÅÂ·Î LLC¶ó´Â ÇüÅÂ°¡ ÀÖ½À´Ï´Ù. ÀÌ´Â
-    À¯ÇÑÃ¥ÀÓÀÌ¶ó´Â Á¡¿¡¼­ ÁÖ½ÄÈ¸»ç¿Í À¯»çÇÏ³ª ¹ýÀÎ¼¼ ¸éÁ¦Á¶Ä¡ µî Ãø¸é¿¡¼­ Á¶ÇÕÀû °Ï°ÝÀÌ
-    °­Á¶µÇ´Â È¸»ç·Î À¯ÇÑÈ¸»ç¿Í Á¶ÇÕÀÇ Áß°£Á¤µµÀÇ ¼º°ÝÀÌ¶ó°í »ý°¢ÇÏ½Ã¸é µÇ´Â °÷ÀÔ´Ï´Ù.
-
-    ÀÌ´Â ¸íÈ®È÷ ±¸ºÐÇÏ±â Èûµé ¼öµµ ÀÖ´Âµ¥ ÀÌµéÀÇ °¡Àå Å« Â÷ÀÌÁ¡Àº ¹®Á¦¹ß»ý½Ã Ã¥ÀÓÀ» ¾îµð±îÁö
-    Áö´Â°¡ÀÔ´Ï´Ù. Corp.ÀÇ °æ¿ì¿¡´Â °³ÀÎ»ç¾÷ÀÚ¿Í µ¿ÀÏÇÑ Ã¥ÀÓÀ» Áö´Â ¹«ÇÑÃ¥ÀÓÈ¸»ç¸¦ ¸»ÇÕ´Ï´Ù.
-    º¸ÅëÇÕÀÚÈ¸»çÀÇ °æ¿ì ¹«ÇÑÃ¥ÀÓÀ» Áý´Ï´Ù. Áï, ÀÚ½ÅµéÀÌ ÅõÀÚÇÑ È¸»çµ·ÀÌ Ã¤±ÇÀÚµé¿¡°Ô ÁÙµ·º¸´Ù
-    ºÎÁ·ÇÏ¸é »çÀç¸¦ ÅÐ¾î¼­¶óµµ °±¾Æ¾ß ÇÕ´Ï´Ù. ±×·¯³ª Co.,Ltd´Â À¯ÇÑÃ¥ÀÓÈ¸»çÀÌ±â ¶§¹®¿¡ È¸»ç°¡
-    ÆÄ»êÇÑ´Ù°íÇØµµ »çÁÖ¿¡°Ô Ã¥ÀÓÀ» ¹°À» ¼ö ¾ø´Â °÷À» È¸»çÀÇ »çÁÖ°¡ ÃâÀÚÇÑ ¹üÀ§³»¿¡¼­¸¸ È¸»çÀÇ
-    ÀÚº»À§¾ö¿¡ ´ëÇÑ Ã¥ÀÓÀ» Áý´Ï´Ù.
-
-----------------------------------------------------------------------------------------------------
-[ data grid : ÇÑ±Û¹®Á¦ (32BIT) ]
+[ data grid : í•œê¸€ë¬¸ì œ (32BIT) ]
 
 AMERICAN_AMERICA.US7ASCII
 
 
 ----------------------------------------------------------------------------------------------------
-[ DATA GRID : ÇÑ±Û¹®Á¦ (64BIT) ]
+[ DATA GRID : í•œê¸€ë¬¸ì œ (64BIT) ]
 
 http://metalzang.blog.me/130127660830
 
-1. Toad¿¡¼­ µ¥ÀÌÅÍ º£ÀÌ½ºÀÇ Ä³¸¯ÅÍ ¼ÂÀ» È®ÀÎ
+1. Toadì—ì„œ ë°ì´í„° ë² ì´ìŠ¤ì˜ ìºë¦­í„° ì…‹ì„ í™•ì¸
 
     select * from nls_database_parameters where parameter = 'NLS_CHARACTERSET';
 
-2. °á°ú¸¦ È®ÀÎÇÏ´Ï 'KO16MSWIN949'ÀÓ.
+2. ê²°ê³¼ë¥¼ í™•ì¸í•˜ë‹ˆ 'KO16MSWIN949'ìž„.
 
 
 
@@ -1420,7 +1473,7 @@ public class J2sshSftpCient
                 <res-auth>Container</res-auth>
             </resource-ref>
 
-            // ¾Æ·¡ ·ÎÁ÷ À§¿¡ Ãß°¡ÇØ¾ßµÊ
+            // ì•„ëž˜ ë¡œì§ ìœ„ì— ì¶”ê°€í•´ì•¼ë¨
             <description>
                 Welcome to Tomcat
             </description>
@@ -1433,14 +1486,14 @@ public class J2sshSftpCient
         DataSource dataSource = (DataSource) context.lookup("java:comp/env/jdbc/vip125_ora");
         Connection conn = dataSource.getConnection();
 
-        * driverClassNameÀÇ °æ¿ì importµÈ jar ÆÄÀÏ¿¡ ¸Â°Ô ¼³Á¤ÇØÁØ´Ù.
+        * driverClassNameì˜ ê²½ìš° importëœ jar íŒŒì¼ì— ë§žê²Œ ì„¤ì •í•´ì¤€ë‹¤.
 
 
 
 ----------------------------------------------------------------------------------------------------
 
-    À§¿Í °°Àº web.xml, server.xml(È¤Àº context.xml)ÀÇ <resource> ºÎºÐÀ» ¹Ù²ãÁÖ¸é
-    commonDBCP °¡ ¾Æ´Ñ tomcatDBCP¸¦ »ç¿ëÇÏ°Ô µÈ´Ù.
+    ìœ„ì™€ ê°™ì€ web.xml, server.xml(í˜¹ì€ context.xml)ì˜ <resource> ë¶€ë¶„ì„ ë°”ê¿”ì£¼ë©´
+    commonDBCP ê°€ ì•„ë‹Œ tomcatDBCPë¥¼ ì‚¬ìš©í•˜ê²Œ ëœë‹¤.
 
         <Resource name="jndi_dbcp"
             auth="Container"
@@ -1470,20 +1523,20 @@ public class J2sshSftpCient
 ----------------------------------------------------------------------------------------------------
 [ Tomcat DBCP(DataBase Connection Pool) }
 
-    ÅèÄ¹¿¡¼­ Á¦°øµÇ´Â DBCPÀÔ´Ï´Ù. ±âÁ¸ÀÇ apache commons¿¡¼­ Á¦°øµÇ´Â DBCPº¸´Ù Çâ»óµÈ DBCPÀÔ´Ï´Ù.
-    ±âÁ¸ »ç¿ëÇÏ´Â apache commonsÀÇ DBCP¿Í »ç¿ë¹ýÀº À¯»çÇÕ´Ï´Ù.
+    í†°ìº£ì—ì„œ ì œê³µë˜ëŠ” DBCPìž…ë‹ˆë‹¤. ê¸°ì¡´ì˜ apache commonsì—ì„œ ì œê³µë˜ëŠ” DBCPë³´ë‹¤ í–¥ìƒëœ DBCPìž…ë‹ˆë‹¤.
+    ê¸°ì¡´ ì‚¬ìš©í•˜ëŠ” apache commonsì˜ DBCPì™€ ì‚¬ìš©ë²•ì€ ìœ ì‚¬í•©ë‹ˆë‹¤.
 
-    ±âÁ¸¿¡´Â ¾Æ·¡ÀÇ ¶óÀÌºê·¯¸® ÆÄÀÏµîÀ» ÅèÄ¹ÀÇ libÆú´õ¿¡ Â÷°¡ÇÏ¿© ¼³Á¤ÇØ¾ß ÇßÁö¸¸
+    ê¸°ì¡´ì—ëŠ” ì•„ëž˜ì˜ ë¼ì´ë¸ŒëŸ¬ë¦¬ íŒŒì¼ë“±ì„ í†°ìº£ì˜ libí´ë”ì— ì°¨ê°€í•˜ì—¬ ì„¤ì •í•´ì•¼ í–ˆì§€ë§Œ
 
         commons-dbcp-1.2.1.jar
         commons-pool-1.2.jar
         commons-collections-3.1.jar
         ...
 
-    ÅèÄ¹ 6.0 ÀÌÈÄ ¹öÀüºÎÅÍ´Â libÆú´õ¿¡ tomcat-dbcp.jar¶ó´Â ÀÌ¸§À¸·Î ÅëÇÕµÇ¾î Á»´õ °£ÆíÇÏ°í °­·ÂÇÏ°Ô
-    DBCP¸¦ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.
+    í†°ìº£ 6.0 ì´í›„ ë²„ì „ë¶€í„°ëŠ” libí´ë”ì— tomcat-dbcp.jarë¼ëŠ” ì´ë¦„ìœ¼ë¡œ í†µí•©ë˜ì–´ ì¢€ë” ê°„íŽ¸í•˜ê³  ê°•ë ¥í•˜ê²Œ
+    DBCPë¥¼ ì‚¬ìš©í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
 
-    1. ÅèÄ¹ÀÇ server.xml ÆÄÀÏ¿¡ <Context> ºÎºÐ ¾Æ·¡¿¡ ´ÙÀ½ÀÇ ¼Ò½º¸¦ Ãß°¡ÇØÁÝ´Ï´Ù.
+    1. í†°ìº£ì˜ server.xml íŒŒì¼ì— <Context> ë¶€ë¶„ ì•„ëž˜ì— ë‹¤ìŒì˜ ì†ŒìŠ¤ë¥¼ ì¶”ê°€í•´ì¤ë‹ˆë‹¤.
 
         <Context docBase="....>
             <Resource name="jdbc/nyakao"
@@ -1499,18 +1552,18 @@ public class J2sshSftpCient
                 maxWait="10"/>
         </Context>
 
-    2. web.xml ÆÄÀÏ¿¡¼­ server.xml¿¡¼­ Á¤ÀÇÇÑ ¸®¼Ò½º¸¦ »ç¿ëÇÏ±â À§ÇØ ¼³Á¤ÇÕ´Ï´Ù.
+    2. web.xml íŒŒì¼ì—ì„œ server.xmlì—ì„œ ì •ì˜í•œ ë¦¬ì†ŒìŠ¤ë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•´ ì„¤ì •í•©ë‹ˆë‹¤.
 
         <resource-ref>
-            <description>¿À¶óÅ¬ DBCP ¿¹Á¦</description>
+            <description>ì˜¤ë¼í´ DBCP ì˜ˆì œ</description>
             <res-ref-name>jdbc/nyakao</res-ref-name>
             <res-type>javax.sql.DataSource</res-type>
             <res-auth>Container</res-auth>
         </resource-ref>
 
-    3. tomcatÀ» Àç½ÃÀÛÇÑ´Ù.
+    3. tomcatì„ ìž¬ì‹œìž‘í•œë‹¤.
 
-    4. ¼­ºê¸´¿¡¼­ ¾Æ·¡¿Í °°ÀÌ DataSource¸¦ »ç¿ëÇÑ´Ù.
+    4. ì„œë¸Œë¦¿ì—ì„œ ì•„ëž˜ì™€ ê°™ì´ DataSourceë¥¼ ì‚¬ìš©í•œë‹¤.
 
         DataSource ds;
 
@@ -1532,10 +1585,10 @@ public class J2sshSftpCient
 Tomcat 6.0
 jdk 6.0
 Mysql 5.0
-ÅøÀº ÀÌÅ¬¸³½º »ç¿ëÁßÀÔ´Ï´Ù.
-ÇÁ·ÎÁ§Æ® »ý¼ºÀº Dynamic Web project·Î Çß½À´Ï´Ù.
+íˆ´ì€ ì´í´ë¦½ìŠ¤ ì‚¬ìš©ì¤‘ìž…ë‹ˆë‹¤.
+í”„ë¡œì íŠ¸ ìƒì„±ì€ Dynamic Web projectë¡œ í–ˆìŠµë‹ˆë‹¤.
 
-Á¦°¡ Áö±Ý ¹Ø¿¡¿Í °°Àº ¿¡·¯°¡ ¶å´Ï´Ù.
+ì œê°€ ì§€ê¸ˆ ë°‘ì—ì™€ ê°™ì€ ì—ëŸ¬ê°€ ëœ¹ë‹ˆë‹¤.
 javax.naming.NoInitialContextException: Need to specify class name in environment or system property, or as an applet parameter, or in an application resource file:  java.naming.factory.initial
  at javax.naming.spi.NamingManager.getInitialContext(Unknown Source)
  at javax.naming.InitialContext.getDefaultInitCtx(Unknown Source)
@@ -1544,8 +1597,8 @@ javax.naming.NoInitialContextException: Need to specify class name in environmen
  at util.DBResource.getConnection(DBResource.java:17)
  at util.Test.main(Test.java:21)
 
-ÇÁ·ÎÁ§Æ®´Â C:\Program Files\Apache Software Foundation\Tomcat 6.0\webapps\ROOT
-¿¡ À§Ä¡¿¡ ÀÖ±¸¿ä.
+í”„ë¡œì íŠ¸ëŠ” C:\Program Files\Apache Software Foundation\Tomcat 6.0\webapps\ROOT
+ì— ìœ„ì¹˜ì— ìžˆêµ¬ìš”.
 server.xml
 <Host name="localhost"  appBase="webapps"
             unpackWARs="true" autoDeploy="true"
@@ -1623,12 +1676,12 @@ public class Test {
  }
 }
 
-¼Ò½º´Â À§¿Í °°½À´Ï´Ù.
-jsp  ÆäÀÌÁö¿¡¼­´Â ÀÌ»ó¾øÀÌ Àß ³ª¿À´Âµ¥ java¿¡¼­ connectionÀ» ºÒ·¯¿À¸é À§¿Í °°Àº ¿¡·¯°¡ ¹ß»ýÇÏ³×¿ä.
-´Ù °Ë»öÀ» ÇØº¸°í ¸î½Ã°£Â° ÇØº¸°í ÀÖ´Âµ¥ ´äÀÌ ¾È³ª¿Í¼­ Áú¹®À» µå¸³´Ï´Ù..
-´äº¯À»  »ó¼¼È÷ ÇØÁÖ½Ã¸é °¨»çÇÏ°Ú½À´Ï´Ù..
-±×¸®°í ROOT ¹ØÀÌ ¾Æ´Ñ ´Ù¸¥ µð·ºÅä¸®¿¡ ÇÁ·ÎÁ§Æ®¸¦ »ý¼ºÇÏ¸é ¾î¶»°Ô ¼³Á¤À» ÇØÁà¾ß ÇÏ´ÂÁöµµ ¾Ë·ÁÁÖ½Ã¸é
-°¨»çÇÏ°Ú½À´Ï´Ù.
+ì†ŒìŠ¤ëŠ” ìœ„ì™€ ê°™ìŠµë‹ˆë‹¤.
+jsp  íŽ˜ì´ì§€ì—ì„œëŠ” ì´ìƒì—†ì´ ìž˜ ë‚˜ì˜¤ëŠ”ë° javaì—ì„œ connectionì„ ë¶ˆëŸ¬ì˜¤ë©´ ìœ„ì™€ ê°™ì€ ì—ëŸ¬ê°€ ë°œìƒí•˜ë„¤ìš”.
+ë‹¤ ê²€ìƒ‰ì„ í•´ë³´ê³  ëª‡ì‹œê°„ì§¸ í•´ë³´ê³  ìžˆëŠ”ë° ë‹µì´ ì•ˆë‚˜ì™€ì„œ ì§ˆë¬¸ì„ ë“œë¦½ë‹ˆë‹¤..
+ë‹µë³€ì„  ìƒì„¸ížˆ í•´ì£¼ì‹œë©´ ê°ì‚¬í•˜ê² ìŠµë‹ˆë‹¤..
+ê·¸ë¦¬ê³  ROOT ë°‘ì´ ì•„ë‹Œ ë‹¤ë¥¸ ë””ë ‰í† ë¦¬ì— í”„ë¡œì íŠ¸ë¥¼ ìƒì„±í•˜ë©´ ì–´ë–»ê²Œ ì„¤ì •ì„ í•´ì¤˜ì•¼ í•˜ëŠ”ì§€ë„ ì•Œë ¤ì£¼ì‹œë©´
+ê°ì‚¬í•˜ê² ìŠµë‹ˆë‹¤.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -1637,12 +1690,12 @@ jsp  ÆäÀÌÁö¿¡¼­´Â ÀÌ»ó¾øÀÌ Àß ³ª¿À´Âµ¥ java¿¡¼­ connectionÀ» ºÒ·¯¿À¸é À§¿Í °°Àº 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-oracle stored procedure¸¦ ÀÚ¹Ù¼Ò½º¿¡¼­ »ç¿ëÇÏ±â
+oracle stored procedureë¥¼ ìžë°”ì†ŒìŠ¤ì—ì„œ ì‚¬ìš©í•˜ê¸°
 
-Oracle ¿¡¼­ ÀÔ·ÂµÈ stored procedure ¸¦ java¿¡¼­ ½ÇÇàÇØ¼­ °á°ú¸¦ ¾ò°í ½ÍÀ¸½Ã´Ù¸é, Statement ´ë½Å¿¡ CallableStatement class¸¦ »ç¿ëÇÏ¿© È£ÃâÇÏ¸é µÈ´Ù.
-±× µÚ¿¡´Â ¾îÂ÷ÇÇ insert, update °°Àº °Íµé°ú °°ÀÌ ¼º°ø ¶Ç´Â ½ÇÆÐ, ¼º°ø½Ã ¸î°³°¡ ¼º°øÇß´ÂÁö, query ÀÎ °æ¿ì¿¡´Â ResultSet ¹Þ¾Æ¼­ fetch ÇÏ¸é¼­ °ª »Ì¾Æ¼­ ¾²½Ã¸é µÈ´Ù.
+Oracle ì—ì„œ ìž…ë ¥ëœ stored procedure ë¥¼ javaì—ì„œ ì‹¤í–‰í•´ì„œ ê²°ê³¼ë¥¼ ì–»ê³  ì‹¶ìœ¼ì‹œë‹¤ë©´, Statement ëŒ€ì‹ ì— CallableStatement classë¥¼ ì‚¬ìš©í•˜ì—¬ í˜¸ì¶œí•˜ë©´ ëœë‹¤.
+ê·¸ ë’¤ì—ëŠ” ì–´ì°¨í”¼ insert, update ê°™ì€ ê²ƒë“¤ê³¼ ê°™ì´ ì„±ê³µ ë˜ëŠ” ì‹¤íŒ¨, ì„±ê³µì‹œ ëª‡ê°œê°€ ì„±ê³µí–ˆëŠ”ì§€, query ì¸ ê²½ìš°ì—ëŠ” ResultSet ë°›ì•„ì„œ fetch í•˜ë©´ì„œ ê°’ ë½‘ì•„ì„œ ì“°ì‹œë©´ ëœë‹¤.
 
-         // À§¿¡¼­ JDBC  µå¶óÀÌ¹ö Àâ°í Connection ±îÁö ¸ÎÀº »óÅÂ¡¦
+         // ìœ„ì—ì„œ JDBC  ë“œë¼ì´ë²„ ìž¡ê³  Connection ê¹Œì§€ ë§ºì€ ìƒíƒœâ€¦
       CallableStatement cs = con.prepareCall("{call myStoredProcedure(?,?,?)}");
       cs.setInt(1,2);
       cs.registerOutParameter(2, java.sql.Types.VARCHAR);
@@ -1659,9 +1712,9 @@ Oracle ¿¡¼­ ÀÔ·ÂµÈ stored procedure ¸¦ java¿¡¼­ ½ÇÇàÇØ¼­ °á°ú¸¦ ¾ò°í ½ÍÀ¸½Ã´Ù¸é,
 
 
 
-´ÙÀ½Àº JAVA program¿¡¼­ parameter°¡ ÀÖ´Â pl/sql stored procedure¸¦ È£ÃâÇÏ´Â ¿¹Á¦ÀÌ´Ù. (IN, OUT, IN OUT)
+ë‹¤ìŒì€ JAVA programì—ì„œ parameterê°€ ìžˆëŠ” pl/sql stored procedureë¥¼ í˜¸ì¶œí•˜ëŠ” ì˜ˆì œì´ë‹¤. (IN, OUT, IN OUT)
 
-1. procedure »ý¼º
+1. procedure ìƒì„±
 create or replace procedure javatest(
   p1 in varchar2,
   p2 in out varchar2,
@@ -1681,31 +1734,31 @@ import java.util.*;
 public class callInoutProc extends Object {
    public static void main(String[] args) throws SQLException {
       DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-      // DB Á¢¼Ó
+      // DB ì ‘ì†
       Connection conn = DriverManager.getConnection ("jdbc:oracle:oci8:@S692815.WORLD", "scott", "tiger");
-      // º¯¼ö ¼±¾ð
+      // ë³€ìˆ˜ ì„ ì–¸
       String p1value = new String("a");
       String p2value = new String("b");
       String p3value;
       // Prepare statement
       CallableStatement cs = conn.prepareCall("{call javatest(?,?,?)}");
-      // IN parameter °ªÀ» ³Ñ±â±â À§ÇØ setString ÇÔ¼ö¸¦ »ç¿ë
+      // IN parameter ê°’ì„ ë„˜ê¸°ê¸° ìœ„í•´ setString í•¨ìˆ˜ë¥¼ ì‚¬ìš©
       cs.setString(1,p1value);
       cs.setString(2,p2value);
-      // OUT parameter¿¡ ´ëÇÑ Á¤º¸¸¦ registerOutParameter ÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¿© ¼³Á¤
+      // OUT parameterì— ëŒ€í•œ ì •ë³´ë¥¼ registerOutParameter í•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬ ì„¤ì •
       cs.registerOutParameter(2,Types.VARCHAR);
       cs.registerOutParameter(3,Types.VARCHAR);
-      // Statement ¼öÇà
+      // Statement ìˆ˜í–‰
       cs.execute();
-      // ¼öÇà°á°ú data¸¦ °¡Á®¿È.
+      // ìˆ˜í–‰ê²°ê³¼ dataë¥¼ ê°€ì ¸ì˜´.
       p2value = cs.getString(2);
       p3value = cs.getString(3);
-      // ¼öÇà°á°ú Ãâ·Â
+      // ìˆ˜í–‰ê²°ê³¼ ì¶œë ¥
       System.out.println("p2 + p2value);
       System.out.println("p3 + p3value);
    }
 }
-3. ¼öÇà °á°ú
+3. ìˆ˜í–‰ ê²°ê³¼
 Sample Output
 p2 is ab
 p3 is a
@@ -1732,23 +1785,23 @@ http://cafe.naver.com/buldon/4330
 <script type='text/javascript'>
 //<![CDATA[
 
-/* Ã¹¹øÂ° select option °ª */
+/* ì²«ë²ˆì§¸ select option ê°’ */
 var sel_01_al   = new Array();
-sel_01_al.push({value:20000,text:'¿øÇÇ½º'});
-sel_01_al.push({value:24000,text:'¾Æ¿ìÅÍ'});
-sel_01_al.push({value:30000,text:'µå·¹½º'});
+sel_01_al.push({value:20000,text:'ì›í”¼ìŠ¤'});
+sel_01_al.push({value:24000,text:'ì•„ìš°í„°'});
+sel_01_al.push({value:30000,text:'ë“œë ˆìŠ¤'});
 
-/* µÎ¹øÂ° select option °ª */
+/* ë‘ë²ˆì§¸ select option ê°’ */
 var sel_02_al   = new Array();
-sel_02_al.push({value:1,text:'1°³'});
-sel_02_al.push({value:2,text:'2°³'});
-sel_02_al.push({value:3,text:'3°³'});
-sel_02_al.push({value:4,text:'4°³'});
-sel_02_al.push({value:5,text:'5°³'});
+sel_02_al.push({value:1,text:'1ê°œ'});
+sel_02_al.push({value:2,text:'2ê°œ'});
+sel_02_al.push({value:3,text:'3ê°œ'});
+sel_02_al.push({value:4,text:'4ê°œ'});
+sel_02_al.push({value:5,text:'5ê°œ'});
 
 $(document).ready(function(){
     var sel1 = new Array();
-    sel1.push('<option value="">¼±ÅÃ</option>');
+    sel1.push('<option value="">ì„ íƒ</option>');
     for(var i=0; i<sel_01_al.length; i++) {
         sel1.push('<option value="'+sel_01_al[i].value+'">'+sel_01_al[i].text+'</option>');
     }
@@ -1759,7 +1812,7 @@ $(document).ready(function(){
     });
 
     var sel2 = new Array();
-    sel2.push('<option value="">¼±ÅÃ</option>');
+    sel2.push('<option value="">ì„ íƒ</option>');
     for(var i=0; i<sel_02_al.length; i++) {
         sel2.push('<option value="'+sel_02_al[i].value+'">'+sel_02_al[i].text+'</option>');
     }
@@ -3037,12 +3090,12 @@ public class TestHTMLLinkExtractor {
 
         Map<String,String> mapWord = new HashMap<String,String>();
         String ptn = "%([a-zA-Z0-9]{3,})%";
-        String str = "Á¤±ÔÇ¥Çö%HELLO%½ÄÀº °Ë»öÇØ º¸%TIME%½Ã¸é ¾Æ½Ã%ID%°ÚÁö¸¸ ¹®ÀÚ%ID01%¿­¿¡¼­ Æ¯Á¤ ÆÐÅÏÀ» ÀÌ¿ëÇØ...";
+        String str = "ì •ê·œí‘œí˜„%HELLO%ì‹ì€ ê²€ìƒ‰í•´ ë³´%TIME%ì‹œë©´ ì•„ì‹œ%ID%ê² ì§€ë§Œ ë¬¸ìž%ID01%ì—´ì—ì„œ íŠ¹ì • íŒ¨í„´ì„ ì´ìš©í•´...";
         StringBuffer sb = new StringBuffer();
 
         if (flag) {
-            mapWord.put("%HELLO%  ".trim(), "¾È³çÇÏ¼¼¿ä.");
-            mapWord.put("%TIME%   ".trim(), "½Ã°£Àº");
+            mapWord.put("%HELLO%  ".trim(), "ì•ˆë…•í•˜ì„¸ìš”.");
+            mapWord.put("%TIME%   ".trim(), "ì‹œê°„ì€");
             mapWord.put("%ID01%   ".trim(), "C123456ABC34D45E");
         }
 
@@ -3078,9 +3131,9 @@ public class TestHTMLLinkExtractor {
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-[ oracle CLOB ÀÚ·á ]
+[ oracle CLOB ìžë£Œ ]
 
-JDBC¿¡¼­ Connection Ã³¸® ÈÄ  CLOB ¾µ ¶§
+JDBCì—ì„œ Connection ì²˜ë¦¬ í›„  CLOB ì“¸ ë•Œ
 
     String sql = "insert into TABLE values (?,?,?)";
     PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -3090,7 +3143,7 @@ JDBC¿¡¼­ Connection Ã³¸® ÈÄ  CLOB ¾µ ¶§
     pstmt.setString(3, "Hello");
     pstmt.execute();
 
-ÀÐÀ» ¶§
+ì½ì„ ë•Œ
 
     public static String readClobData(Reader reader) throws IOException {
         StringBuffer sb = new StringBuffer();
@@ -3115,11 +3168,11 @@ JDBC¿¡¼­ Connection Ã³¸® ÈÄ  CLOB ¾µ ¶§
 ----------------------------------------------------------------------------------------------------
 [ iBatis + CLOB ]
 
-ÀÏ´Ü clobÀ» Áý¾î³Ö°í »¬¶§ ibatis¿¡ ¾Ë·ÁÁà¾ßÇß¾ú´ø°Å´Ù ¤Ñ¤Ñ;
-¼¿·ºÆ®¹®... ¸ÕÀú resultMapÀ» ¼¿·ºÆ® ÇÏ±âÀü¿¡ ¼±¾ðÇØÁà¾ßÇÑ´Ù;; ¿Ö³Ä¸é XMLÀº ¼øÂ÷ÀûÀ¸·Î ÇØ¼®ÇÏ±â¶§¹®¿¡... ¸ÕÀú ÇØÁà¾ß ³ªÁß¿¡ÀÖ´Â³ðÀÌ ¾µ¼öÀÖ´Â°Å´Ù.
-±×¸®°í CONTENT¸¦ º¸¸é ¾Ë°ÚÁö¸¸ jdbcType¿Í javaType¸¦ Á¤ÀÇÇØÁÖ¾ú´Ù..
+ì¼ë‹¨ clobì„ ì§‘ì–´ë„£ê³  ëº„ë•Œ ibatisì— ì•Œë ¤ì¤˜ì•¼í–ˆì—ˆë˜ê±°ë‹¤ ã…¡ã…¡;
+ì…€ë ‰íŠ¸ë¬¸... ë¨¼ì € resultMapì„ ì…€ë ‰íŠ¸ í•˜ê¸°ì „ì— ì„ ì–¸í•´ì¤˜ì•¼í•œë‹¤;; ì™œëƒë©´ XMLì€ ìˆœì°¨ì ìœ¼ë¡œ í•´ì„í•˜ê¸°ë•Œë¬¸ì—... ë¨¼ì € í•´ì¤˜ì•¼ ë‚˜ì¤‘ì—ìžˆëŠ”ë†ˆì´ ì“¸ìˆ˜ìžˆëŠ”ê±°ë‹¤.
+ê·¸ë¦¬ê³  CONTENTë¥¼ ë³´ë©´ ì•Œê² ì§€ë§Œ jdbcTypeì™€ javaTypeë¥¼ ì •ì˜í•´ì£¼ì—ˆë‹¤..
 
-XMLÀÇ ³»¿ëÀÌ´Ù..
+XMLì˜ ë‚´ìš©ì´ë‹¤..
 
 <resultMap id="viewIncClob" class="hmap">
   <result property="BBS_ORDER" column="BBS_ORDER"/>
@@ -3129,7 +3182,7 @@ XMLÀÇ ³»¿ëÀÌ´Ù..
   <result property="CONTENT" column="CONTENT" jdbcType="CLOB" javaType="java.lang.String"/>
  </resultMap>
 
-¼¿·ºÆ®¹®¿¡¼­´Â ¸¸µé¾î³õÀº resultMapÀ» »ç¿ëÇØÁØ´Ù.
+ì…€ë ‰íŠ¸ë¬¸ì—ì„œëŠ” ë§Œë“¤ì–´ë†“ì€ resultMapì„ ì‚¬ìš©í•´ì¤€ë‹¤.
  <select id="viewNotice" parameterClass="hmap" resultMap="viewIncClob">
   <![CDATA[
    SELECT BBS_ORDER, TITLE, TO_CHAR(FIRSTREGDATE,'YYYY-MM-DD') AS FIRSTREGDATE, WRITER,
@@ -3139,9 +3192,9 @@ XMLÀÇ ³»¿ëÀÌ´Ù..
   ]]>
  </select>
 
-ÀÎ¼­Æ®¹®ÀÌ´Ù.¾÷µ¥ÀÌÆ®¹®µµ µ¿ÀÏÇÏ°ÚÁö?
-ÆÄ¶ó¹ÌÅÍ ¸ÊÀ» ¸¸µé¾îÁØ´Ù.  Áö±Ý ÇÏ´Â ÇÁ·ÎÁ§Æ®´Â ÇØ½¬¸ÊÀ¸·Î ³Ñ°ÜÁÖ´Ï±î Å¬·¡½º´Â ÁöÁ¤ÇØ³õÀº ÇØ½¬¸ÊÀ¸·Î ¹Þ°í...
-CLOB ÆÄ¶ó¹ÌÅÍ´Â jdbcType¸¦ CLOB À¸·Î ÁöÁ¤ÇØÁØ´Ù..
+ì¸ì„œíŠ¸ë¬¸ì´ë‹¤.ì—…ë°ì´íŠ¸ë¬¸ë„ ë™ì¼í•˜ê² ì§€?
+íŒŒë¼ë¯¸í„° ë§µì„ ë§Œë“¤ì–´ì¤€ë‹¤.  ì§€ê¸ˆ í•˜ëŠ” í”„ë¡œì íŠ¸ëŠ” í•´ì‰¬ë§µìœ¼ë¡œ ë„˜ê²¨ì£¼ë‹ˆê¹Œ í´ëž˜ìŠ¤ëŠ” ì§€ì •í•´ë†“ì€ í•´ì‰¬ë§µìœ¼ë¡œ ë°›ê³ ...
+CLOB íŒŒë¼ë¯¸í„°ëŠ” jdbcTypeë¥¼ CLOB ìœ¼ë¡œ ì§€ì •í•´ì¤€ë‹¤..
 
  <parameterMap id="insertIncClob" class="hmap">
   <parameter property="title"/>
@@ -3150,8 +3203,8 @@ CLOB ÆÄ¶ó¹ÌÅÍ´Â jdbcType¸¦ CLOB À¸·Î ÁöÁ¤ÇØÁØ´Ù..
   <parameter property="bbskubun"/>
  </parameterMap>
 
-±×¸®°í ÀÎ¼­Æ®¹®¿¡¼­µµ ÇØÁà¾ß ÇÏ´Âµ¥ À§¿¡Ã³·³ ÆÄ¶ó¹ÌÅÍ ¸ÊÀ» ¸¸µé¾î¼­ ÇØµµ µÇ°í. CLOB ÇÊµå¸¸ CLOBÀ¸·Î ¼±¾ðÇØ¼­ ³ÖÀ»¼ö°¡ÀÖ´Ù..
-º°´Ù¸¥ ÀÌÀ¯°¡ ¾ø´Ù¸é ±×³É ¹Ù·Î CLOBÀ¸·Î Áý¾î³Ö´Â°Ô ÆíÇÏ°ÚÁö..
+ê·¸ë¦¬ê³  ì¸ì„œíŠ¸ë¬¸ì—ì„œë„ í•´ì¤˜ì•¼ í•˜ëŠ”ë° ìœ„ì—ì²˜ëŸ¼ íŒŒë¼ë¯¸í„° ë§µì„ ë§Œë“¤ì–´ì„œ í•´ë„ ë˜ê³ . CLOB í•„ë“œë§Œ CLOBìœ¼ë¡œ ì„ ì–¸í•´ì„œ ë„£ì„ìˆ˜ê°€ìžˆë‹¤..
+ë³„ë‹¤ë¥¸ ì´ìœ ê°€ ì—†ë‹¤ë©´ ê·¸ëƒ¥ ë°”ë¡œ CLOBìœ¼ë¡œ ì§‘ì–´ë„£ëŠ”ê²Œ íŽ¸í•˜ê² ì§€..
 
  <insert id="InsNotice" parameterClass="hmap">
   <![CDATA[
@@ -3169,7 +3222,7 @@ CLOB ÆÄ¶ó¹ÌÅÍ´Â jdbcType¸¦ CLOB À¸·Î ÁöÁ¤ÇØÁØ´Ù..
         (SELECT NVL(MAX(BBS_ORDER),0)+1 FROM DPSCMM005),
         #title#,
         #writer#,
-        #content:CLOB#,                              <------------- ³Ñ¾î¿Â ÆÄ¶ó¹ÌÅÍ°ª µÚ¿¡ :CLOB¸¦ ºÙ¿©ÁÖ¸é CLOBÀ¸·Î µé¾î°£´Ù~!
+        #content:CLOB#,                              <------------- ë„˜ì–´ì˜¨ íŒŒë¼ë¯¸í„°ê°’ ë’¤ì— :CLOBë¥¼ ë¶™ì—¬ì£¼ë©´ CLOBìœ¼ë¡œ ë“¤ì–´ê°„ë‹¤~!
         #bbskubun#,
         SYSDATE,
         TO_DATE(#wdate#, 'YYYY-MM-DD'),
@@ -3178,12 +3231,12 @@ CLOB ÆÄ¶ó¹ÌÅÍ´Â jdbcType¸¦ CLOB À¸·Î ÁöÁ¤ÇØÁØ´Ù..
   ]]>
  </insert>
 
-ibatis¸¦ ¾²Áö ¾Ê´Â´Ù¸é dbms_lob¸¦ ½á¼­ ºÒ·¯¿Í¾ßÇÑ´Ù. ¹°·Ð ibatis¸¦ ¾´´Ù¸é ±×³É CONTENT¸¸ ºÒ·¯¿À¸é µÈ´Ù ^^
-select dbms_lob.substr(content, dbms_lob.getlength(content), 1) as CONTENT from dpscmm005 where bbs_order = '56'---ºñ±³Àû °£´ÜÇÑµí...
+ibatisë¥¼ ì“°ì§€ ì•ŠëŠ”ë‹¤ë©´ dbms_lobë¥¼ ì¨ì„œ ë¶ˆëŸ¬ì™€ì•¼í•œë‹¤. ë¬¼ë¡  ibatisë¥¼ ì“´ë‹¤ë©´ ê·¸ëƒ¥ CONTENTë§Œ ë¶ˆëŸ¬ì˜¤ë©´ ëœë‹¤ ^^
+select dbms_lob.substr(content, dbms_lob.getlength(content), 1) as CONTENT from dpscmm005 where bbs_order = '56'---ë¹„êµì  ê°„ë‹¨í•œë“¯...
 
 ----------------------------------------------------------------------------------------------------
 
-ibatis¿¡¼­ OracleÀÇ CLOBÀ» ¾²±âÀ§ÇØ¼­´Â ¾Æ·¡¿Í °°Àº º°µµ resultMap »ý¼ºÀÌ ÇÊ¿äÀÇ Ã³¸®°¡ ÇÊ¿äÇÏ´Ù
+ibatisì—ì„œ Oracleì˜ CLOBì„ ì“°ê¸°ìœ„í•´ì„œëŠ” ì•„ëž˜ì™€ ê°™ì€ ë³„ë„ resultMap ìƒì„±ì´ í•„ìš”ì˜ ì²˜ë¦¬ê°€ í•„ìš”í•˜ë‹¤
 
 <resultMap id="brdView" class="java.util.HashMap">
         <result property="seq" column="seq"/>
@@ -3198,11 +3251,11 @@ select
 from testTable
 </select>
 
-* select ibatis ÀÇ resultMap ¿¡ À§¿¡¼­ ¼±¾ðÇÑ brdView ¸¦ ¼¼ÆÃÇÑ´Ù
-* CLOB column ºÎºÐ À» Àß ¼¼ÆÃÇÒ°Í
-* È¤½Ã °Ë»ö Äõ¸®¿¡ column ÀÌ Ãß°¡µÉ °æ¿ì brdView ¿¡µµ °°Àº ¸íÄªÀ¸·Î Ãß°¡
+* select ibatis ì˜ resultMap ì— ìœ„ì—ì„œ ì„ ì–¸í•œ brdView ë¥¼ ì„¸íŒ…í•œë‹¤
+* CLOB column ë¶€ë¶„ ì„ ìž˜ ì„¸íŒ…í• ê²ƒ
+* í˜¹ì‹œ ê²€ìƒ‰ ì¿¼ë¦¬ì— column ì´ ì¶”ê°€ë  ê²½ìš° brdView ì—ë„ ê°™ì€ ëª…ì¹­ìœ¼ë¡œ ì¶”ê°€
 
-EX) addcolumn ¶õ ÄÃ·³ÀÌ Ãß°¡µÈ°æ¿ì ¾Æ·¡¿Í °°´Ù
+EX) addcolumn ëž€ ì»¬ëŸ¼ì´ ì¶”ê°€ëœê²½ìš° ì•„ëž˜ì™€ ê°™ë‹¤
 <resultMap id="brdView" class="java.util.HashMap">
         <result property="seq" column="seq"/>
         <result property="title" column="title"/>
@@ -3216,7 +3269,7 @@ select
         seq, title, contents, url, addcolumn
 from testTable
 </select>
-[ÃâÃ³] ibatis Oracle clob Ã³¸®ÇÏ±â (ÇÏ´Ã Java) |ÀÛ¼ºÀÚ ÇÁ¶óÀÓ
+[ì¶œì²˜] ibatis Oracle clob ì²˜ë¦¬í•˜ê¸° (í•˜ëŠ˜ Java) |ìž‘ì„±ìž í”„ë¼ìž„
 
 ----------------------------------------------------------------------------------------------------
 < Bean >
@@ -3353,7 +3406,7 @@ public void insertReport(Report report) {
     </select>
 
 
-    <!-- CLOB Data¸¦ À§ÇÑ Á¤ÀÇ -->
+    <!-- CLOB Dataë¥¼ ìœ„í•œ ì •ì˜ -->
     <resultMap class="hmap">
         <result column="CONTENT" property="CONTENT" typeHandler="clobHandler"/>
     </resultMap>
@@ -3366,7 +3419,7 @@ public void insertReport(Report report) {
 
 ----------------------------------------------------------------------------------------------------
 
-        // insert ÇÏ´Â ÄÚµå ¿¹Á¦
+        // insert í•˜ëŠ” ì½”ë“œ ì˜ˆì œ
         params = new HashMap<String, Object>();
         params.put("retryTable", retryQName);
         params.put("file_id", message.getMessageId());
@@ -3379,10 +3432,10 @@ public void insertReport(Report report) {
             INSERT INTO $retryTable$ (FILE_ID, SOURCE_TYPE, MSG_FILE) VALUES (#file_id#, #source_type#, #msg_file:BLOB# )
         </insert>
 
-    À§ ¿¹Á¦ÄÚµå´Â OracleÀÌ³ª CUBRID¿¡¼­´Â µ¿ÀÛÇÏÁö ¾Ê´Â´Ù. byte ¹è¿­À» BLOBÀ¸·Î ¹ÙÀÎµùÇÒ ¼ö ¾ø±â ¶§¹®ÀÌ´Ù.
-    µû¶ó¼­ ¾Æ·¡¿Í °°ÀÌ TypeHandler¿¡¼­ setParameter ¸Þ¼Òµå¸¦ ±¸ÇöÇØ¾ß ÇÑ´Ù.
+    ìœ„ ì˜ˆì œì½”ë“œëŠ” Oracleì´ë‚˜ CUBRIDì—ì„œëŠ” ë™ìž‘í•˜ì§€ ì•ŠëŠ”ë‹¤. byte ë°°ì—´ì„ BLOBìœ¼ë¡œ ë°”ì¸ë”©í•  ìˆ˜ ì—†ê¸° ë•Œë¬¸ì´ë‹¤.
+    ë”°ë¼ì„œ ì•„ëž˜ì™€ ê°™ì´ TypeHandlerì—ì„œ setParameter ë©”ì†Œë“œë¥¼ êµ¬í˜„í•´ì•¼ í•œë‹¤.
 
-        // ps´Â PreparedStatement °´Ã¼
+        // psëŠ” PreparedStatement ê°ì²´
         @Override
         public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType) throws Exception {
             byte[] bytes = (byte[]) parameter;
@@ -3402,9 +3455,9 @@ public void insertReport(Report report) {
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-[ Linux ¸Þ¸ð¸® »ç¿ë·® È®ÀÎ ]
+[ Linux ë©”ëª¨ë¦¬ ì‚¬ìš©ëŸ‰ í™•ì¸ ]
 
-    top¿¡¼­ ¸®´ª½º ½Ã½ºÅÛÀÇ ¸Þ¸ð¸® »ç¿ë·®À» º¸¸é Ç×»ó ´ëºÎºÐÀÇ ¸Þ¸ð¸®°¡ »ç¿ëÁßÀÌ°í, free ¸Þ¸ð¸®´Â ¾ó¸¶µÇÁö ¾Ê´Â´Ù.
+    topì—ì„œ ë¦¬ëˆ…ìŠ¤ ì‹œìŠ¤í…œì˜ ë©”ëª¨ë¦¬ ì‚¬ìš©ëŸ‰ì„ ë³´ë©´ í•­ìƒ ëŒ€ë¶€ë¶„ì˜ ë©”ëª¨ë¦¬ê°€ ì‚¬ìš©ì¤‘ì´ê³ , free ë©”ëª¨ë¦¬ëŠ” ì–¼ë§ˆë˜ì§€ ì•ŠëŠ”ë‹¤.
 
         <app01>
 
@@ -3420,7 +3473,7 @@ public void insertReport(Report report) {
              3335 sas       20   0 9802m 1.2g  14m S  1.3  1.9 277:27.85 java
              .....
 
-    ÀüÃ¼ 66G ¸Þ¸ð¸® Áß¿¡ 49.3G Á¤µµ »ç¿ëÇÏ°í ÀÖ´Â °ÍÀ¸·Î ³ª¿Â´Ù.
+    ì „ì²´ 66G ë©”ëª¨ë¦¬ ì¤‘ì— 49.3G ì •ë„ ì‚¬ìš©í•˜ê³  ìžˆëŠ” ê²ƒìœ¼ë¡œ ë‚˜ì˜¨ë‹¤.
 
         <app02>
 
@@ -3437,16 +3490,16 @@ public void insertReport(Report report) {
             19976 sas       20   0 13.9g 5.5g  26m S  1.7  8.7 505:48.91 java
             .....
 
-    ÀüÃ¼ 66G ¸Þ¸ð¸® Áß¿¡ 65.4G Á¤µµ »ç¿ëÇÏ°í ÀÖ´Â °ÍÀ¸·Î ³ª¿Â´Ù.
+    ì „ì²´ 66G ë©”ëª¨ë¦¬ ì¤‘ì— 65.4G ì •ë„ ì‚¬ìš©í•˜ê³  ìžˆëŠ” ê²ƒìœ¼ë¡œ ë‚˜ì˜¨ë‹¤.
 
-    ¸Þ¸ð¸®°¡ ºÎÁ·ÇÑ °ÍÀÎ´Ù.
-    ÇÑ¸¶µð·Î ±×·¸Áö ÇÑ´Ù. ÀÌ´Â ¸®´ª½ºÀÇ OS cache ¶§¹®ÀÌ´Ù. ¸®´ª½º´Â °¡¿ë¸Þ¸ð¸® ÀüÃ¼¸¦ OS cache·Î »ç¿ëÇÑ´Ù.
-    Æò»ó½Ã¿¡´Â Disk Block¿¡ ´ëÇÑ cashe·Î »ç¿ëÇÏ°í, ´ë½Å ¾ðÁ¦µçÁö °¡¿ë ¸Þ¸ð¸®·Î ÇÒ´çÇÒ ¼ö ÀÖµµ·Ï ÁØºñÇÑ´Ù.
-    OS cache¸¦ Æ÷ÇÔÇÏ¿© ±×¸®°í ÀÓ½Ã ¹öÆÛµîÀÇ ¸Þ¸ð¸® »çÀÌÁî´Â °¡¿ë ¸Þ¸ð¸®·Î ºÁ¾ßÇÑ´Ù.
+    ë©”ëª¨ë¦¬ê°€ ë¶€ì¡±í•œ ê²ƒì¸ë‹¤.
+    í•œë§ˆë””ë¡œ ê·¸ë ‡ì§€ í•œë‹¤. ì´ëŠ” ë¦¬ëˆ…ìŠ¤ì˜ OS cache ë•Œë¬¸ì´ë‹¤. ë¦¬ëˆ…ìŠ¤ëŠ” ê°€ìš©ë©”ëª¨ë¦¬ ì „ì²´ë¥¼ OS cacheë¡œ ì‚¬ìš©í•œë‹¤.
+    í‰ìƒì‹œì—ëŠ” Disk Blockì— ëŒ€í•œ casheë¡œ ì‚¬ìš©í•˜ê³ , ëŒ€ì‹  ì–¸ì œë“ ì§€ ê°€ìš© ë©”ëª¨ë¦¬ë¡œ í• ë‹¹í•  ìˆ˜ ìžˆë„ë¡ ì¤€ë¹„í•œë‹¤.
+    OS cacheë¥¼ í¬í•¨í•˜ì—¬ ê·¸ë¦¬ê³  ìž„ì‹œ ë²„í¼ë“±ì˜ ë©”ëª¨ë¦¬ ì‚¬ì´ì¦ˆëŠ” ê°€ìš© ë©”ëª¨ë¦¬ë¡œ ë´ì•¼í•œë‹¤.
 
-        ½ÇÁ¦ °¡¿ë ¸Þ¸ð¸® = mem_free + mem_cache + mem_buffer
+        ì‹¤ì œ ê°€ìš© ë©”ëª¨ë¦¬ = mem_free + mem_cache + mem_buffer
 
-    buffers, cache ¿µ¿ª±îÁö °¨¾ÈÇÑ ½ÇÁ¦ ¸Þ¸ð¸® »ç¿ë·®À» free¸í·É¾î¸¦ ÅëÇØ¼­ È®ÀÎÇÒ ¼ö ÀÖ´Ù.
+    buffers, cache ì˜ì—­ê¹Œì§€ ê°ì•ˆí•œ ì‹¤ì œ ë©”ëª¨ë¦¬ ì‚¬ìš©ëŸ‰ì„ freeëª…ë ¹ì–´ë¥¼ í†µí•´ì„œ í™•ì¸í•  ìˆ˜ ìžˆë‹¤.
 
         <app01>
             matcmsapp01:/sas/sasuser/sas>free -m -s 10
@@ -3455,7 +3508,7 @@ public void insertReport(Report report) {
             -/+ buffers/cache:      21156      43279
             Swap:        65535        129      65406
 
-    ÇöÀç 64.436G ¸Þ¸ð¸® Áß¿¡ 21.156G ½ÇÁ¦ »ç¿ëÁßÀÌ°í, 43.279G°¡ ¾ðÁ¦µçÁö ÇÒ´ç °¡´ÉÇÑ °¡¿ë ¸Þ¸ð¸®´Ù.
+    í˜„ìž¬ 64.436G ë©”ëª¨ë¦¬ ì¤‘ì— 21.156G ì‹¤ì œ ì‚¬ìš©ì¤‘ì´ê³ , 43.279Gê°€ ì–¸ì œë“ ì§€ í• ë‹¹ ê°€ëŠ¥í•œ ê°€ìš© ë©”ëª¨ë¦¬ë‹¤.
 
         <app02>
             matcmsapp02:/sas/sasuser/sas>free -m -s 10
@@ -3465,20 +3518,20 @@ public void insertReport(Report report) {
             Swap:        65535         68      65467
 
 
-    ÇöÀç 64.436G ¸Þ¸ð¸® Áß¿¡ 21.021G ½ÇÁ¦ »ç¿ëÁßÀÌ°í, 43.414G°¡ ¾ðÁ¦µçÁö ÇÒ´ç °¡´ÉÇÑ °¡¿ë ¸Þ¸ð¸®´Ù.
+    í˜„ìž¬ 64.436G ë©”ëª¨ë¦¬ ì¤‘ì— 21.021G ì‹¤ì œ ì‚¬ìš©ì¤‘ì´ê³ , 43.414Gê°€ ì–¸ì œë“ ì§€ í• ë‹¹ ê°€ëŠ¥í•œ ê°€ìš© ë©”ëª¨ë¦¬ë‹¤.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-Git ºê·£Ä¡ ¹è¿ì±â : http://git-scm.com/book/ko/v2
+Git ë¸Œëžœì¹˜ ë°°ìš°ê¸° : http://git-scm.com/book/ko/v2
 
-Git °£Æí ¾È³»¼­   : http://rogerdudler.github.io/git-guide/index.ko.html
+Git ê°„íŽ¸ ì•ˆë‚´ì„œ   : http://rogerdudler.github.io/git-guide/index.ko.html
 
 Git BOOK          : http://git-scm.com/book/ko/v2
 
-Git ÀÛ¾÷ Èå¸§     : http://dalinaum-kr.tumblr.com/post/15516936704/git-work-flow
+Git ìž‘ì—… íë¦„     : http://dalinaum-kr.tumblr.com/post/15516936704/git-work-flow
 
 Git Tutorial      : http://www.dreamy.pe.kr/zbxe/CodeClip/95408
 
@@ -3492,7 +3545,7 @@ Eclipse + Git     : http://git-scm.com/ : [Try Git]   http://git-scm.com/doc    
                     http://www.vogella.com/tutorials/EclipseGit/article.html
 
 
-Groovy ½ÃÀÛÀÔ¹®   : http://www.slideshare.net/meadunhansa/groovy-42475432
+Groovy ì‹œìž‘ìž…ë¬¸   : http://www.slideshare.net/meadunhansa/groovy-42475432
 
                     http://www.slideshare.net/SukjinYun1/start-groovy
 
@@ -3507,66 +3560,66 @@ Groovy ½ÃÀÛÀÔ¹®   : http://www.slideshare.net/meadunhansa/groovy-42475432
 ----------------------------------------------------------------------------------------------------
 [ Git ]
 
-Git¿¡ °ü·ÃµÈ ±âº»ÀûÀÎ °³³ä ¼³¸íÀº ´ÙÀ½ »çÀÌÆ®µé¿¡ Àß Á¤¸®µÇ¾î ÀÖÀ¸´Ï Âü°íÇÏµµ·Ï ÇÕ´Ï´Ù.
+Gitì— ê´€ë ¨ëœ ê¸°ë³¸ì ì¸ ê°œë… ì„¤ëª…ì€ ë‹¤ìŒ ì‚¬ì´íŠ¸ë“¤ì— ìž˜ ì •ë¦¬ë˜ì–´ ìžˆìœ¼ë‹ˆ ì°¸ê³ í•˜ë„ë¡ í•©ë‹ˆë‹¤.
 
 - http://rogerdudler.github.io/git-guide/index.ko.html
 - http://maskkwon.tistory.com/129
 
-¿©±â¿¡¼­ ´Ù·ç´Â Git »ç¿ë¹ýÀº ¿ø°ÝÀ¸·Î GitÀ» °ü¸®ÇÏ´Â ¼­¹ö°¡ Á¸ÀçÇÏ°í ÀÌ ¿ø°Ý ¼­¹ö·ÎºÎÅÍ ÆÄÀÏÀ» ÁÖ°í¹Þ´Â ±¸Á¶ÀÔ´Ï´Ù. ¿ø°Ý ÀúÀå¼Ò¸¦ »ý¼ºÇÏ°í °ü¸®ÇÏ´Â °ÍÀ» ¸ÕÀú ´Ù·ç°í ÀÌ ¿ø°Ý ÀúÀå¼Ò·ÎºÎÅÍ ÆÄÀÏÀ» push, pullÀ» ÇÏ´Â ·ÎÄÃ ÀúÀå¼Ò¸¦ ´Ù·çµµ·Ï ÇÏ°Ú½À´Ï´Ù.
+ì—¬ê¸°ì—ì„œ ë‹¤ë£¨ëŠ” Git ì‚¬ìš©ë²•ì€ ì›ê²©ìœ¼ë¡œ Gitì„ ê´€ë¦¬í•˜ëŠ” ì„œë²„ê°€ ì¡´ìž¬í•˜ê³  ì´ ì›ê²© ì„œë²„ë¡œë¶€í„° íŒŒì¼ì„ ì£¼ê³ ë°›ëŠ” êµ¬ì¡°ìž…ë‹ˆë‹¤. ì›ê²© ì €ìž¥ì†Œë¥¼ ìƒì„±í•˜ê³  ê´€ë¦¬í•˜ëŠ” ê²ƒì„ ë¨¼ì € ë‹¤ë£¨ê³  ì´ ì›ê²© ì €ìž¥ì†Œë¡œë¶€í„° íŒŒì¼ì„ push, pullì„ í•˜ëŠ” ë¡œì»¬ ì €ìž¥ì†Œë¥¼ ë‹¤ë£¨ë„ë¡ í•˜ê² ìŠµë‹ˆë‹¤.
 
 
-0. »ç¿ëÀÚ µî·Ï
- »ç¿ëÀÚ µî·ÏÀÌ¶ó°í ÇØ¼­ È¸¿ø°¡ÀÔ°ú °°Àº °ÅÃ¢ÇÑ °ÍÀº ¾Æ´Ï°í, push¸¦ ÇÒ ¶§ ¾î¶² »ç¶÷ÀÌ push¸¦ Çß´ÂÁö È®ÀÎÇÏ±â ¿ëÀÌÇÏ°Ô ÇÏ±â À§ÇØ userÀÇ Á¤º¸¸¦ µî·ÏÇÏ´Â °Í »ÓÀÔ´Ï´Ù. ·ÎÄÃ¿¡¼­ ´ÙÀ½°ú °°Àº ¸í·É¾î¸¦ ÅëÇØ À¯Àú Á¤º¸¸¦ µî·ÏÇØÁÝ´Ï´Ù.
- $git config --global user.name "À¯ÀúÀÇ ÀÌ¸§"
- $git config --global user.email "À¯ÀúÀÇ@ÀÌ¸Þ.ÀÏ"
+0. ì‚¬ìš©ìž ë“±ë¡
+ ì‚¬ìš©ìž ë“±ë¡ì´ë¼ê³  í•´ì„œ íšŒì›ê°€ìž…ê³¼ ê°™ì€ ê±°ì°½í•œ ê²ƒì€ ì•„ë‹ˆê³ , pushë¥¼ í•  ë•Œ ì–´ë–¤ ì‚¬ëžŒì´ pushë¥¼ í–ˆëŠ”ì§€ í™•ì¸í•˜ê¸° ìš©ì´í•˜ê²Œ í•˜ê¸° ìœ„í•´ userì˜ ì •ë³´ë¥¼ ë“±ë¡í•˜ëŠ” ê²ƒ ë¿ìž…ë‹ˆë‹¤. ë¡œì»¬ì—ì„œ ë‹¤ìŒê³¼ ê°™ì€ ëª…ë ¹ì–´ë¥¼ í†µí•´ ìœ ì € ì •ë³´ë¥¼ ë“±ë¡í•´ì¤ë‹ˆë‹¤.
+ $git config --global user.name "ìœ ì €ì˜ ì´ë¦„"
+ $git config --global user.email "ìœ ì €ì˜@ì´ë©”.ì¼"
 
 
 
-1. Git ¿ø°Ý ÀúÀå¼Ò ¸¸µé±â
+1. Git ì›ê²© ì €ìž¥ì†Œ ë§Œë“¤ê¸°
 
- ¼­¹ö¿¡ Á¢¼ÓÀ» ÇØ¼­ ¿ø°Ý ÀúÀå¼Ò·Î »ç¿ëÇÒ Æú´õ¸¦ ¸¸µé¾îÁÖ°í ÇØ´ç Æú´õ·Î ÀÌµ¿ÇÕ´Ï´Ù.
- ¿¹)
+ ì„œë²„ì— ì ‘ì†ì„ í•´ì„œ ì›ê²© ì €ìž¥ì†Œë¡œ ì‚¬ìš©í•  í´ë”ë¥¼ ë§Œë“¤ì–´ì£¼ê³  í•´ë‹¹ í´ë”ë¡œ ì´ë™í•©ë‹ˆë‹¤.
+ ì˜ˆ)
  $mkdir GitServer.git
  $cd GitServer.git
- Æú´õ¸í µÚ¿¡´Â °ü½ÀÀûÀ¸·Î .gitÀ» ºÙ¿©ÁÝ´Ï´Ù. ÀÌ·¸°Ô ÀÌµ¿ÇÑ Æú´õ¿¡¼­ bare ¿É¼ÇÀ» ÀÌ¿ëÇÏ¿© bare repository·Î ÃÊ±âÈ­ÇØÁÝ´Ï´Ù.
+ í´ë”ëª… ë’¤ì—ëŠ” ê´€ìŠµì ìœ¼ë¡œ .gitì„ ë¶™ì—¬ì¤ë‹ˆë‹¤. ì´ë ‡ê²Œ ì´ë™í•œ í´ë”ì—ì„œ bare ì˜µì…˜ì„ ì´ìš©í•˜ì—¬ bare repositoryë¡œ ì´ˆê¸°í™”í•´ì¤ë‹ˆë‹¤.
  $git init --bare
- ÀÌ bare repository´Â ¼­¹ö ¿ªÇÒÀ» ÇÏ´Â repository·Î¼­ ÇØ´ç Æú´õ¿¡¼­´Â git ¸í·É¾î¸¦ »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÌ·¸°Ô »ý¼ºÇÑ repo¿¡´Â ÀÚµ¿ÀûÀ¸·Î ¿ø°Ý ÀúÀå¼Ò°¡ ÇÊ¿ä·Î ÇÏ´Â ÆÄÀÏ°ú Æú´õµéÀÌ »ý¼ºµË´Ï´Ù.
- ÀÌ·¸°Ô ÇÏ¸é ¿ø°Ý ÀúÀå¼Ò¸¦ ¸¸µå´Â °ÍÀÌ ³¡³³´Ï´Ù. ÀÌÁ¦ ÀÌ ¿ø°Ý ÀúÀå¼Ò¿Í ÆÄÀÏÀ» ÁÖ°í¹Þ´Â ·ÎÄÃ ÀúÀå¼Ò¸¦ ¸¸µé¾î º¸°Ú½À´Ï´Ù.
+ ì´ bare repositoryëŠ” ì„œë²„ ì—­í• ì„ í•˜ëŠ” repositoryë¡œì„œ í•´ë‹¹ í´ë”ì—ì„œëŠ” git ëª…ë ¹ì–´ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ì´ë ‡ê²Œ ìƒì„±í•œ repoì—ëŠ” ìžë™ì ìœ¼ë¡œ ì›ê²© ì €ìž¥ì†Œê°€ í•„ìš”ë¡œ í•˜ëŠ” íŒŒì¼ê³¼ í´ë”ë“¤ì´ ìƒì„±ë©ë‹ˆë‹¤.
+ ì´ë ‡ê²Œ í•˜ë©´ ì›ê²© ì €ìž¥ì†Œë¥¼ ë§Œë“œëŠ” ê²ƒì´ ëë‚©ë‹ˆë‹¤. ì´ì œ ì´ ì›ê²© ì €ìž¥ì†Œì™€ íŒŒì¼ì„ ì£¼ê³ ë°›ëŠ” ë¡œì»¬ ì €ìž¥ì†Œë¥¼ ë§Œë“¤ì–´ ë³´ê² ìŠµë‹ˆë‹¤.
 
 
 
-2. Git ·ÎÄÃ ÀúÀå¼Ò ¸¸µé±â
+2. Git ë¡œì»¬ ì €ìž¥ì†Œ ë§Œë“¤ê¸°
 
- ÀúÀå¼Ò·Î ¸¸µé Æú´õ·Î ÀÌµ¿À» ÇÏ°í ¾Æ·¡¿Í °°Àº ¸í·É¾î¸¦ ÀÔ·ÂÇÕ´Ï´Ù. ÀúÀå¼Ò·Î ¸¸µé Æú´õ ¾È¿¡ ÇÁ·ÎÁ§Æ® ÆÄÀÏÀÌ ÀÖ¾îµµ »ó°ü ¾ø½À´Ï´Ù.
+ ì €ìž¥ì†Œë¡œ ë§Œë“¤ í´ë”ë¡œ ì´ë™ì„ í•˜ê³  ì•„ëž˜ì™€ ê°™ì€ ëª…ë ¹ì–´ë¥¼ ìž…ë ¥í•©ë‹ˆë‹¤. ì €ìž¥ì†Œë¡œ ë§Œë“¤ í´ë” ì•ˆì— í”„ë¡œì íŠ¸ íŒŒì¼ì´ ìžˆì–´ë„ ìƒê´€ ì—†ìŠµë‹ˆë‹¤.
  $git init
- ÀÌ °úÁ¤À» °ÅÄ¡¸é ÇØ´ç Æú´õ¿¡ .gitÀÌ¶ó°í ÇÏ´Â ¼û±èÆÄÀÏÀÌ »ý¼ºÀÌ µË´Ï´Ù. ÀÌÁ¦ ÇØ´ç Æú´õ ¾È¿¡ ÀÖ´Â ¸ðµç ÆÄÀÏµéÀ» commit °¡´ÉÇÏµµ·Ï ½ºÅ×ÀÌÁö ¿µ¿ª¿¡ ÆÄÀÏµéÀ» Ãß°¡ÇØÁÝ´Ï´Ù.
+ ì´ ê³¼ì •ì„ ê±°ì¹˜ë©´ í•´ë‹¹ í´ë”ì— .gitì´ë¼ê³  í•˜ëŠ” ìˆ¨ê¹€íŒŒì¼ì´ ìƒì„±ì´ ë©ë‹ˆë‹¤. ì´ì œ í•´ë‹¹ í´ë” ì•ˆì— ìžˆëŠ” ëª¨ë“  íŒŒì¼ë“¤ì„ commit ê°€ëŠ¥í•˜ë„ë¡ ìŠ¤í…Œì´ì§€ ì˜ì—­ì— íŒŒì¼ë“¤ì„ ì¶”ê°€í•´ì¤ë‹ˆë‹¤.
  $git add *
- ÀÌ ¸í·É¾î¸¦ ÅëÇØ ÇØ´ç Æú´õ ¾È¿¡ ÀÖ´Â ¸ðµç ÆÄÀÏµéÀ» Ãß°¡ÇÒ ¼ö ÀÖ½À´Ï´Ù.  ÀÌ·¸°Ô ½ºÅ×ÀÌÁö ¿µ¿ª¿¡ Ãß°¡ µÈ ÆÄÀÏµéÀº commit ¸í·É¾î¸¦ ÅëÇØ ·ÎÄÃ ÀúÀå¼Ò·Î commitÀÌ °¡´ÉÇÑ °ÍÀÔ´Ï´Ù. Áï ÇÁ·ÎÁ§Æ®¸¦ ÁøÇàÇÏ´Ù°¡ ÆÄÀÏÀÌ Ãß°¡°¡ µÉ °æ¿ì À§ ¸í·É¾î¸¦ È°¿ëÇØ¼­ ÇØ´ç ÆÄÀÏÀ» ½ºÅ×ÀÌÁö¿¡ °è¼Ó Ãß°¡¸¦ ÇØÁà¾ß ÇÏ´Â °ÍÀÔ´Ï´Ù. ÀÌ·¸°Ô Ãß°¡µÈ ÆÄÀÏµéÀº ´ÙÀ½°ú °°Àº ¸í·É¾î·Î Ä¿¹ÔÀÌ °¡´ÉÇÕ´Ï´Ù.
+ ì´ ëª…ë ¹ì–´ë¥¼ í†µí•´ í•´ë‹¹ í´ë” ì•ˆì— ìžˆëŠ” ëª¨ë“  íŒŒì¼ë“¤ì„ ì¶”ê°€í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.  ì´ë ‡ê²Œ ìŠ¤í…Œì´ì§€ ì˜ì—­ì— ì¶”ê°€ ëœ íŒŒì¼ë“¤ì€ commit ëª…ë ¹ì–´ë¥¼ í†µí•´ ë¡œì»¬ ì €ìž¥ì†Œë¡œ commitì´ ê°€ëŠ¥í•œ ê²ƒìž…ë‹ˆë‹¤. ì¦‰ í”„ë¡œì íŠ¸ë¥¼ ì§„í–‰í•˜ë‹¤ê°€ íŒŒì¼ì´ ì¶”ê°€ê°€ ë  ê²½ìš° ìœ„ ëª…ë ¹ì–´ë¥¼ í™œìš©í•´ì„œ í•´ë‹¹ íŒŒì¼ì„ ìŠ¤í…Œì´ì§€ì— ê³„ì† ì¶”ê°€ë¥¼ í•´ì¤˜ì•¼ í•˜ëŠ” ê²ƒìž…ë‹ˆë‹¤. ì´ë ‡ê²Œ ì¶”ê°€ëœ íŒŒì¼ë“¤ì€ ë‹¤ìŒê³¼ ê°™ì€ ëª…ë ¹ì–´ë¡œ ì»¤ë°‹ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.
  $git commit -m "init project"
- init project¶ó´Â ¸Þ¼¼Áö¿Í ÇÔ²² ·ÎÄÃ ÀúÀå¼Ò¿¡ ÆÄÀÏµéÀ» commit ÇÕ´Ï´Ù. ¸Þ¼¼Áö¸¦ ÀÌ¿ëÇÏ¸é ÇØ´ç commit ³»¿ëÀÌ ¹«¾ùÀÎÁö ÃßÈÄ¿¡ È®ÀÎÇÏ±â ¿ëÀÌÇÕ´Ï´Ù.
- ÀÌÁ¦ ·ÎÄÃ ÀúÀå¼Ò¿¡ ÀÖ´Â ÆÄÀÏµéÀ» ¿ø°Ý ÀúÀå¼Ò·Î Àü¼ÛÇÏ´Â È¯°æÀ» ¼³Á¤ÇÏµµ·Ï ÇÏ°Ú½À´Ï´Ù. ·ÎÄÃ ÀúÀå¼Ò Æú´õ¿¡¼­ ¾Æ·¡¿Í °°Àº ¸í·É¾î¸¦ ½ÇÇàÇÕ´Ï´Ù.
+ init projectë¼ëŠ” ë©”ì„¸ì§€ì™€ í•¨ê»˜ ë¡œì»¬ ì €ìž¥ì†Œì— íŒŒì¼ë“¤ì„ commit í•©ë‹ˆë‹¤. ë©”ì„¸ì§€ë¥¼ ì´ìš©í•˜ë©´ í•´ë‹¹ commit ë‚´ìš©ì´ ë¬´ì—‡ì¸ì§€ ì¶”í›„ì— í™•ì¸í•˜ê¸° ìš©ì´í•©ë‹ˆë‹¤.
+ ì´ì œ ë¡œì»¬ ì €ìž¥ì†Œì— ìžˆëŠ” íŒŒì¼ë“¤ì„ ì›ê²© ì €ìž¥ì†Œë¡œ ì „ì†¡í•˜ëŠ” í™˜ê²½ì„ ì„¤ì •í•˜ë„ë¡ í•˜ê² ìŠµë‹ˆë‹¤. ë¡œì»¬ ì €ìž¥ì†Œ í´ë”ì—ì„œ ì•„ëž˜ì™€ ê°™ì€ ëª…ë ¹ì–´ë¥¼ ì‹¤í–‰í•©ë‹ˆë‹¤.
  $git remote add origin username@hostname:GitServer.git
-  ¾î´À ÁÖ¼Ò·Î push¸¦ ÇÒ °ÍÀÎÁö ¼³Á¤À» ÇØ ÁÝ´Ï´Ù. ¿¹¸¦ µé¾î, ¼­¹ö °èÁ¤ÀÌ gitmanagerÀÌ°í IPÁÖ¼Ò°¡ 123.123.123.123ÀÌ¸ç ¿ø°Ý ÀúÀå¼ÒÀÇ °æ·Î°¡ ~/repo/GitServer.gitÀÌ°í 80¹ø Æ÷Æ®¸¦ ÀÌ¿ëÇØ¼­ Á¢±ÙÀ» ÇØ¾ßÇÏ´Â °æ¿ì ´ÙÀ½°ú °°ÀÌ ÀÔ·ÂÀ» ÇØ ÁÝ´Ï´Ù.
- ¿¹)
+  ì–´ëŠ ì£¼ì†Œë¡œ pushë¥¼ í•  ê²ƒì¸ì§€ ì„¤ì •ì„ í•´ ì¤ë‹ˆë‹¤. ì˜ˆë¥¼ ë“¤ì–´, ì„œë²„ ê³„ì •ì´ gitmanagerì´ê³  IPì£¼ì†Œê°€ 123.123.123.123ì´ë©° ì›ê²© ì €ìž¥ì†Œì˜ ê²½ë¡œê°€ ~/repo/GitServer.gitì´ê³  80ë²ˆ í¬íŠ¸ë¥¼ ì´ìš©í•´ì„œ ì ‘ê·¼ì„ í•´ì•¼í•˜ëŠ” ê²½ìš° ë‹¤ìŒê³¼ ê°™ì´ ìž…ë ¥ì„ í•´ ì¤ë‹ˆë‹¤.
+ ì˜ˆ)
  $git remote add origin ssh://gitmanager@123.123.123.123:80/~/repo/GitServer.git
- ÇÁ·ÎÅäÄÝÀ» ¾î¶² °ÍÀ» »ç¿ëÇÏ´ÂÁö´Â ÀÚÀ¯Áö¸¸ ÀÏ¹ÝÀûÀ¸·Î Git¿¡¼­´Â SSH¸¦ »ç¿ëÇÏ±æ ±ÇÀåÇÕ´Ï´Ù. ´Ù¸¥ ÇÁ·ÎÅäÄÝ¿¡ ºñÇØ push¿Í pullÀÌ ÀÚÀ¯·Ó±â ¶§¹®ÀÔ´Ï´Ù. (±×·¡¼­ ÀÏ¹ÝÀûÀ¸·Î 22¹ø Æ÷Æ®¸¦ »ç¿ëÇÏÁö¸¸ ÇÐ±³³ª È¸»çÀÇ °æ¿ì 80¹ø Æ÷Æ®¸¦ Á¦¿ÜÇÏ°í´Â ÀüºÎ ¸·¾Æ ³õ´Â °æ¿ì°¡ ¸¹¾Ò½À´Ï´Ù. ±×·¡¼­ ¿ÜºÎ Æ÷Æ® 80¹ø°ú ³»ºÎ Æ÷Æ® 22¹ø Æ÷Æ®¸¦ Æ÷¿öµùÇØ¼­ »ç¿ëÇÏ±âµµ ÇÕ´Ï´Ù.)
- ¸¸ÀÏ  remote¸¦ ¼³Á¤ÇÏ´Âµ¥ °ªÀ» Àß¸ø ÀÔ·ÂÇßÀ» °æ¿ì ¾Æ·¡ÀÇ ¸í·É¾î¸¦ ÅëÇØ ¼öÁ¤ °¡´ÉÇÕ´Ï´Ù.
+ í”„ë¡œí† ì½œì„ ì–´ë–¤ ê²ƒì„ ì‚¬ìš©í•˜ëŠ”ì§€ëŠ” ìžìœ ì§€ë§Œ ì¼ë°˜ì ìœ¼ë¡œ Gitì—ì„œëŠ” SSHë¥¼ ì‚¬ìš©í•˜ê¸¸ ê¶Œìž¥í•©ë‹ˆë‹¤. ë‹¤ë¥¸ í”„ë¡œí† ì½œì— ë¹„í•´ pushì™€ pullì´ ìžìœ ë¡­ê¸° ë•Œë¬¸ìž…ë‹ˆë‹¤. (ê·¸ëž˜ì„œ ì¼ë°˜ì ìœ¼ë¡œ 22ë²ˆ í¬íŠ¸ë¥¼ ì‚¬ìš©í•˜ì§€ë§Œ í•™êµë‚˜ íšŒì‚¬ì˜ ê²½ìš° 80ë²ˆ í¬íŠ¸ë¥¼ ì œì™¸í•˜ê³ ëŠ” ì „ë¶€ ë§‰ì•„ ë†“ëŠ” ê²½ìš°ê°€ ë§Žì•˜ìŠµë‹ˆë‹¤. ê·¸ëž˜ì„œ ì™¸ë¶€ í¬íŠ¸ 80ë²ˆê³¼ ë‚´ë¶€ í¬íŠ¸ 22ë²ˆ í¬íŠ¸ë¥¼ í¬ì›Œë”©í•´ì„œ ì‚¬ìš©í•˜ê¸°ë„ í•©ë‹ˆë‹¤.)
+ ë§Œì¼  remoteë¥¼ ì„¤ì •í•˜ëŠ”ë° ê°’ì„ ìž˜ëª» ìž…ë ¥í–ˆì„ ê²½ìš° ì•„ëž˜ì˜ ëª…ë ¹ì–´ë¥¼ í†µí•´ ìˆ˜ì • ê°€ëŠ¥í•©ë‹ˆë‹¤.
  $git remote set-url origin username@hostname:GitServer.git
- ÀÌ·¸°Ô ¾î´À ¿ø°Ý ÀúÀå¼Ò·Î push¸¦ ÇÒ °ÍÀÎÁö ¼³Á¤µµ ³¡³µ´Ù¸é ¿ø°Ý ÀúÀå¼Ò·Î ÆÄÀÏÀ» º¸³¾ ÁØºñ°¡ ³¡³­ °ÍÀÔ´Ï´Ù. ´ÙÀ½°ú °°Àº ¸í·É¾î¸¦ ÅëÇØ ÆÄÀÏÀ» pushÇÒ ¼ö ÀÖ½À´Ï´Ù.
+ ì´ë ‡ê²Œ ì–´ëŠ ì›ê²© ì €ìž¥ì†Œë¡œ pushë¥¼ í•  ê²ƒì¸ì§€ ì„¤ì •ë„ ëë‚¬ë‹¤ë©´ ì›ê²© ì €ìž¥ì†Œë¡œ íŒŒì¼ì„ ë³´ë‚¼ ì¤€ë¹„ê°€ ëë‚œ ê²ƒìž…ë‹ˆë‹¤. ë‹¤ìŒê³¼ ê°™ì€ ëª…ë ¹ì–´ë¥¼ í†µí•´ íŒŒì¼ì„ pushí•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
  $git push origin master
- master¶ó°í ÇÏ´Â ÀÌ¸§ÀÇ branch·Î ÆÄÀÏÀ» pushÇÕ´Ï´Ù. ¸¶Áö¸·À¸·Î ÆÄÀÏÀ» pull, push¸¦ ÇÒ branch¸¦ ¼³Á¤ÇØÁÖ¸é ¸ðµç ÀÛ¾÷ÀÌ ³¡³ª°Ô µË´Ï´Ù.
+ masterë¼ê³  í•˜ëŠ” ì´ë¦„ì˜ branchë¡œ íŒŒì¼ì„ pushí•©ë‹ˆë‹¤. ë§ˆì§€ë§‰ìœ¼ë¡œ íŒŒì¼ì„ pull, pushë¥¼ í•  branchë¥¼ ì„¤ì •í•´ì£¼ë©´ ëª¨ë“  ìž‘ì—…ì´ ëë‚˜ê²Œ ë©ë‹ˆë‹¤.
  $git branch --set-upstream master origin/master
- ÀÌÁ¦ ÀÚÀ¯·Ó°Ô push, pullÀ» ÇÒ ¼ö ÀÖ½À´Ï´Ù.
+ ì´ì œ ìžìœ ë¡­ê²Œ push, pullì„ í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
 
 
 
- 3. ¿ø°Ý ÀúÀå¼Ò·ÎºÎÅÍ ÇÁ·ÎÁ§Æ® ÆÄÀÏÀ» ±×´ë·Î °¡Á®¿À±â
+ 3. ì›ê²© ì €ìž¥ì†Œë¡œë¶€í„° í”„ë¡œì íŠ¸ íŒŒì¼ì„ ê·¸ëŒ€ë¡œ ê°€ì ¸ì˜¤ê¸°
 
- ÇÁ·ÎÁ§Æ® ÃÊ±â¿¡ PLÀÌ À§¿Í °°ÀÌ GitÀ» ¼³Á¤ÇØÁÖ°í ÆÀ¿øµéÀÌ ÇØ´ç ÇÁ·ÎÁ§Æ® ÆÄÀÏÀ» ±×´ë·Î ¿ø°Ý¿¡¼­ ¹Þ¾Æ¿À¸é À§¿Í °°Àº ¼³Á¤À» »õ·Î ÇÒ ÇÊ¿ä°¡ ¾ø½À´Ï´Ù. ¿ø°Ý ÀúÀå¼Ò¿¡ ¾÷·Îµå µÈ ÇÁ·ÎÁ§Æ® ÆÄÀÏµéÀ» ±×´ë·Î ·ÎÄÃ·Î º¹»çÇØ ¿À´Â °ÍÀ» cloneÀÌ¶ó°í ÇÕ´Ï´Ù.
+ í”„ë¡œì íŠ¸ ì´ˆê¸°ì— PLì´ ìœ„ì™€ ê°™ì´ Gitì„ ì„¤ì •í•´ì£¼ê³  íŒ€ì›ë“¤ì´ í•´ë‹¹ í”„ë¡œì íŠ¸ íŒŒì¼ì„ ê·¸ëŒ€ë¡œ ì›ê²©ì—ì„œ ë°›ì•„ì˜¤ë©´ ìœ„ì™€ ê°™ì€ ì„¤ì •ì„ ìƒˆë¡œ í•  í•„ìš”ê°€ ì—†ìŠµë‹ˆë‹¤. ì›ê²© ì €ìž¥ì†Œì— ì—…ë¡œë“œ ëœ í”„ë¡œì íŠ¸ íŒŒì¼ë“¤ì„ ê·¸ëŒ€ë¡œ ë¡œì»¬ë¡œ ë³µì‚¬í•´ ì˜¤ëŠ” ê²ƒì„ cloneì´ë¼ê³  í•©ë‹ˆë‹¤.
  $git clone username@hostname:GitServer.git
- ÀÌ·¸°Ô ¸í·É¾î ÇÑ ÁÙ·Î ÇÁ·ÎÁ§Æ® ÆÄÀÏÀ» ¿ø°Ý ÀúÀå¼Ò·ÎºÎÅÍ º¹»çÇØ ¿Ã ¼ö ÀÖ½À´Ï´Ù. ÇÁ·ÎÁ§Æ®¸¦ º¹»çÇØ¿À¸é ÇØ´ç ÇÁ·ÎÁ§Æ® Æú´õ¸í ±×´ë·Î »õ·Î¿î Æú´õ°¡ ÇÏ³ª »ý¼ºÀÌ µÇ°í ±× ¾È¿¡ ÇÁ·ÎÁ§Æ® ÆÄÀÏÀÌ µé¾îÀÖ°Ô µË´Ï´Ù. (À§ÀÇ ¿¹·Î´Â GitServer¶ó´Â Æú´õ°¡ »ý¼ºµË´Ï´Ù.) git remote -v ¸í·É¾î¸¦ ÀÔ·ÂÇØº¸¸é ¿ø°Ý ÀúÀå¼Ò·Î remote °æ·Î°¡ ¼³Á¤ÀÌ µÇ¾îÀÖ´Â °ÍÀ» È®ÀÎÇÒ ¼ö ÀÖ½À´Ï´Ù.
+ ì´ë ‡ê²Œ ëª…ë ¹ì–´ í•œ ì¤„ë¡œ í”„ë¡œì íŠ¸ íŒŒì¼ì„ ì›ê²© ì €ìž¥ì†Œë¡œë¶€í„° ë³µì‚¬í•´ ì˜¬ ìˆ˜ ìžˆìŠµë‹ˆë‹¤. í”„ë¡œì íŠ¸ë¥¼ ë³µì‚¬í•´ì˜¤ë©´ í•´ë‹¹ í”„ë¡œì íŠ¸ í´ë”ëª… ê·¸ëŒ€ë¡œ ìƒˆë¡œìš´ í´ë”ê°€ í•˜ë‚˜ ìƒì„±ì´ ë˜ê³  ê·¸ ì•ˆì— í”„ë¡œì íŠ¸ íŒŒì¼ì´ ë“¤ì–´ìžˆê²Œ ë©ë‹ˆë‹¤. (ìœ„ì˜ ì˜ˆë¡œëŠ” GitServerë¼ëŠ” í´ë”ê°€ ìƒì„±ë©ë‹ˆë‹¤.) git remote -v ëª…ë ¹ì–´ë¥¼ ìž…ë ¥í•´ë³´ë©´ ì›ê²© ì €ìž¥ì†Œë¡œ remote ê²½ë¡œê°€ ì„¤ì •ì´ ë˜ì–´ìžˆëŠ” ê²ƒì„ í™•ì¸í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
 
- ÀÌ·¸°Ô ±âº»ÀûÀ¸·Î gitÀ» »ç¿ëÇÏ´Â ¹æ¹ý¿¡ ´ëÇØ¼­ ¾Ë¾ÆºÃ½À´Ï´Ù. ´ÙÀ½¿¡´Â Xcode¿Í ¿¬µ¿ÇÏ¿© GitÀ» »ç¿ëÇÏ´Â ¹ýÀ» ¾Ë¾Æº¸°Ú½À´Ï´Ù.
+ ì´ë ‡ê²Œ ê¸°ë³¸ì ìœ¼ë¡œ gitì„ ì‚¬ìš©í•˜ëŠ” ë°©ë²•ì— ëŒ€í•´ì„œ ì•Œì•„ë´¤ìŠµë‹ˆë‹¤. ë‹¤ìŒì—ëŠ” Xcodeì™€ ì—°ë™í•˜ì—¬ Gitì„ ì‚¬ìš©í•˜ëŠ” ë²•ì„ ì•Œì•„ë³´ê² ìŠµë‹ˆë‹¤.
 
 
 ----------------------------------------------------------------------------------------------------
@@ -3643,38 +3696,38 @@ public class FTPDownloadFileDemo {
 -------------------------------------------------------------------
 
 
-¿À¶óÅ¬
-½ºÅ©¸³Æ®·Î Reverse Engineer ÇÏ¿© Comment¸¦ ³í¸®¸íÀ¸·Î º¯°æÇÏ±â
+ì˜¤ë¼í´
+ìŠ¤í¬ë¦½íŠ¸ë¡œ Reverse Engineer í•˜ì—¬ Commentë¥¼ ë…¼ë¦¬ëª…ìœ¼ë¡œ ë³€ê²½í•˜ê¸°
 1)  Tools => Reverse Engineer
-    New Model Type : Logical/Physical ¼±ÅÃ
-    Toget Database : Oracle / 10.x/11.x ¼±ÅÃ
+    New Model Type : Logical/Physical ì„ íƒ
+    Toget Database : Oracle / 10.x/11.x ì„ íƒ
     Next
-    Reverse Engineer From : Script File ¼±ÅÃÇÏ¿© ÆÄÀÏ ÁöÁ¤
-2) Physical ¸ðµ¨ ¼±ÅÃ
-   Å×ÀÌºí ÀüÃ¼ ¼±ÅÃ
-   Å×ÀÌºíÀ» ¿Ü °ø°£¿¡¼­ ¸¶¿ì½º ¿À¸¥ÂÊ Å¬¸¯  => ¸Þ´º : Harden Physical Names Å¬¸¯
-3) Logical ¸ðµ¨ ¼±ÅÃ
+    Reverse Engineer From : Script File ì„ íƒí•˜ì—¬ íŒŒì¼ ì§€ì •
+2) Physical ëª¨ë¸ ì„ íƒ
+   í…Œì´ë¸” ì „ì²´ ì„ íƒ
+   í…Œì´ë¸”ì„ ì™¸ ê³µê°„ì—ì„œ ë§ˆìš°ìŠ¤ ì˜¤ë¥¸ìª½ í´ë¦­  => ë©”ë‰´ : Harden Physical Names í´ë¦­
+3) Logical ëª¨ë¸ ì„ íƒ
 
    Model => Domain dictionary
-   Macro Toolbox ¹öÆ° Å¬¸¯
-   Macros -> Attribute Macro -> %ColumnComment ¼±ÅÃ
-   Colse ¹öÆ° Å¬¸¯
-   Name Inherited by Attribute : %ColumnComment ¸¸ ³²±â°í »èÁ¦
-   OK ¹öÆ° Å¬¸¯
+   Macro Toolbox ë²„íŠ¼ í´ë¦­
+   Macros -> Attribute Macro -> %ColumnComment ì„ íƒ
+   Colse ë²„íŠ¼ í´ë¦­
+   Name Inherited by Attribute : %ColumnComment ë§Œ ë‚¨ê¸°ê³  ì‚­ì œ
+   OK ë²„íŠ¼ í´ë¦­
 
    Model => Attribute
-   Reset ¹öÆ° Å¬¸¯
-   Remove overrridden properties for : Reset all attributes in model ¼±ÅÃ
-   Select Properties to Reset : Definition Á¦°Å / Domain Parent Á¦°Å / Logical Data Type Á¦°Å
-Logical Only ¼±ÅÃ
-   OK ¹öÆ° Å¬¸¯
-4) ¿Ï·á
+   Reset ë²„íŠ¼ í´ë¦­
+   Remove overrridden properties for : Reset all attributes in model ì„ íƒ
+   Select Properties to Reset : Definition ì œê±° / Domain Parent ì œê±° / Logical Data Type ì œê±°
+Logical Only ì„ íƒ
+   OK ë²„íŠ¼ í´ë¦­
+4) ì™„ë£Œ
 
 
 
 ----------------------------------------------------------------------------------------------------
 
-[ IDEF1X <-> IE ] ¸ðµ¨ Ç¥±âº± º¯°æ
+[ IDEF1X <-> IE ] ëª¨ë¸ í‘œê¸°ë³ ë³€ê²½
 
     Model > Model properties > Notation > IE/IDEF1X
 
@@ -3684,56 +3737,56 @@ Logical Only ¼±ÅÃ
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-MavenÀ» »ç¿ëÇÏ·Á¸é ´ç¿¬È÷ ÀÏ´Ü ¼³Ä¡ºÎÅÍ ÇØ¾ß ÇÑ´Ù...
-¾Æ·¡ »çÀÌÆ®¿¡ °¡º¸¸é Maven ´Ù¿î·Îµå ¹ÞÀ» ¼ö ÀÖ°í °£´ÜÇÏ°Ô ¼³Ä¡ÇÏ´Â ¹æ¹ýµµ ¼³¸íµÇ¾î ÀÖ´Ù.
+Mavenì„ ì‚¬ìš©í•˜ë ¤ë©´ ë‹¹ì—°ížˆ ì¼ë‹¨ ì„¤ì¹˜ë¶€í„° í•´ì•¼ í•œë‹¤...
+ì•„ëž˜ ì‚¬ì´íŠ¸ì— ê°€ë³´ë©´ Maven ë‹¤ìš´ë¡œë“œ ë°›ì„ ìˆ˜ ìžˆê³  ê°„ë‹¨í•˜ê²Œ ì„¤ì¹˜í•˜ëŠ” ë°©ë²•ë„ ì„¤ëª…ë˜ì–´ ìžˆë‹¤.
 
 http://maven.apache.org/download.html
 
-±×³É ¾ÐÃà Ç®°í È¯°æº¯¼ö¸¸ ¼¼ÆÃÇØÁÖ¸é ³¡³­´Ù.
-Á¦´ë·Î ¼³Ä¡Çß´Ù¸é Ä¿¸Çµå Ã¢¿¡ mvn -versionÀÌ¶õ ¸í·ÉÀÌ ½ÇÇàµÇ¾î¾ß ÇÑ´Ù.
-À©µµ¿ìÁî È¯°æ¿¡¼­ ½ÇÇàÇß´Ù¸é ¾Æ·¡¿Í ºñ½ÁÇÑ ¸Þ¼¼Áö°¡ Ãâ·ÂµÇ´Â °ÍÀ» º¼ ¼ö ÀÖ´Ù.
+ê·¸ëƒ¥ ì••ì¶• í’€ê³  í™˜ê²½ë³€ìˆ˜ë§Œ ì„¸íŒ…í•´ì£¼ë©´ ëë‚œë‹¤.
+ì œëŒ€ë¡œ ì„¤ì¹˜í–ˆë‹¤ë©´ ì»¤ë§¨ë“œ ì°½ì— mvn -versionì´ëž€ ëª…ë ¹ì´ ì‹¤í–‰ë˜ì–´ì•¼ í•œë‹¤.
+ìœˆë„ìš°ì¦ˆ í™˜ê²½ì—ì„œ ì‹¤í–‰í–ˆë‹¤ë©´ ì•„ëž˜ì™€ ë¹„ìŠ·í•œ ë©”ì„¸ì§€ê°€ ì¶œë ¥ë˜ëŠ” ê²ƒì„ ë³¼ ìˆ˜ ìžˆë‹¤.
 
 Maven version: 2.0.10
 Java version: 1.6.0_06
 OS name: "windows xp" version: "5.1" arch: "x86" Family: "windows"
 
-°³¹ßÅø·Î ÀÌÅ¬¸³½º¸¦ »ç¿ëÇÑ´Ù¸é ÀÌÅ¬¸³½º¿¡ ÇÃ·¯±×ÀÎµµ ÇÏ³ª ¼³Ä¡ÇØÁÖÀÚ..
+ê°œë°œíˆ´ë¡œ ì´í´ë¦½ìŠ¤ë¥¼ ì‚¬ìš©í•œë‹¤ë©´ ì´í´ë¦½ìŠ¤ì— í”ŒëŸ¬ê·¸ì¸ë„ í•˜ë‚˜ ì„¤ì¹˜í•´ì£¼ìž..
 http://m2eclipse.sonatype.org/update/
 
-m2eclipse ¸»°í Q¸¦ »ç¿ëÇÏ°íÀÚ ÇÑ´Ù¸é ¾Æ·¡ ÇÃ·¯±×ÀÎÀ» ¼³Ä¡ÇÏµµ·Ï ÇÏÀÚ... (¾î¶²°Ô ÁÁÀºÁö´Â ÀÚ±â ¸¾~)
+m2eclipse ë§ê³  Që¥¼ ì‚¬ìš©í•˜ê³ ìž í•œë‹¤ë©´ ì•„ëž˜ í”ŒëŸ¬ê·¸ì¸ì„ ì„¤ì¹˜í•˜ë„ë¡ í•˜ìž... (ì–´ë–¤ê²Œ ì¢‹ì€ì§€ëŠ” ìžê¸° ë§˜~)
 http://q4e.googlecode.com/svn/trunk/updatesite-iam/
 
-¼³Ä¡°¡ ³¡³µ´Ù.. ÀÌÁ¦ ÇÑ ¹ø Maven ÇÁ·ÎÁ§Æ®¸¦ »ý¼ºÇØº¸ÀÚ..
+ì„¤ì¹˜ê°€ ëë‚¬ë‹¤.. ì´ì œ í•œ ë²ˆ Maven í”„ë¡œì íŠ¸ë¥¼ ìƒì„±í•´ë³´ìž..
 
-Maven¿¡¼­´Â ÃÊ°£´ÜÇÏ°Ô ÇÁ·ÎÁ§Æ®¸¦ ¸¸µé ¼ö ÀÖ´Â ÅÛÇÃ¸´À» Á¦°øÇÏ´Âµ¥ ¾Æ·¡¿Í °°ÀÌ archetype ÀÌ¶õ ÇÃ·¯±×ÀÎÀ» »ç¿ëÇÏ¸é µÈ´Ù.
-archetype¿¡´Â ¸î°¡Áö goalµéÀ» Á¦°øÇÏ´Âµ¥ ±× Áß¿¡ create¸¦ »ç¿ëÇØº¸ÀÚ.
+Mavenì—ì„œëŠ” ì´ˆê°„ë‹¨í•˜ê²Œ í”„ë¡œì íŠ¸ë¥¼ ë§Œë“¤ ìˆ˜ ìžˆëŠ” í…œí”Œë¦¿ì„ ì œê³µí•˜ëŠ”ë° ì•„ëž˜ì™€ ê°™ì´ archetype ì´ëž€ í”ŒëŸ¬ê·¸ì¸ì„ ì‚¬ìš©í•˜ë©´ ëœë‹¤.
+archetypeì—ëŠ” ëª‡ê°€ì§€ goalë“¤ì„ ì œê³µí•˜ëŠ”ë° ê·¸ ì¤‘ì— createë¥¼ ì‚¬ìš©í•´ë³´ìž.
 
 mvn archetype:create -DgroupId=com.test.app -DartifactId=test-app
 
-À§ÀÇ ¸í·ÉÀ» ½ÇÇàÇÏ¸é ¹º°¡ ¸· ´Ù¿î·Îµå ¹ÞÀ¸¸é¼­ ¸¶Áö¸·¿¡ BUILD SUCCESSFUL ÀÌ¶õ ±ÛÀÚ¸¦ È®ÀÎÇÒ ¼ö ÀÖ´Ù.
-Ã³À½ ½ÇÇà ½Ã¿¡ ´Ù¿î·Îµå ¹Þ´Â °ÍµéÀº Remote Repository ¿¡¼­ Local Repository ·Î ÇÊ¿äÇÑ ¶óÀÌºê·¯¸®¸¦ º¹»çÇÏ´Â °úÁ¤ÀÌ´Ù.
-´ÙÀ½¿¡ ´Ù½Ã ½ÇÇàÇÏ¸é ÀÌ¹Ì ¹ÞÀº ¶óÀÌºê·¯¸®µéÀº ´Ù¿î·Îµå ¹ÞÁö ¾Ê°Ô µÈ´Ù.
-±×·±µ¥ ½ÇÇà ¸í·É¾î¸¦ ÀÚ¼¼È÷ »ìÆìº¸¸é create°¡ Deprecated µÇ¾úÀ¸´Ï generate¸¦ »ç¿ëÇÏ¶ó°í ³ª¿ÍÀÖ´Ù.
-Ä£ÀýÇÏ°Ô ¼³¸íÇØÁÖ´Ï±ñ ´ÙÀ½ºÎÅÍ´Â create ´ë½Å¿¡ generate¸¦ »ç¿ëÇØÁÖµµ·Ï ÇÏÀÚ.
-¾Æ¹«Æ° »ý¼ºµÈ ÇÁ·ÎÁ§Æ®¸¦ »ìÆìº¸¸é ¾Æ·¡¿Í °°Àº ±¸Á¶·Î ¸¸µé¾îÁ® ÀÖ´Â °ÍÀ» º¼ ¼ö ÀÖ´Ù.
+ìœ„ì˜ ëª…ë ¹ì„ ì‹¤í–‰í•˜ë©´ ë­”ê°€ ë§‰ ë‹¤ìš´ë¡œë“œ ë°›ìœ¼ë©´ì„œ ë§ˆì§€ë§‰ì— BUILD SUCCESSFUL ì´ëž€ ê¸€ìžë¥¼ í™•ì¸í•  ìˆ˜ ìžˆë‹¤.
+ì²˜ìŒ ì‹¤í–‰ ì‹œì— ë‹¤ìš´ë¡œë“œ ë°›ëŠ” ê²ƒë“¤ì€ Remote Repository ì—ì„œ Local Repository ë¡œ í•„ìš”í•œ ë¼ì´ë¸ŒëŸ¬ë¦¬ë¥¼ ë³µì‚¬í•˜ëŠ” ê³¼ì •ì´ë‹¤.
+ë‹¤ìŒì— ë‹¤ì‹œ ì‹¤í–‰í•˜ë©´ ì´ë¯¸ ë°›ì€ ë¼ì´ë¸ŒëŸ¬ë¦¬ë“¤ì€ ë‹¤ìš´ë¡œë“œ ë°›ì§€ ì•Šê²Œ ëœë‹¤.
+ê·¸ëŸ°ë° ì‹¤í–‰ ëª…ë ¹ì–´ë¥¼ ìžì„¸ížˆ ì‚´íŽ´ë³´ë©´ createê°€ Deprecated ë˜ì—ˆìœ¼ë‹ˆ generateë¥¼ ì‚¬ìš©í•˜ë¼ê³  ë‚˜ì™€ìžˆë‹¤.
+ì¹œì ˆí•˜ê²Œ ì„¤ëª…í•´ì£¼ë‹ˆê¹ ë‹¤ìŒë¶€í„°ëŠ” create ëŒ€ì‹ ì— generateë¥¼ ì‚¬ìš©í•´ì£¼ë„ë¡ í•˜ìž.
+ì•„ë¬´íŠ¼ ìƒì„±ëœ í”„ë¡œì íŠ¸ë¥¼ ì‚´íŽ´ë³´ë©´ ì•„ëž˜ì™€ ê°™ì€ êµ¬ì¡°ë¡œ ë§Œë“¤ì–´ì ¸ ìžˆëŠ” ê²ƒì„ ë³¼ ìˆ˜ ìžˆë‹¤.
 
 test-app
-¦§ src
-¦¢ ¦§ main
-¦¢ ¦¢ ¦¦ java
-¦¢ ¦¢     ¦¦ com
-¦¢ ¦¢         ¦¦ test
-¦¢ ¦¢             ¦¦ app
-¦¢ ¦¢                 ¦¦ App.java
-¦¢ ¦¦  test
-¦¢      ¦¦ java
-¦¢          ¦¦ com
-¦¢              ¦¦ test
-¦¢                  ¦¦ app
-¦¢                      ¦¦ AppTest.java
-¦¦ pom.xml
+â”œ src
+â”‚ â”œ main
+â”‚ â”‚ â”” java
+â”‚ â”‚     â”” com
+â”‚ â”‚         â”” test
+â”‚ â”‚             â”” app
+â”‚ â”‚                 â”” App.java
+â”‚ â””  test
+â”‚      â”” java
+â”‚          â”” com
+â”‚              â”” test
+â”‚                  â”” app
+â”‚                      â”” AppTest.java
+â”” pom.xml
 
-ÀÏ´Ü artifactId °¡ ·çÆ® µð·ºÅä¸®·Î »ý¼ºµÇ°í ±× ¾È¿¡ ¾Æ·¡¿Í °°Àº pom.xml ÆÄÀÏÀÌ Á¸ÀçÇÑ´Ù.
+ì¼ë‹¨ artifactId ê°€ ë£¨íŠ¸ ë””ë ‰í† ë¦¬ë¡œ ìƒì„±ë˜ê³  ê·¸ ì•ˆì— ì•„ëž˜ì™€ ê°™ì€ pom.xml íŒŒì¼ì´ ì¡´ìž¬í•œë‹¤.
 
 <project>
  <modelVersion>4.0.0</modelVersion>
@@ -3753,49 +3806,49 @@ test-app
  </dependencies>
 </project>
 
-Maven¿¡¼­ Á¦°øÇÏ´Â ±âº» pom.xml °ú ¶È°°Àº ÇüÅÂÀÌ´Ù.
-¾Æ¹«Æ° À§¿¡¼­ º¼ ¼ö ÀÖ´Â µð·ºÅä¸® ±¸Á¶°¡ ¹Ù·Î Maven¿¡¼­ »ç¿ëÇÏ´Â Standard Directory Layout ÀÌ´Ù.
-src Æú´õ¿¡´Â main °ú test µð·ºÅä¸®°¡ ÀÖ´Âµ¥ °¢°¢ÀÇ µð·ºÅä¸®¿¡ groupId ·Î ÆÐÅ°Áö°¡ ¸¸µé¾îÁö°í
-ÇØ´ç µð·ºÅä¸®¿¡´Â ¼Ò½ºÆÄÀÏ, ¼³Á¤ÆÄÀÏ µîµîÀÌ À§Ä¡ÇÏ°Ô µÈ´Ù.
-±×¸®°í App.java ÆÄÀÏÀ» ÇÏ³ª »ý¼ºÇØÁÖ´Âµ¥ Hello World ÇÁ·Î±×·¥ÀÌ ÇÏ³ª µé¾îÀÖ´Ù.
+Mavenì—ì„œ ì œê³µí•˜ëŠ” ê¸°ë³¸ pom.xml ê³¼ ë˜‘ê°™ì€ í˜•íƒœì´ë‹¤.
+ì•„ë¬´íŠ¼ ìœ„ì—ì„œ ë³¼ ìˆ˜ ìžˆëŠ” ë””ë ‰í† ë¦¬ êµ¬ì¡°ê°€ ë°”ë¡œ Mavenì—ì„œ ì‚¬ìš©í•˜ëŠ” Standard Directory Layout ì´ë‹¤.
+src í´ë”ì—ëŠ” main ê³¼ test ë””ë ‰í† ë¦¬ê°€ ìžˆëŠ”ë° ê°ê°ì˜ ë””ë ‰í† ë¦¬ì— groupId ë¡œ íŒ¨í‚¤ì§€ê°€ ë§Œë“¤ì–´ì§€ê³ 
+í•´ë‹¹ ë””ë ‰í† ë¦¬ì—ëŠ” ì†ŒìŠ¤íŒŒì¼, ì„¤ì •íŒŒì¼ ë“±ë“±ì´ ìœ„ì¹˜í•˜ê²Œ ëœë‹¤.
+ê·¸ë¦¬ê³  App.java íŒŒì¼ì„ í•˜ë‚˜ ìƒì„±í•´ì£¼ëŠ”ë° Hello World í”„ë¡œê·¸ëž¨ì´ í•˜ë‚˜ ë“¤ì–´ìžˆë‹¤.
 
-±×·¸´Ù¸é ÀÌÁ¦ ÄÄÆÄÀÏÀ» ÇÏ±â À§ÇØ¼­ pom.xml ÆÄÀÏÀÌ ÀÖ´Â test-app µð·ºÅä¸®·Î °æ·Î¸¦ ¿Å°Ü°£´Ù.
-ÀÌ µð·ºÅä¸®°¡ test-app ÇÁ·ÎÁ§Æ®¿¡¼­ ${basedir} °¡ µÇ°í ÀÌ¸¦ ÀÌ¿ëÇÏ¿© pom.xml ¿¡¼­ »ó¼öÃ³·³ »ç¿ëÇÒ ¼ö ÀÖ´Ù.
-ÀÚ¼¼ÇÑ ¿¹´Â ³ªÁß¿¡ ³ª¿Ã °Í °°À¸´Ï ÀÏ´ÜÀº ¾Ë¾ÆµÎ°í ³Ñ¾î°¡ÀÚ.
-±×·¸´Ù¸é ÄÄÆÄÀÏÀº ¾î¶»°Ô ÇØÁÖ¸é µÉ±î?
+ê·¸ë ‡ë‹¤ë©´ ì´ì œ ì»´íŒŒì¼ì„ í•˜ê¸° ìœ„í•´ì„œ pom.xml íŒŒì¼ì´ ìžˆëŠ” test-app ë””ë ‰í† ë¦¬ë¡œ ê²½ë¡œë¥¼ ì˜®ê²¨ê°„ë‹¤.
+ì´ ë””ë ‰í† ë¦¬ê°€ test-app í”„ë¡œì íŠ¸ì—ì„œ ${basedir} ê°€ ë˜ê³  ì´ë¥¼ ì´ìš©í•˜ì—¬ pom.xml ì—ì„œ ìƒìˆ˜ì²˜ëŸ¼ ì‚¬ìš©í•  ìˆ˜ ìžˆë‹¤.
+ìžì„¸í•œ ì˜ˆëŠ” ë‚˜ì¤‘ì— ë‚˜ì˜¬ ê²ƒ ê°™ìœ¼ë‹ˆ ì¼ë‹¨ì€ ì•Œì•„ë‘ê³  ë„˜ì–´ê°€ìž.
+ê·¸ë ‡ë‹¤ë©´ ì»´íŒŒì¼ì€ ì–´ë–»ê²Œ í•´ì£¼ë©´ ë ê¹Œ?
 
 mvn compile
 
-Á¤¸» °£´ÜÇÏ´Ù... -_-;;
-Á¦´ë·Î Çß´Ù¸é ¾Æ±î Ã³·³ ¹º°¡ ´Ù¿î·Îµå ¹Þ´Ù°¡ ¼º°øÇß´Ù´Â ¸Þ¼¼Áö¸¦ º¼ ¼ö ÀÖÀ» °ÍÀÌ´Ù.
-±×·±µ¥ Á¤¸» Àß ÄÄÆÄÀÏÀÌ µÇ¾ú´ÂÁö ±Ã±ÝÇÏ´Ù.
-test-app µð·ºÅä¸®¸¦ Àß »ìÆìº¸¸é target/classes µð·ºÅä¸®°¡ »ý¼ºµÇ¾î ÀÖ°í ±× ¾È¿¡ ÄÄÆÄÀÏµÈ ÆÄÀÏÀÌ ÀÖ´Â °ÍÀ» º¼ ¼ö ÀÖ´Ù!
-±×·±µ¥ ¹º°¡ Á» ÀÌ»óÇÑ Á¡ÀÌ ÀÖ´Ù...
-¾î¶»°Ô ÄÄÆÄÀÏ ÇÏ°í ÄÄÆÄÀÏ ÇÑ °á°ú¸¦ Àú µð·ºÅä¸®¿¡´Ù°¡ º¹»çÇØ³õ¾ÒÀ»±î...
-ºÐ¸í pom.xml ¿¡´Â ÄÄÆÄÀÏ¿¡ °ü·ÃµÈ ¾Æ¹«·± Á¤º¸µµ ¾ø´Âµ¥...
+ì •ë§ ê°„ë‹¨í•˜ë‹¤... -_-;;
+ì œëŒ€ë¡œ í–ˆë‹¤ë©´ ì•„ê¹Œ ì²˜ëŸ¼ ë­”ê°€ ë‹¤ìš´ë¡œë“œ ë°›ë‹¤ê°€ ì„±ê³µí–ˆë‹¤ëŠ” ë©”ì„¸ì§€ë¥¼ ë³¼ ìˆ˜ ìžˆì„ ê²ƒì´ë‹¤.
+ê·¸ëŸ°ë° ì •ë§ ìž˜ ì»´íŒŒì¼ì´ ë˜ì—ˆëŠ”ì§€ ê¶ê¸ˆí•˜ë‹¤.
+test-app ë””ë ‰í† ë¦¬ë¥¼ ìž˜ ì‚´íŽ´ë³´ë©´ target/classes ë””ë ‰í† ë¦¬ê°€ ìƒì„±ë˜ì–´ ìžˆê³  ê·¸ ì•ˆì— ì»´íŒŒì¼ëœ íŒŒì¼ì´ ìžˆëŠ” ê²ƒì„ ë³¼ ìˆ˜ ìžˆë‹¤!
+ê·¸ëŸ°ë° ë­”ê°€ ì¢€ ì´ìƒí•œ ì ì´ ìžˆë‹¤...
+ì–´ë–»ê²Œ ì»´íŒŒì¼ í•˜ê³  ì»´íŒŒì¼ í•œ ê²°ê³¼ë¥¼ ì € ë””ë ‰í† ë¦¬ì—ë‹¤ê°€ ë³µì‚¬í•´ë†“ì•˜ì„ê¹Œ...
+ë¶„ëª… pom.xml ì—ëŠ” ì»´íŒŒì¼ì— ê´€ë ¨ëœ ì•„ë¬´ëŸ° ì •ë³´ë„ ì—†ëŠ”ë°...
 
-ÀÌ°ÍÀÌ ¹Ù·Î Convention Over Configuration ÀÌ´Ù.
-Maven ¿¡¼­ ¾Æ¹«·± ¼³Á¤À» ÇÏÁö ¾Ê´Â´Ù¸é ¼Ò½º µð·ºÅä¸®´Â src/main/java µð·ºÅä¸®°¡ µÇ°í Å¸°Ù µð·ºÅä¸®´Â target/classes °¡ µÈ´Ù.
-À§¿¡¼­ »ý¼ºµÈ pom.xml ¿¡¼­ ÀÌ·± ¼³Á¤µéÀ» ÀüÇô º¼ ¼ö ¾øÁö¸¸ ºñ¹ÐÀº Super POM ÀÌ °¡Áö°í ÀÖ´Ù.
-¸ðµç Maven ÇÁ·ÎÁ§Æ®´Â Super POMÀ» »ó¼ÓÇÏ°í ÀÖ°í µû·Î °æ·Î ¼³Á¤À» ÇÏÁö ¾Ê´Â´Ù¸é À§ÀÇ ±âº» ¼³Á¤À» »ç¿ëÇÏ°Ô µÇ´Â °ÍÀÌ´Ù.
-°ú¿¬ ¾î¶»°Ô POMÀÌ ±¸¼ºµÇ´ÂÁö ¾Ë¾Æº¸·Á¸é ¾Æ·¡¿Í °°Àº ¸í·ÉÀ» »ç¿ëÇÏ¸é ÃÖÁ¾ POM ±¸Á¶¸¦ È®ÀÎÇÒ ¼ö ÀÖ´Ù.
+ì´ê²ƒì´ ë°”ë¡œ Convention Over Configuration ì´ë‹¤.
+Maven ì—ì„œ ì•„ë¬´ëŸ° ì„¤ì •ì„ í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ì†ŒìŠ¤ ë””ë ‰í† ë¦¬ëŠ” src/main/java ë””ë ‰í† ë¦¬ê°€ ë˜ê³  íƒ€ê²Ÿ ë””ë ‰í† ë¦¬ëŠ” target/classes ê°€ ëœë‹¤.
+ìœ„ì—ì„œ ìƒì„±ëœ pom.xml ì—ì„œ ì´ëŸ° ì„¤ì •ë“¤ì„ ì „í˜€ ë³¼ ìˆ˜ ì—†ì§€ë§Œ ë¹„ë°€ì€ Super POM ì´ ê°€ì§€ê³  ìžˆë‹¤.
+ëª¨ë“  Maven í”„ë¡œì íŠ¸ëŠ” Super POMì„ ìƒì†í•˜ê³  ìžˆê³  ë”°ë¡œ ê²½ë¡œ ì„¤ì •ì„ í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ìœ„ì˜ ê¸°ë³¸ ì„¤ì •ì„ ì‚¬ìš©í•˜ê²Œ ë˜ëŠ” ê²ƒì´ë‹¤.
+ê³¼ì—° ì–´ë–»ê²Œ POMì´ êµ¬ì„±ë˜ëŠ”ì§€ ì•Œì•„ë³´ë ¤ë©´ ì•„ëž˜ì™€ ê°™ì€ ëª…ë ¹ì„ ì‚¬ìš©í•˜ë©´ ìµœì¢… POM êµ¬ì¡°ë¥¼ í™•ì¸í•  ìˆ˜ ìžˆë‹¤.
 
 mvn help:effective-pom
 
-À§ÀÇ ÄÄÆÄÀÏÀÌ ³¡³ª¸é ¼Ò½º ÄÚµå´Â ÄÄÆÄÀÏÀÌ µÇÁö¸¸ Å×½ºÆ® ÄÚµå´Â ÄÄÆÄÀÏÀÌ µÇÁö ¾Ê´Â´Ù.
-MavenÀº Build Life Cycle À» °®´Âµ¥ compile ÀÌ¶õ goal Àº ¼Ò½º ÄÚµå¸¦ ÄÄÆÄÀÏ ÇÏ´Â ¿ªÇÒ±îÁö¸¸ ÇÏµµ·Ï µÇ¾î ÀÖ´Â °ÍÀÌ´Ù.
-ÀÌ·¸°Ô ¸¸µç ÀÌÀ¯´Â Àç»ç¿ëÀÌ ¿ëÀÌÇÏµµ·Ï ÇÏ±â À§ÇØ¼­¶ó°í ÀÌÀü¿¡ »ìÆìº» ¹Ù ÀÖ´Ù.
-±×·¸´Ù¸é ÀÌÁ¦ Å×½ºÆ® ÄÚµå¸¦ ÄÄÆÄÀÏ ÇÏ°í À¯´Ö Å×½ºÆ®¸¦ ½ÇÇàÇØº¸µµ·Ï ÇÏÀÚ.
+ìœ„ì˜ ì»´íŒŒì¼ì´ ëë‚˜ë©´ ì†ŒìŠ¤ ì½”ë“œëŠ” ì»´íŒŒì¼ì´ ë˜ì§€ë§Œ í…ŒìŠ¤íŠ¸ ì½”ë“œëŠ” ì»´íŒŒì¼ì´ ë˜ì§€ ì•ŠëŠ”ë‹¤.
+Mavenì€ Build Life Cycle ì„ ê°–ëŠ”ë° compile ì´ëž€ goal ì€ ì†ŒìŠ¤ ì½”ë“œë¥¼ ì»´íŒŒì¼ í•˜ëŠ” ì—­í• ê¹Œì§€ë§Œ í•˜ë„ë¡ ë˜ì–´ ìžˆëŠ” ê²ƒì´ë‹¤.
+ì´ë ‡ê²Œ ë§Œë“  ì´ìœ ëŠ” ìž¬ì‚¬ìš©ì´ ìš©ì´í•˜ë„ë¡ í•˜ê¸° ìœ„í•´ì„œë¼ê³  ì´ì „ì— ì‚´íŽ´ë³¸ ë°” ìžˆë‹¤.
+ê·¸ë ‡ë‹¤ë©´ ì´ì œ í…ŒìŠ¤íŠ¸ ì½”ë“œë¥¼ ì»´íŒŒì¼ í•˜ê³  ìœ ë‹› í…ŒìŠ¤íŠ¸ë¥¼ ì‹¤í–‰í•´ë³´ë„ë¡ í•˜ìž.
 
 mvn test
 
-³¡ÀÌ´Ù... -_-;;
-±×³É À§¿Í °°ÀÌ ÇØÁÖ¸é ¹º°¡ ´Ù¿î·Îµå°¡ ³¡³ª¸é ¹Ù·Î Å×½ºÆ® ÄÚµå ÄÄÆÄÀÏ ÇÏ°í À¯´Ö Å×½ºÆ®±îÁö ½ÇÇàÇØÁØ´Ù.
-½ÇÇà °á°ú¸¦ Àß »ìÆìº¸¸é test ¸¦ ½ÇÇà½ÃÅ°¸é compile °ú test-compile ÀÌ ¸ÕÀú ½ÇÇàµÇ´Â °ÍÀ» º¼ ¼ö ÀÖÀ» °ÍÀÌ´Ù.
-Build Life CycleÀÌ ÀÌ·¸°Ô ½ÇÇàµÇµµ·Ï ±¸¼ºµÇ¾î ÀÖ±â ¶§¹®ÀÌ´Ù.
-(»óÀ§ ·¹º§ÀÇ goal À» ½ÇÇàÇÏ°Ô µÇ¸é ÇÏÀ§ ·¹º§ÀÇ goal À» ¸ÕÀú ½ÇÇàÇÑ´Ù!!)
-¸¸¾à Å×½ºÆ® ÄÄÆÄÀÏ±îÁö¸¸ ÇÏ°í Å×½ºÆ®¸¦ ½ÇÇàÇÏÁö ¾Ê°íÀÚ ÇÑ´Ù¸é mvn test-compile ·Î ½ÇÇàÇÏ¸é µÈ´Ù.
-ÀÏ´Ü Å×½ºÆ®¸¦ ½ÇÇàÇÏ¸é ¾Æ·¡¿Í °°ÀÌ surefile ÇÃ·¯±×ÀÎÀÌ ´ã´çÇÏ´Â °ÍÀ» È®ÀÎÇÒ ¼ö ÀÖÀ» °ÍÀÌ´Ù.
+ëì´ë‹¤... -_-;;
+ê·¸ëƒ¥ ìœ„ì™€ ê°™ì´ í•´ì£¼ë©´ ë­”ê°€ ë‹¤ìš´ë¡œë“œê°€ ëë‚˜ë©´ ë°”ë¡œ í…ŒìŠ¤íŠ¸ ì½”ë“œ ì»´íŒŒì¼ í•˜ê³  ìœ ë‹› í…ŒìŠ¤íŠ¸ê¹Œì§€ ì‹¤í–‰í•´ì¤€ë‹¤.
+ì‹¤í–‰ ê²°ê³¼ë¥¼ ìž˜ ì‚´íŽ´ë³´ë©´ test ë¥¼ ì‹¤í–‰ì‹œí‚¤ë©´ compile ê³¼ test-compile ì´ ë¨¼ì € ì‹¤í–‰ë˜ëŠ” ê²ƒì„ ë³¼ ìˆ˜ ìžˆì„ ê²ƒì´ë‹¤.
+Build Life Cycleì´ ì´ë ‡ê²Œ ì‹¤í–‰ë˜ë„ë¡ êµ¬ì„±ë˜ì–´ ìžˆê¸° ë•Œë¬¸ì´ë‹¤.
+(ìƒìœ„ ë ˆë²¨ì˜ goal ì„ ì‹¤í–‰í•˜ê²Œ ë˜ë©´ í•˜ìœ„ ë ˆë²¨ì˜ goal ì„ ë¨¼ì € ì‹¤í–‰í•œë‹¤!!)
+ë§Œì•½ í…ŒìŠ¤íŠ¸ ì»´íŒŒì¼ê¹Œì§€ë§Œ í•˜ê³  í…ŒìŠ¤íŠ¸ë¥¼ ì‹¤í–‰í•˜ì§€ ì•Šê³ ìž í•œë‹¤ë©´ mvn test-compile ë¡œ ì‹¤í–‰í•˜ë©´ ëœë‹¤.
+ì¼ë‹¨ í…ŒìŠ¤íŠ¸ë¥¼ ì‹¤í–‰í•˜ë©´ ì•„ëž˜ì™€ ê°™ì´ surefile í”ŒëŸ¬ê·¸ì¸ì´ ë‹´ë‹¹í•˜ëŠ” ê²ƒì„ í™•ì¸í•  ìˆ˜ ìžˆì„ ê²ƒì´ë‹¤.
 
 -------------------------------------------------------
  T E S T S
@@ -3805,91 +3858,91 @@ Build Life CycleÀÌ ÀÌ·¸°Ô ½ÇÇàµÇµµ·Ï ±¸¼ºµÇ¾î ÀÖ±â ¶§¹®ÀÌ´Ù.
 Results :
 [surefire] Tests run: 1, Failures: 0, Errors: 0
 
-¿©±â¼­ ÇÑ°¡Áö ¾Ë°í ³Ñ¾î°¡¾ß ÇÒ »ç½ÇÀº ¿©±â¿¡µµ Convention Over ConfigurationÀÌ Àû¿ëµÈ´Ù´Â °ÍÀÌ´Ù.
-surefire ÇÃ·¯±×ÀÎÀº ±âº»ÀûÀ¸·Î ´ÙÀ½°ú °°Àº ÆÄÀÏÀ» Ã£¾Æ¼­ Å×½ºÆ® ÄÚµå¸¦ ½ÇÇà½ÃÅ²´Ù.
+ì—¬ê¸°ì„œ í•œê°€ì§€ ì•Œê³  ë„˜ì–´ê°€ì•¼ í•  ì‚¬ì‹¤ì€ ì—¬ê¸°ì—ë„ Convention Over Configurationì´ ì ìš©ëœë‹¤ëŠ” ê²ƒì´ë‹¤.
+surefire í”ŒëŸ¬ê·¸ì¸ì€ ê¸°ë³¸ì ìœ¼ë¡œ ë‹¤ìŒê³¼ ê°™ì€ íŒŒì¼ì„ ì°¾ì•„ì„œ í…ŒìŠ¤íŠ¸ ì½”ë“œë¥¼ ì‹¤í–‰ì‹œí‚¨ë‹¤.
 
 **/*Test.java
 **/Test*.java
 **/*TestCase.java
 
-±×¸®°í ±âº»ÀûÀ¸·Î ´ÙÀ½°ú °°Àº ÆÄÀÏÀº Á¦¿ÜÇÑ´Ù.
+ê·¸ë¦¬ê³  ê¸°ë³¸ì ìœ¼ë¡œ ë‹¤ìŒê³¼ ê°™ì€ íŒŒì¼ì€ ì œì™¸í•œë‹¤.
 
 **/Abstract*Test.java
 **/Abstract*TestCase.java
 
-±×³É Àú·± ³×ÀÌ¹Ö ·êÀ» ÁöÅ°±â¸¸ ÇÏ¸é ¸ðµç°É ÆíÇÏ°Ô ÇÒ ¼ö ÀÖ´Ù.
-ÀÌ¹ø¿¡´Â ÆÐÅ°Â¡°ú ÀÎ½ºÅçÀ» ¾Ë¾Æº¸µµ·Ï ÇÏÀÚ.
+ê·¸ëƒ¥ ì €ëŸ° ë„¤ì´ë° ë£°ì„ ì§€í‚¤ê¸°ë§Œ í•˜ë©´ ëª¨ë“ ê±¸ íŽ¸í•˜ê²Œ í•  ìˆ˜ ìžˆë‹¤.
+ì´ë²ˆì—ëŠ” íŒ¨í‚¤ì§•ê³¼ ì¸ìŠ¤í†¨ì„ ì•Œì•„ë³´ë„ë¡ í•˜ìž.
 
 mvn package
 
-À§¿Í °°ÀÌ ½ÇÇà½ÃÄÑÁÖ¸é pom.xml ¿¡ ¼³Á¤µÇ¾î ÀÖ´Â ÆÐÅ°Áö·Î (<packaging>jar</packaging> ¶ó¸é jar·Î) ¸¸µé¾î ÁØ´Ù.
+ìœ„ì™€ ê°™ì´ ì‹¤í–‰ì‹œì¼œì£¼ë©´ pom.xml ì— ì„¤ì •ë˜ì–´ ìžˆëŠ” íŒ¨í‚¤ì§€ë¡œ (<packaging>jar</packaging> ë¼ë©´ jarë¡œ) ë§Œë“¤ì–´ ì¤€ë‹¤.
 
 mvn install
 
-±×¸®°í ³ª¼­ À§ÀÇ ¸í·ÉÀ» ½ÇÇàÇÏ¸é Local Repository·Î ¸¸µé¾îÁø jar ÆÄÀÏÀ» º¹»çÇØÁÖ°Ô µÈ´Ù.
+ê·¸ë¦¬ê³  ë‚˜ì„œ ìœ„ì˜ ëª…ë ¹ì„ ì‹¤í–‰í•˜ë©´ Local Repositoryë¡œ ë§Œë“¤ì–´ì§„ jar íŒŒì¼ì„ ë³µì‚¬í•´ì£¼ê²Œ ëœë‹¤.
 
-Á¤¸» ÃÊ°£´ÜÇÏ°Ô ÇÁ·ÎÁ§Æ® ÇÏ³ª »ý¼ºÇØ¼­ ÄÄÆÄÀÏ, Å×½ºÆ®, ÆÐÅ°Â¡, ÀÎ½ºÅç±îÁö ¿Ï·áÇÒ ¼ö ÀÖ´Ù.
-ÇÊ¿äÇÑ POM ¼³Á¤ ÆÄÀÏÀº À§¿¡¼­ »ìÆìº» pom.xml ÆÄÀÏÀÌ ÀüºÎÀÌ´Ù.
+ì •ë§ ì´ˆê°„ë‹¨í•˜ê²Œ í”„ë¡œì íŠ¸ í•˜ë‚˜ ìƒì„±í•´ì„œ ì»´íŒŒì¼, í…ŒìŠ¤íŠ¸, íŒ¨í‚¤ì§•, ì¸ìŠ¤í†¨ê¹Œì§€ ì™„ë£Œí•  ìˆ˜ ìžˆë‹¤.
+í•„ìš”í•œ POM ì„¤ì • íŒŒì¼ì€ ìœ„ì—ì„œ ì‚´íŽ´ë³¸ pom.xml íŒŒì¼ì´ ì „ë¶€ì´ë‹¤.
 
-Maven¿¡¼­´Â ¶Ç ÇÏ³ªÀÇ À¯¿ëÇÑ ÇÃ·¯±×ÀÎÀ» Á¦°øÇÑ´Ù
+Mavenì—ì„œëŠ” ë˜ í•˜ë‚˜ì˜ ìœ ìš©í•œ í”ŒëŸ¬ê·¸ì¸ì„ ì œê³µí•œë‹¤
 
 
 
-À§¿¡ º¸´Â È­¸éÀº ¹æ±Ý ¿ì¸®°¡ ¸¸µç ÇÁ·ÎÁ§Æ®ÀÇ Á¾ÇÕÀûÀÎ Á¤º¸¸¦ º¸¿©ÁÖ´Â À¥ÆäÀÌÁö´Ù.
-Àú°É ³»°¡ ÀÛÁ¢ ¸¸µç°Ô ¾Æ´Ï°í mvn site ¸í·ÉÀ» ½ÇÇàÇÏ¸é site ÇÃ·¯±×ÀÎÀÌ ÀÚµ¿À¸·Î ¸¸µé¾î ÁØ´Ù.
-Áö±Ý±îÁö ºôµåµÈ ³»¿ëÀ» »èÁ¦ÇÏ°íÀÚ ÇÑ´Ù¸é mvn clean ¸í·ÉÀ» ½ÇÇàÇÏ¸é µÈ´Ù.
+ìœ„ì— ë³´ëŠ” í™”ë©´ì€ ë°©ê¸ˆ ìš°ë¦¬ê°€ ë§Œë“  í”„ë¡œì íŠ¸ì˜ ì¢…í•©ì ì¸ ì •ë³´ë¥¼ ë³´ì—¬ì£¼ëŠ” ì›¹íŽ˜ì´ì§€ë‹¤.
+ì €ê±¸ ë‚´ê°€ ìž‘ì ‘ ë§Œë“ ê²Œ ì•„ë‹ˆê³  mvn site ëª…ë ¹ì„ ì‹¤í–‰í•˜ë©´ site í”ŒëŸ¬ê·¸ì¸ì´ ìžë™ìœ¼ë¡œ ë§Œë“¤ì–´ ì¤€ë‹¤.
+ì§€ê¸ˆê¹Œì§€ ë¹Œë“œëœ ë‚´ìš©ì„ ì‚­ì œí•˜ê³ ìž í•œë‹¤ë©´ mvn clean ëª…ë ¹ì„ ì‹¤í–‰í•˜ë©´ ëœë‹¤.
 
-±×¸®°í »ç½Ç ¿äÁò¿¡ ´©°¡ Ä¿¸Çµå Ã¢¿¡¼­ ÀÏÀÏÀÌ ÀÔ·ÂÇÏ°í ÀÖÀ»±î ½Í´Ù..
-Maven¿¡¼­´Â IntelliJ IDEA¿Í ÀÌÅ¬¸³½º¿¡¼­ »ç¿ëÇÒ ¼ö ÀÖ´Â ÇüÅÂ·Î ¸¸µé¾îÁÖ´Â ÇÃ·¯±×ÀÎµµ Á¦°øÇÑ´Ù.
+ê·¸ë¦¬ê³  ì‚¬ì‹¤ ìš”ì¦˜ì— ëˆ„ê°€ ì»¤ë§¨ë“œ ì°½ì—ì„œ ì¼ì¼ì´ ìž…ë ¥í•˜ê³  ìžˆì„ê¹Œ ì‹¶ë‹¤..
+Mavenì—ì„œëŠ” IntelliJ IDEAì™€ ì´í´ë¦½ìŠ¤ì—ì„œ ì‚¬ìš©í•  ìˆ˜ ìžˆëŠ” í˜•íƒœë¡œ ë§Œë“¤ì–´ì£¼ëŠ” í”ŒëŸ¬ê·¸ì¸ë„ ì œê³µí•œë‹¤.
 
 mvn eclipse:eclipse
 
-À§¿Í °°ÀÌ ½ÇÇàÇÏ¸é ÀÌÅ¬¸³½º ÇÁ·ÎÁ§Æ®·Î »ç¿ëÇÒ ¼ö ÀÖµµ·Ï .project ÆÄÀÏ°ú .classpath ÆÄÀÏÀÌ »ý¼ºµÈ´Ù.
-ÀÌÅ¬¸³½º¸¦ ½ÇÇàÇÑ ÈÄ¿¡ ÇÁ·ÎÁ§Æ®·Î µî·ÏÇØ¼­ »ç¿ëÇÏ¸é µÈ´Ù.
-¿©±â±îÁö °£´ÜÇÏ°Ô ÇÁ·ÎÁ§Æ®¸¦ »ý¼ºÇÏ°í MavenÀ» »ç¿ëÇÏ´Â ¹æ¹ýÀ» ¾Ë¾Æº¸¾Ò´Ù.
-[ÃâÃ³] Maven ¼³Ä¡ ¹× °£´ÜÇÑ »ç¿ë¹æ¹ý|ÀÛ¼ºÀÚ Á×»§¿¡Äµµð
+ìœ„ì™€ ê°™ì´ ì‹¤í–‰í•˜ë©´ ì´í´ë¦½ìŠ¤ í”„ë¡œì íŠ¸ë¡œ ì‚¬ìš©í•  ìˆ˜ ìžˆë„ë¡ .project íŒŒì¼ê³¼ .classpath íŒŒì¼ì´ ìƒì„±ëœë‹¤.
+ì´í´ë¦½ìŠ¤ë¥¼ ì‹¤í–‰í•œ í›„ì— í”„ë¡œì íŠ¸ë¡œ ë“±ë¡í•´ì„œ ì‚¬ìš©í•˜ë©´ ëœë‹¤.
+ì—¬ê¸°ê¹Œì§€ ê°„ë‹¨í•˜ê²Œ í”„ë¡œì íŠ¸ë¥¼ ìƒì„±í•˜ê³  Mavenì„ ì‚¬ìš©í•˜ëŠ” ë°©ë²•ì„ ì•Œì•„ë³´ì•˜ë‹¤.
+[ì¶œì²˜] Maven ì„¤ì¹˜ ë° ê°„ë‹¨í•œ ì‚¬ìš©ë°©ë²•|ìž‘ì„±ìž ì£½ë¹µì—ìº”ë””
 
 
 
 ----------------------------------------------------------------------------------------------------
 
-ÀÌ¹ø¿¡´Â Maven¿¡¼­ °¢Á¾ ¸®¼Ò½º ÆÄÀÏµéÀ» ¾î¶»°Ô Ã³¸®ÇÏ´ÂÁö ¾Ë¾Æº¸µµ·Ï ÇÏÀÚ.
-ÀÏ´Ü Maven¿¡¼­´Â ¸®¼Ò½º ÆÄÀÏÀÌ src/main/resources µð·ºÅä¸®¿¡ ÀÖÀ¸¸é ÇØ´ç ÆÄÀÏµéÀ» ¸®¼Ò½º ÆÄÀÏ·Î °£ÁÖÇÑ´Ù.
-¸¸¾à ÇØ´ç µð·ºÅä¸®¿¡ ¾Æ·¡¿Í °°ÀÌ test.properties ¶õ ÆÄÀÏÀÌ ÀÖ´Ù¸é...
+ì´ë²ˆì—ëŠ” Mavenì—ì„œ ê°ì¢… ë¦¬ì†ŒìŠ¤ íŒŒì¼ë“¤ì„ ì–´ë–»ê²Œ ì²˜ë¦¬í•˜ëŠ”ì§€ ì•Œì•„ë³´ë„ë¡ í•˜ìž.
+ì¼ë‹¨ Mavenì—ì„œëŠ” ë¦¬ì†ŒìŠ¤ íŒŒì¼ì´ src/main/resources ë””ë ‰í† ë¦¬ì— ìžˆìœ¼ë©´ í•´ë‹¹ íŒŒì¼ë“¤ì„ ë¦¬ì†ŒìŠ¤ íŒŒì¼ë¡œ ê°„ì£¼í•œë‹¤.
+ë§Œì•½ í•´ë‹¹ ë””ë ‰í† ë¦¬ì— ì•„ëž˜ì™€ ê°™ì´ test.properties ëž€ íŒŒì¼ì´ ìžˆë‹¤ë©´...
 
 test-app
-¦§ src
-¦¢ ¦§ main
-¦¢ ¦¢ ¦§ java
-¦¢ ¦¢ ¦¢¦¦ com
-¦¢ ¦¢ ¦¢    ¦¦ test
-¦¢ ¦¢ ¦¢        ¦¦ app
-¦¢ ¦¢ ¦¢            ¦¦ App.java
-¦¢ ¦¢ ¦¦ resources
-¦¢ ¦¢    ¦¦ test.properties
-¦¢ ¦¦  test
-¦¢      ¦¦ java
-¦¢          ¦¦ com
-¦¢              ¦¦ test
-¦¢                  ¦¦ app
-¦¢                      ¦¦ AppTest.java
-¦¦ pom.xml
+â”œ src
+â”‚ â”œ main
+â”‚ â”‚ â”œ java
+â”‚ â”‚ â”‚â”” com
+â”‚ â”‚ â”‚    â”” test
+â”‚ â”‚ â”‚        â”” app
+â”‚ â”‚ â”‚            â”” App.java
+â”‚ â”‚ â”” resources
+â”‚ â”‚    â”” test.properties
+â”‚ â””  test
+â”‚      â”” java
+â”‚          â”” com
+â”‚              â”” test
+â”‚                  â”” app
+â”‚                      â”” AppTest.java
+â”” pom.xml
 
-mvn complie ¸í·ÉÀ» ½ÇÇàÇØÁÖ¸é target/classes Æú´õ¿¡ ÇØ´ç ÆÄÀÏÀÌ º¹»çµÇ´Â °ÍÀ» È®ÀÎÇÒ ¼ö ÀÖ´Ù.
-¸¸¾à mvn install ¸í·ÉÀ» ½ÇÇàÇß´Ù¸é »ý¼ºµÈ jar ÆÄÀÏ¿¡´Â ´ÙÀ½°ú °°ÀÌ META-INF Æú´õ°¡ »ý¼ºµÈ´Ù.
+mvn complie ëª…ë ¹ì„ ì‹¤í–‰í•´ì£¼ë©´ target/classes í´ë”ì— í•´ë‹¹ íŒŒì¼ì´ ë³µì‚¬ë˜ëŠ” ê²ƒì„ í™•ì¸í•  ìˆ˜ ìžˆë‹¤.
+ë§Œì•½ mvn install ëª…ë ¹ì„ ì‹¤í–‰í–ˆë‹¤ë©´ ìƒì„±ëœ jar íŒŒì¼ì—ëŠ” ë‹¤ìŒê³¼ ê°™ì´ META-INF í´ë”ê°€ ìƒì„±ëœë‹¤.
 
 test-app-1.0-SNAPSHOT.jar
-¦¦ META-INF
-    ¦§ maven
-    ¦¢  ¦¦ com.test.app
-    ¦¢      ¦¦ test-app
-    ¦¢          ¦§ pom.properties
-    ¦¢          ¦¦ pom.xml
-    ¦¦ MANIFEST.MF
+â”” META-INF
+    â”œ maven
+    â”‚  â”” com.test.app
+    â”‚      â”” test-app
+    â”‚          â”œ pom.properties
+    â”‚          â”” pom.xml
+    â”” MANIFEST.MF
 
-À§ÀÇ Á¤º¸´Â ÀÚµ¿À¸·Î »ý¼ºµÈ´Ù.
-¸¸¾à MANIFEST.MF ÆÄÀÏÀ» Á÷Á¢ ¸¸µé°í ½Í´Ù¸é maven-jar-plugin À» »ç¿ëÇÏ¸é µÈ´Ù..
-¾Æ·¡¿Í °°ÀÌ ÇØÁÖ¸é<manifestFile> ÅÂ±×¿¡ ¸í½ÃµÈ ÆÄÀÏ·Î º¯°æµÈ´Ù.
+ìœ„ì˜ ì •ë³´ëŠ” ìžë™ìœ¼ë¡œ ìƒì„±ëœë‹¤.
+ë§Œì•½ MANIFEST.MF íŒŒì¼ì„ ì§ì ‘ ë§Œë“¤ê³  ì‹¶ë‹¤ë©´ maven-jar-plugin ì„ ì‚¬ìš©í•˜ë©´ ëœë‹¤..
+ì•„ëž˜ì™€ ê°™ì´ í•´ì£¼ë©´<manifestFile> íƒœê·¸ì— ëª…ì‹œëœ íŒŒì¼ë¡œ ë³€ê²½ëœë‹¤.
 
 <build>
   <plugins>
@@ -3905,13 +3958,13 @@ test-app-1.0-SNAPSHOT.jar
   </plugins>
 </build>
 
-Å×½ºÆ® Å¬·¡½ºÆÐ½º ¸®¼Ò½ºµµ src/test/resources µð·ºÅä¸®¿¡ ¸¸µé¾îÁÖ¸é µÈ´Ù.
-ÀÏ¹Ý Å¬·¡½ºÆÐ½º ¸®¼Ò½º¿Í ´Ù¸¥ Á¡Àº ÇÏ³ªµµ ¾ø´Ù.
+í…ŒìŠ¤íŠ¸ í´ëž˜ìŠ¤íŒ¨ìŠ¤ ë¦¬ì†ŒìŠ¤ë„ src/test/resources ë””ë ‰í† ë¦¬ì— ë§Œë“¤ì–´ì£¼ë©´ ëœë‹¤.
+ì¼ë°˜ í´ëž˜ìŠ¤íŒ¨ìŠ¤ ë¦¬ì†ŒìŠ¤ì™€ ë‹¤ë¥¸ ì ì€ í•˜ë‚˜ë„ ì—†ë‹¤.
 
-ÀÚ.. ÀÌ¹ø¿¡´Â ¸®¼Ò½º ÇÊÅÍ¸µ¿¡ ´ëÇØ¼­ ¾Ë¾Æº¸µµ·Ï ÇÏÀÚ.
-Maven ¿¡¼­´Â ¸®¼Ò½º ÆÄÀÏÀ» µ¿ÀûÀ¸·Î º¯°æÇÒ ¼ö ÀÖ´Â ±â´ÉÀ» °¡Áö°í ÀÖ´Ù.
-Áï POM.xml¿¡¼­ »ç¿ëÇÏ°í ÀÖ´Â ¸ðµç ¼Ó¼ºµéÀ» ${¼Ó¼ºÀÌ¸§} À¸·Î ¸®¼Ò½º ÆÄÀÏ¿¡¼­ °¡Á®´Ù »ç¿ëÇÒ ¼ö ÀÖ´Ù.
-¸¸¾à ¾Æ·¡¿Í °°ÀÌ POM.xml ÆÄÀÏ¿¡¼­ filteringÀ» true·Î ¼³Á¤Çß´Ù¸é...
+ìž.. ì´ë²ˆì—ëŠ” ë¦¬ì†ŒìŠ¤ í•„í„°ë§ì— ëŒ€í•´ì„œ ì•Œì•„ë³´ë„ë¡ í•˜ìž.
+Maven ì—ì„œëŠ” ë¦¬ì†ŒìŠ¤ íŒŒì¼ì„ ë™ì ìœ¼ë¡œ ë³€ê²½í•  ìˆ˜ ìžˆëŠ” ê¸°ëŠ¥ì„ ê°€ì§€ê³  ìžˆë‹¤.
+ì¦‰ POM.xmlì—ì„œ ì‚¬ìš©í•˜ê³  ìžˆëŠ” ëª¨ë“  ì†ì„±ë“¤ì„ ${ì†ì„±ì´ë¦„} ìœ¼ë¡œ ë¦¬ì†ŒìŠ¤ íŒŒì¼ì—ì„œ ê°€ì ¸ë‹¤ ì‚¬ìš©í•  ìˆ˜ ìžˆë‹¤.
+ë§Œì•½ ì•„ëž˜ì™€ ê°™ì´ POM.xml íŒŒì¼ì—ì„œ filteringì„ trueë¡œ ì„¤ì •í–ˆë‹¤ë©´...
 
 <project>
  <modelVersion>4.0.0</modelVersion>
@@ -3939,11 +3992,11 @@ Maven ¿¡¼­´Â ¸®¼Ò½º ÆÄÀÏÀ» µ¿ÀûÀ¸·Î º¯°æÇÒ ¼ö ÀÖ´Â ±â´ÉÀ» °¡Áö°í ÀÖ´Ù.
  </build>
 </project>
 
-src/main/resource µð·ºÅä¸®¿¡ ÀÖ´Â test.properties ÆÄÀÏ¿¡...
-project.name = ${project.name} ¶ó°í ÀúÀåÇÏ°í mvn process-resources ¸¦ ½ÇÇàÇÏ¸é...
-test.properties ÆÄÀÏÀÇ ³»¿ëÀº project.name = test ·Î º¯°æµÈ´Ù.
+src/main/resource ë””ë ‰í† ë¦¬ì— ìžˆëŠ” test.properties íŒŒì¼ì—...
+project.name = ${project.name} ë¼ê³  ì €ìž¥í•˜ê³  mvn process-resources ë¥¼ ì‹¤í–‰í•˜ë©´...
+test.properties íŒŒì¼ì˜ ë‚´ìš©ì€ project.name = test ë¡œ ë³€ê²½ëœë‹¤.
 
-´Ù¸¥ ÇÁ·ÎÆÛÆ¼ ÆÄÀÏ¿¡ ÀÖ´Â ³»¿ëÀ» »ç¿ëÇÒ ¼öµµ ÀÖ´Âµ¥...
+ë‹¤ë¥¸ í”„ë¡œí¼í‹° íŒŒì¼ì— ìžˆëŠ” ë‚´ìš©ì„ ì‚¬ìš©í•  ìˆ˜ë„ ìžˆëŠ”ë°...
 
 <build>
   <filters>
@@ -3957,9 +4010,9 @@ test.properties ÆÄÀÏÀÇ ³»¿ëÀº project.name = test ·Î º¯°æµÈ´Ù.
   </resources>
 </build>
 
-À§¿Í °°ÀÌ ¼³Á¤ÇÏ°Ô µÇ¸é filter.properties¿¡ ÀÖ´Â ¼Ó¼ºµµ ${¼Ó¼ºÀÌ¸§} Çü½ÄÀ¸·Î »ç¿ëÇÒ ¼ö ÀÖ°Ô µÈ´Ù.
+ìœ„ì™€ ê°™ì´ ì„¤ì •í•˜ê²Œ ë˜ë©´ filter.propertiesì— ìžˆëŠ” ì†ì„±ë„ ${ì†ì„±ì´ë¦„} í˜•ì‹ìœ¼ë¡œ ì‚¬ìš©í•  ìˆ˜ ìžˆê²Œ ëœë‹¤.
 
-POM.xml¿¡¼­ Á÷Á¢ ¼Ó¼ºÀ» ¼³Á¤ÇÒ ¼öµµ ÀÖ´Ù.
+POM.xmlì—ì„œ ì§ì ‘ ì†ì„±ì„ ì„¤ì •í•  ìˆ˜ë„ ìžˆë‹¤.
 
  <properties>
   <test>
@@ -3968,13 +4021,13 @@ POM.xml¿¡¼­ Á÷Á¢ ¼Ó¼ºÀ» ¼³Á¤ÇÒ ¼öµµ ÀÖ´Ù.
   <greeting.hello>hi</greeting.hello>
  </properties>
 
-À§¿Í °°ÀÌ ¼³Á¤ÇÏ°Ô µÇ¸é ${test.value} ¶Ç´Â ${greeting.hello} ¼Ó¼ºÀ» »ç¿ëÇÒ ¼ö ÀÖ°Ô µÈ´Ù.
+ìœ„ì™€ ê°™ì´ ì„¤ì •í•˜ê²Œ ë˜ë©´ ${test.value} ë˜ëŠ” ${greeting.hello} ì†ì„±ì„ ì‚¬ìš©í•  ìˆ˜ ìžˆê²Œ ëœë‹¤.
 
-¸¶Áö¸·À¸·Î ½Ã½ºÅÛ ÇÁ·ÎÆÛÆ¼µµ »ç¿ëÇÒ ¼ö°¡ ÀÖ´Ù.
-¿¹¸¦ µé¾î java.version ÀÌ¶ó´øÁö ±âÅ¸ µîµî System Å¬·¡½º¿¡¼­ Á¦°øÇÏ´Â ÇÁ·ÎÆÛÆ¼µéÀ» ±×´ë·Î »ç¿ë °¡´ÉÇÏ´Ù.
-½ÉÁö¾î -D ¿É¼ÇÀ¸·Î ³Ñ¾î¿À´Â Ä¿¸Çµå ¶óÀÎ ÇÁ·ÎÆÛÆ¼µµ »ç¿ë°¡´ÉÇÏ´Ù!!
+ë§ˆì§€ë§‰ìœ¼ë¡œ ì‹œìŠ¤í…œ í”„ë¡œí¼í‹°ë„ ì‚¬ìš©í•  ìˆ˜ê°€ ìžˆë‹¤.
+ì˜ˆë¥¼ ë“¤ì–´ java.version ì´ë¼ë˜ì§€ ê¸°íƒ€ ë“±ë“± System í´ëž˜ìŠ¤ì—ì„œ ì œê³µí•˜ëŠ” í”„ë¡œí¼í‹°ë“¤ì„ ê·¸ëŒ€ë¡œ ì‚¬ìš© ê°€ëŠ¥í•˜ë‹¤.
+ì‹¬ì§€ì–´ -D ì˜µì…˜ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” ì»¤ë§¨ë“œ ë¼ì¸ í”„ë¡œí¼í‹°ë„ ì‚¬ìš©ê°€ëŠ¥í•˜ë‹¤!!
 
-¸¸¾à ¸®¼Ò½º Áß¿¡ À§¿Í °°Àº ÇÊÅÍ¸µÀ» Á¦¿ÜÇÏ°í ½ÍÀº ¸®¼Ò½º°¡ ÀÖ´Â °æ¿ì¿¡´Â ¾Æ·¡¿Í °°ÀÌ ¼³Á¤ÇØÁÖ¸é µÈ´Ù.
+ë§Œì•½ ë¦¬ì†ŒìŠ¤ ì¤‘ì— ìœ„ì™€ ê°™ì€ í•„í„°ë§ì„ ì œì™¸í•˜ê³  ì‹¶ì€ ë¦¬ì†ŒìŠ¤ê°€ ìžˆëŠ” ê²½ìš°ì—ëŠ” ì•„ëž˜ì™€ ê°™ì´ ì„¤ì •í•´ì£¼ë©´ ëœë‹¤.
 
  <build>
   <resources>
@@ -3994,13 +4047,13 @@ POM.xml¿¡¼­ Á÷Á¢ ¼Ó¼ºÀ» ¼³Á¤ÇÒ ¼öµµ ÀÖ´Ù.
   </resources>
  </build>
 
-Áï ÇÊÅÍ¸µ ½Ã¿¡ Á¦¿ÜÇÒ ¸®¼Ò½º¸¦ <exclude> ¼³Á¤À» ÅëÇØ Á¦¿Ü½ÃÅ°°í Á¦¿ÜµÈ ¸®¼Ò½º¸¸ µû·Î <include> ÇØÁÖ¸é µÈ´Ù.
-´Ù¼Ò º¹ÀâÇØ º¸ÀÏÁöµµ ¸ð¸£°ÚÁö¸¸ °¡¸¸ »ìÆìº¸¸¸ ¾ÆÁÖ ¸í½ÃÀûÀÎ ¹æ¹ýÀÌ´Ù.
+ì¦‰ í•„í„°ë§ ì‹œì— ì œì™¸í•  ë¦¬ì†ŒìŠ¤ë¥¼ <exclude> ì„¤ì •ì„ í†µí•´ ì œì™¸ì‹œí‚¤ê³  ì œì™¸ëœ ë¦¬ì†ŒìŠ¤ë§Œ ë”°ë¡œ <include> í•´ì£¼ë©´ ëœë‹¤.
+ë‹¤ì†Œ ë³µìž¡í•´ ë³´ì¼ì§€ë„ ëª¨ë¥´ê² ì§€ë§Œ ê°€ë§Œ ì‚´íŽ´ë³´ë§Œ ì•„ì£¼ ëª…ì‹œì ì¸ ë°©ë²•ì´ë‹¤.
 
-ÀÌÀü¿¡µµ »ìÆìº¸¾ÒÁö¸¸ Maven¿¡¼­´Â ºôµå¸¦ Ä¿½ºÅÍ¸¶ÀÌÂ¡ ÇÒ ¼ö ÀÖ´Ù.
-»õ·Î¿î ÇÃ·¯±×ÀÎÀ» Ãß°¡ÇØ¼­ ÇÒ ¼öµµ ÀÖ°í ÀÌ¹Ì Ãß°¡µÇ¾î ÀÖ´Â ÇÃ·¯±×ÀÎ¿¡ ÆÄ¶ó¹ÌÅÍ¸¦ ¼³Á¤ÇØ¼­ ÇÒ ¼öµµ ÀÖ´Ù.
+ì´ì „ì—ë„ ì‚´íŽ´ë³´ì•˜ì§€ë§Œ Mavenì—ì„œëŠ” ë¹Œë“œë¥¼ ì»¤ìŠ¤í„°ë§ˆì´ì§• í•  ìˆ˜ ìžˆë‹¤.
+ìƒˆë¡œìš´ í”ŒëŸ¬ê·¸ì¸ì„ ì¶”ê°€í•´ì„œ í•  ìˆ˜ë„ ìžˆê³  ì´ë¯¸ ì¶”ê°€ë˜ì–´ ìžˆëŠ” í”ŒëŸ¬ê·¸ì¸ì— íŒŒë¼ë¯¸í„°ë¥¼ ì„¤ì •í•´ì„œ í•  ìˆ˜ë„ ìžˆë‹¤.
 
-¿¹¸¦ µé¾î ÀÚ¹Ù ÄÄÆÄÀÏ·¯·Î JDK 5.0À» »ç¿ëÇÏ°íÀÚ ÇÑ´Ù¸é ¾Æ·¡¿Í °°ÀÌ ¼³Á¤ÇÏ¸é µÈ´Ù.
+ì˜ˆë¥¼ ë“¤ì–´ ìžë°” ì»´íŒŒì¼ëŸ¬ë¡œ JDK 5.0ì„ ì‚¬ìš©í•˜ê³ ìž í•œë‹¤ë©´ ì•„ëž˜ì™€ ê°™ì´ ì„¤ì •í•˜ë©´ ëœë‹¤.
 
  <build>
   <plugins>
@@ -4016,17 +4069,17 @@ POM.xml¿¡¼­ Á÷Á¢ ¼Ó¼ºÀ» ¼³Á¤ÇÒ ¼öµµ ÀÖ´Ù.
   </plugins>
  </build>
 
-<plugin> ÅÂ±×¸¦ »ç¿ëÇÏ¸é µÇ´Âµ¥ <depedency>¿Í ¸Å¿ì »ç¿ë¹æ¹ýÀÌ À¯»çÇÏ´Ù.
-ÇÑ°¡Áö ´Ù¸¥ Á¡ÀÌ ÀÖ´Ù¸é <plugin>Àº groupId¿Í versionÀº ¸í½ÃÇÏÁö ¾Ê¾Æµµ µÈ´Ù´Â °ÍÀÌ´Ù.
-¸¸¾à groupId°¡ ¾ø´Ù¸é org.apache.maven.plugins ¶Ç´Â org.codehaus.mojo¿¡¼­ ÇØ´ç groupId¸¦ Ã£°Ô µÈ´Ù.
-±×¸®°í versionÀÌ ¾ø´Ù¸é °¡Àå ÃÖ½Å ¹öÀüÀ¸·Î °¡Á®¿À°Ô µÈ´Ù.
+<plugin> íƒœê·¸ë¥¼ ì‚¬ìš©í•˜ë©´ ë˜ëŠ”ë° <depedency>ì™€ ë§¤ìš° ì‚¬ìš©ë°©ë²•ì´ ìœ ì‚¬í•˜ë‹¤.
+í•œê°€ì§€ ë‹¤ë¥¸ ì ì´ ìžˆë‹¤ë©´ <plugin>ì€ groupIdì™€ versionì€ ëª…ì‹œí•˜ì§€ ì•Šì•„ë„ ëœë‹¤ëŠ” ê²ƒì´ë‹¤.
+ë§Œì•½ groupIdê°€ ì—†ë‹¤ë©´ org.apache.maven.plugins ë˜ëŠ” org.codehaus.mojoì—ì„œ í•´ë‹¹ groupIdë¥¼ ì°¾ê²Œ ëœë‹¤.
+ê·¸ë¦¬ê³  versionì´ ì—†ë‹¤ë©´ ê°€ìž¥ ìµœì‹  ë²„ì „ìœ¼ë¡œ ê°€ì ¸ì˜¤ê²Œ ëœë‹¤.
 
-ÇÃ·¯±×ÀÎ¿¡ ´ëÇØ ÀÚ¼¼ÇÑ Á¤º¸¸¦ ¾ò°íÀÚ ÇÑ´Ù¸é ¾Æ·¡ ÁÖ¼Ò¸¦ Âü°íÇÏµµ·Ï ÇÏÀÚ.
+í”ŒëŸ¬ê·¸ì¸ì— ëŒ€í•´ ìžì„¸í•œ ì •ë³´ë¥¼ ì–»ê³ ìž í•œë‹¤ë©´ ì•„ëž˜ ì£¼ì†Œë¥¼ ì°¸ê³ í•˜ë„ë¡ í•˜ìž.
 http://maven.apache.org/plugins
 
-ÀÌ·Î½á ±âº»ÀûÀÎ »ç¿ë ¹æ¹ýÀº ´Ù ¾Ë¾Æº¸¾Ò´Ù.
-°ú¿¬ ¾ðÁ¦Âë ³¡±îÁö ´Ù º¼ ¼ö ÀÖÀ»±î... -_-;;
-[ÃâÃ³] Maven Classpath Resource Management - ¸®¼Ò½º¸¦ °ü¸®ÇØ º¸ÀÚ~|ÀÛ¼ºÀÚ Á×»§¿¡Äµµð
+ì´ë¡œì¨ ê¸°ë³¸ì ì¸ ì‚¬ìš© ë°©ë²•ì€ ë‹¤ ì•Œì•„ë³´ì•˜ë‹¤.
+ê³¼ì—° ì–¸ì œì¯¤ ëê¹Œì§€ ë‹¤ ë³¼ ìˆ˜ ìžˆì„ê¹Œ... -_-;;
+[ì¶œì²˜] Maven Classpath Resource Management - ë¦¬ì†ŒìŠ¤ë¥¼ ê´€ë¦¬í•´ ë³´ìž~|ìž‘ì„±ìž ì£½ë¹µì—ìº”ë””
 
 
 
@@ -4034,40 +4087,40 @@ http://maven.apache.org/plugins
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-[ maven jar¸¦ Local Repository¿¡ Ãß°¡ÇÏ±â ]
+[ maven jarë¥¼ Local Repositoryì— ì¶”ê°€í•˜ê¸° ]
 
-    °³¹ßÀ» ÁøÇàÇÏ´Ùº¸¸é ³»ºÎ¿¡¼­ »ç¿ëÇÏ´Â jarÆÄÀÏÀÌ¶óµçÁö, jdbc¿¡ °ü·ÃµÈ jar µî.. maven repository¿¡¼­
-    Á¦°øÇÏÁö ¾Ê´Â jarÆÄÀÏµéÀ» Ãß°¡ÇØ¾ß ÇÒ °æ¿ì°¡ »ý±â´Âµ¥
+    ê°œë°œì„ ì§„í–‰í•˜ë‹¤ë³´ë©´ ë‚´ë¶€ì—ì„œ ì‚¬ìš©í•˜ëŠ” jaríŒŒì¼ì´ë¼ë“ ì§€, jdbcì— ê´€ë ¨ëœ jar ë“±.. maven repositoryì—ì„œ
+    ì œê³µí•˜ì§€ ì•ŠëŠ” jaríŒŒì¼ë“¤ì„ ì¶”ê°€í•´ì•¼ í•  ê²½ìš°ê°€ ìƒê¸°ëŠ”ë°
 
-    °¡Àå ÁÁÀº ¹æ¹ýÀº °³¹ßÆÀ³»¿¡ Áß¾Ó repository¸¦ ¸¸µé¾î¼­ µî·ÏÇÏ°í »ç¿ëÇÏ¸é ÁÁ°ÚÁö¸¸ »óÈ²ÀÌ ¿©ÀÇÄ¡ ¾Ê°í
-    ¹ø°Å·Ó´Ù¸é..  WEB-INF/lib Æú´õ¿¡ ³Ö°Å³ª build path·Î Àâ¾ÆÁÖ¸é µÈ´Ù.
+    ê°€ìž¥ ì¢‹ì€ ë°©ë²•ì€ ê°œë°œíŒ€ë‚´ì— ì¤‘ì•™ repositoryë¥¼ ë§Œë“¤ì–´ì„œ ë“±ë¡í•˜ê³  ì‚¬ìš©í•˜ë©´ ì¢‹ê² ì§€ë§Œ ìƒí™©ì´ ì—¬ì˜ì¹˜ ì•Šê³ 
+    ë²ˆê±°ë¡­ë‹¤ë©´..  WEB-INF/lib í´ë”ì— ë„£ê±°ë‚˜ build pathë¡œ ìž¡ì•„ì£¼ë©´ ëœë‹¤.
 
-    °£ÆíÇÏ°Ô local repository¿¡ µî·ÏÇÏ°í »ç¿ëÇÏ´Â ¹æ¹ýÀÌ ÀÖ´Ù.
-    dependecy ÆÄÀÏµéÀ» ¾Æ·¡¿Í °°Àº ·ÎÄÃ°æ·Î¿¡ ´Ù¿î·Îµå µÇ¾îÁø´Ù.
+    ê°„íŽ¸í•˜ê²Œ local repositoryì— ë“±ë¡í•˜ê³  ì‚¬ìš©í•˜ëŠ” ë°©ë²•ì´ ìžˆë‹¤.
+    dependecy íŒŒì¼ë“¤ì„ ì•„ëž˜ì™€ ê°™ì€ ë¡œì»¬ê²½ë¡œì— ë‹¤ìš´ë¡œë“œ ë˜ì–´ì§„ë‹¤.
 
         C:\Users\Administrator\.m2\repository
 
-        (XP) C:\Documents and Settings\»ç¿ëÀÚ°èÁ¤\.m2\repository
+        (XP) C:\Documents and Settings\ì‚¬ìš©ìžê³„ì •\.m2\repository
 
-    Ãß°¡ÇÏ±â À§ÇØ¼­ ¾Æ·¡¿Í °°Àº ¸í·É¾î¸¦ »ç¿ëÇÏ°Ô µÈ´Ù.
+    ì¶”ê°€í•˜ê¸° ìœ„í•´ì„œ ì•„ëž˜ì™€ ê°™ì€ ëª…ë ¹ì–´ë¥¼ ì‚¬ìš©í•˜ê²Œ ëœë‹¤.
 
         mvn install:install-file
-            -Dfile=<path-to-file>         : ÆÄÀÏ full °æ·Î : ¿ÜºÎ repository Á¤º¸
-            -DgroupId=<group-id>          : ±×·ì¾ÆÀÌµð
+            -Dfile=<path-to-file>         : íŒŒì¼ full ê²½ë¡œ : ì™¸ë¶€ repository ì •ë³´
+            -DgroupId=<group-id>          : ê·¸ë£¹ì•„ì´ë””
             -Dartifactid=<artifact-id>    : artifactid
-            -Dversion=<version>           : ¹öÀü
+            -Dversion=<version>           : ë²„ì „
             -Dpackaging=<packaging>       : jar
-            -DgeneratePom=true            : true pom¿¡ »ý¼º
+            -DgeneratePom=true            : true pomì— ìƒì„±
 
-        ¿¹) mvn install:install-file -Dfile=C\something.jar -DgroupId=com.test -DartifactId=first -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
+        ì˜ˆ) mvn install:install-file -Dfile=C\something.jar -DgroupId=com.test -DartifactId=first -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
 
-    Á¤»óÀûÀ¸·Î µÇ¾ú´Ù¸é ¾Æ·¡¿Í °°Àº °æ·Î·Î Æú´õ¿Í ÆÄÀÏÀÌ »ý¼ºµÈ´Ù.
+    ì •ìƒì ìœ¼ë¡œ ë˜ì—ˆë‹¤ë©´ ì•„ëž˜ì™€ ê°™ì€ ê²½ë¡œë¡œ í´ë”ì™€ íŒŒì¼ì´ ìƒì„±ëœë‹¤.
 
         > dir C:\Users\Administrator\.m2\repository\com\test\first\1.0
             first-1.0.jar
             first-1.0.pom
 
-    ¸¶Âù°¡Áö·Î ÇØ´çÁ¤º¸°¡ pom.xml¿¡ Ãß°¡µÈ´Ù.
+    ë§ˆì°¬ê°€ì§€ë¡œ í•´ë‹¹ì •ë³´ê°€ pom.xmlì— ì¶”ê°€ëœë‹¤.
 
         <dependency>
             <groupId>com.test</groupId>
@@ -4103,49 +4156,49 @@ mvn install:install-file -Dfile=.\libs\terajdbc4.jar                      -Dgrou
 
 [ Jakarta Commons Net API ]
 
-FTP, TFTP, SMTP, POP3, telnet, Finger, Whois, Time, Echo µî
+FTP, TFTP, SMTP, POP3, telnet, Finger, Whois, Time, Echo ë“±
 
-    Commons Net ¶óÀÌºê·¯¸®´Â ´Ù¾çÇÑ ÇÁ·ÎÅäÄÝ¿¡ ´ëÇÑ Áö¿øÀ» ÇÒ ¼ö ÀÖ´Â ±¸Á¶¸¦ °®°í ÀÖÀ¸¸ç, À§ ¸ñ·Ï°ú °°ÀÌ ÀÌ¹Ì ±âÁ¸¿¡ ¸¹ÀÌ »ç¿ëµÇ´Â ¸î¸î ÇÁ·ÎÅäÄÝ¿¡ ´ëÇÑ Å¬¶óÀÌ¾ðÆ® ¸ðµâÀ» Á¦°øÇÏ°í ÀÖ´Ù. ¶ÇÇÑ, °³¹ßÀÚ°¡ Á÷Á¢ ÇÁ·ÎÅäÄÝ Ã³¸®¸¦ ÇÏÁö ¾Ê¾Æµµ µÇ±â ¶§¹®¿¡ °ü·Ã ¸ðµâÀ» ºü¸£°Ô °³¹ßÇÒ ¼ö ÀÖ´Â ÀåÁ¡µµ ÀÖ´Ù.
-    Commons Net ¶óÀÌºê·¯¸® ¼³Ä¡ÇÏ±â
-    Commons Net ¶óÀÌºê·¯¸®´Â http://jakarta.apache.org/commons/net ¿¡¼­ ´Ù¿î·Îµå ¹ÞÀ» ¼ö ÀÖ´Ù. ÇöÀç ¹öÀüÀº 1.4.1 ¹öÀüÀ¸·Î¼­, ´Ù¿î·Îµå ¹ÞÀº ÆÄÀÏÀÇ ¾ÐÃàÀ» Ç®¸é commons-net-1.4.1.jar ÆÄÀÏÀÌ »ý¼ºµÇ´Âµ¥, ÀÌ ÆÄÀÏÀ» Å¬·¡½ºÆÐ½º¿¡ Ãß°¡ÇØÁÖ¸é µÈ´Ù
+    Commons Net ë¼ì´ë¸ŒëŸ¬ë¦¬ëŠ” ë‹¤ì–‘í•œ í”„ë¡œí† ì½œì— ëŒ€í•œ ì§€ì›ì„ í•  ìˆ˜ ìžˆëŠ” êµ¬ì¡°ë¥¼ ê°–ê³  ìžˆìœ¼ë©°, ìœ„ ëª©ë¡ê³¼ ê°™ì´ ì´ë¯¸ ê¸°ì¡´ì— ë§Žì´ ì‚¬ìš©ë˜ëŠ” ëª‡ëª‡ í”„ë¡œí† ì½œì— ëŒ€í•œ í´ë¼ì´ì–¸íŠ¸ ëª¨ë“ˆì„ ì œê³µí•˜ê³  ìžˆë‹¤. ë˜í•œ, ê°œë°œìžê°€ ì§ì ‘ í”„ë¡œí† ì½œ ì²˜ë¦¬ë¥¼ í•˜ì§€ ì•Šì•„ë„ ë˜ê¸° ë•Œë¬¸ì— ê´€ë ¨ ëª¨ë“ˆì„ ë¹ ë¥´ê²Œ ê°œë°œí•  ìˆ˜ ìžˆëŠ” ìž¥ì ë„ ìžˆë‹¤.
+    Commons Net ë¼ì´ë¸ŒëŸ¬ë¦¬ ì„¤ì¹˜í•˜ê¸°
+    Commons Net ë¼ì´ë¸ŒëŸ¬ë¦¬ëŠ” http://jakarta.apache.org/commons/net ì—ì„œ ë‹¤ìš´ë¡œë“œ ë°›ì„ ìˆ˜ ìžˆë‹¤. í˜„ìž¬ ë²„ì „ì€ 1.4.1 ë²„ì „ìœ¼ë¡œì„œ, ë‹¤ìš´ë¡œë“œ ë°›ì€ íŒŒì¼ì˜ ì••ì¶•ì„ í’€ë©´ commons-net-1.4.1.jar íŒŒì¼ì´ ìƒì„±ë˜ëŠ”ë°, ì´ íŒŒì¼ì„ í´ëž˜ìŠ¤íŒ¨ìŠ¤ì— ì¶”ê°€í•´ì£¼ë©´ ëœë‹¤
     .
-    Commons NetÀº Jakarta ORO API¸¦ ÇÊ¿ä·Î ÇÑ´Ù. Jakarta ORO °ü·Ã ¸ðµâÀº http://jakarta.apache.org/oro/index.html »çÀÌÆ®¿¡¼­ ´Ù¿î·Îµå ¹ÞÀ» ¼ö ÀÖ´Ù. ÇöÀç Jakarta OROÀÇ ¹öÀüÀº 2.0.8·Î¼­, ¹èÆ÷ÆÇÀÇ ¾ÐÃàÀ» Ç®¸é jakarta-oro-2.0.8.jar ÆÄÀÏÀÌ »ý¼ºµÇ´Âµ¥ ÀÌ ÆÄÀÏÀ» Å¬·¡½ºÆÐ½º¿¡ Ãß°¡ÇØ¸é ¼³Ä¡°¡ ¿Ï·áµÈ´Ù.
-    Commons Net API·Î FTP ÆÄÀÏ ¼Û¼ö½ÅÇÏ±â
-    Commons Net API´Â FTP¿Í °ü·ÃÇØ¼­ ´ÙÀ½ÀÇ µÎ Å¬·¡½º¸¦ Á¦°øÇÏ°í ÀÖ´Ù.
+    Commons Netì€ Jakarta ORO APIë¥¼ í•„ìš”ë¡œ í•œë‹¤. Jakarta ORO ê´€ë ¨ ëª¨ë“ˆì€ http://jakarta.apache.org/oro/index.html ì‚¬ì´íŠ¸ì—ì„œ ë‹¤ìš´ë¡œë“œ ë°›ì„ ìˆ˜ ìžˆë‹¤. í˜„ìž¬ Jakarta OROì˜ ë²„ì „ì€ 2.0.8ë¡œì„œ, ë°°í¬íŒì˜ ì••ì¶•ì„ í’€ë©´ jakarta-oro-2.0.8.jar íŒŒì¼ì´ ìƒì„±ë˜ëŠ”ë° ì´ íŒŒì¼ì„ í´ëž˜ìŠ¤íŒ¨ìŠ¤ì— ì¶”ê°€í•´ë©´ ì„¤ì¹˜ê°€ ì™„ë£Œëœë‹¤.
+    Commons Net APIë¡œ FTP íŒŒì¼ ì†¡ìˆ˜ì‹ í•˜ê¸°
+    Commons Net APIëŠ” FTPì™€ ê´€ë ¨í•´ì„œ ë‹¤ìŒì˜ ë‘ í´ëž˜ìŠ¤ë¥¼ ì œê³µí•˜ê³  ìžˆë‹¤.
     org.apache.commons.net.ftp.FTPClient
-    FTP ÇÁ·ÎÅäÄÝ Ã³¸®¸¦ À§ÇÑ API¸¦ Á¦°øÇÑ´Ù. ¼­¹ö ¿¬°á, ·Î±×ÀÎ, ÆÄÀÏ ¸ñ·Ï, ¼Û¼ö½Å µîÀÇ ±â´ÉÀ» Á¦°øÇÑ´Ù.
+    FTP í”„ë¡œí† ì½œ ì²˜ë¦¬ë¥¼ ìœ„í•œ APIë¥¼ ì œê³µí•œë‹¤. ì„œë²„ ì—°ê²°, ë¡œê·¸ì¸, íŒŒì¼ ëª©ë¡, ì†¡ìˆ˜ì‹  ë“±ì˜ ê¸°ëŠ¥ì„ ì œê³µí•œë‹¤.
     org.apache.commons.net.ftp.FTPFile
-    FTP ¼­¹öÀÇ ÆÄÀÏ Ç¥ÇöÇÒ ¶§ »ç¿ëµÇ´Â Å¬·¡½º. ÆÄÀÏ¸í, ÆÄÀÏÅ©±â, À§Ä¡ µî¿¡ ´ëÇÑ Á¤º¸¸¦ Á¦°øÇÑ´Ù.
-    ÀÌ µÎ Å¬·¡½º¸¸ »ç¿ëÇÏ¸é ¿ø°ÝÁöÀÇ FTP ¼­¹ö·ÎºÎÅÍ ¿øÇÏ´Â ÆÄÀÏÀ» ¼Û¼ö½Å ÇÒ ¼ö ÀÖ´Ù. FTPClient API´Â FTP ÇÁ·ÎÅäÄÝ°ú °ü·ÃÇØ¼­ ·Î±×ÀÎ, ÆÄÀÏ ¸ñ·Ï, °æ·Îº¯°æ µî°ú °ü·ÃµÈ ±â´ÉÀ» Á¦°øÇÏ´Â µ¥, ÀÌµé ±â´É°ú °ü·ÃµÈ ¸Þ¼Òµå´Â ´ÙÀ½°ú °°´Ù.
-    ¸Þ¼Òµå  ¼³¸í
+    FTP ì„œë²„ì˜ íŒŒì¼ í‘œí˜„í•  ë•Œ ì‚¬ìš©ë˜ëŠ” í´ëž˜ìŠ¤. íŒŒì¼ëª…, íŒŒì¼í¬ê¸°, ìœ„ì¹˜ ë“±ì— ëŒ€í•œ ì •ë³´ë¥¼ ì œê³µí•œë‹¤.
+    ì´ ë‘ í´ëž˜ìŠ¤ë§Œ ì‚¬ìš©í•˜ë©´ ì›ê²©ì§€ì˜ FTP ì„œë²„ë¡œë¶€í„° ì›í•˜ëŠ” íŒŒì¼ì„ ì†¡ìˆ˜ì‹  í•  ìˆ˜ ìžˆë‹¤. FTPClient APIëŠ” FTP í”„ë¡œí† ì½œê³¼ ê´€ë ¨í•´ì„œ ë¡œê·¸ì¸, íŒŒì¼ ëª©ë¡, ê²½ë¡œë³€ê²½ ë“±ê³¼ ê´€ë ¨ëœ ê¸°ëŠ¥ì„ ì œê³µí•˜ëŠ” ë°, ì´ë“¤ ê¸°ëŠ¥ê³¼ ê´€ë ¨ëœ ë©”ì†Œë“œëŠ” ë‹¤ìŒê³¼ ê°™ë‹¤.
+    ë©”ì†Œë“œ  ì„¤ëª…
     conect(Strint server, int port)
-    connect(String server)  FTP ¼­¹ö¿¡ Á¢¼ÓÇÑ´Ù. Æ÷Æ® ¹øÈ£¸¦ ÁöÁ¤ÇÒ °æ¿ì ÇØ´ç Æ÷Æ®·Î Á¢¼ÓÇÏ¸ç, Æ÷Æ® ¹øÈ£¸¦ ÁöÁ¤ÇÏÁö ¾ÊÀ¸¸é ±âº» Æ÷Æ®ÀÎ 21¹ø Æ÷Æ®·Î Á¢¼ÓÇÑ´Ù.
-    login(String user, String pass) ÁöÁ¤ÇÑ »ç¿ëÀÚ¿Í ¾ÏÈ£¸¦ »ç¿ëÇÏ¿© ·Î±×ÀÎÇÑ´Ù.
-    changeWorkingDirectory(String path) FTP ¼­¹ö¿¡¼­ ÇöÀç ÀÛ¾÷ µð·ºÅä¸®ÀÇ °æ·Î¸¦ º¯°æÇÑ´Ù.
-    String printWorkingDirectory()  ÇöÀç ÀÛ¾÷ µð·ºÅä¸®¸¦ ±¸ÇÑ´Ù.
+    connect(String server)  FTP ì„œë²„ì— ì ‘ì†í•œë‹¤. í¬íŠ¸ ë²ˆí˜¸ë¥¼ ì§€ì •í•  ê²½ìš° í•´ë‹¹ í¬íŠ¸ë¡œ ì ‘ì†í•˜ë©°, í¬íŠ¸ ë²ˆí˜¸ë¥¼ ì§€ì •í•˜ì§€ ì•Šìœ¼ë©´ ê¸°ë³¸ í¬íŠ¸ì¸ 21ë²ˆ í¬íŠ¸ë¡œ ì ‘ì†í•œë‹¤.
+    login(String user, String pass) ì§€ì •í•œ ì‚¬ìš©ìžì™€ ì•”í˜¸ë¥¼ ì‚¬ìš©í•˜ì—¬ ë¡œê·¸ì¸í•œë‹¤.
+    changeWorkingDirectory(String path) FTP ì„œë²„ì—ì„œ í˜„ìž¬ ìž‘ì—… ë””ë ‰í† ë¦¬ì˜ ê²½ë¡œë¥¼ ë³€ê²½í•œë‹¤.
+    String printWorkingDirectory()  í˜„ìž¬ ìž‘ì—… ë””ë ‰í† ë¦¬ë¥¼ êµ¬í•œë‹¤.
     FTPFile[] listFiles()
-    FTPFile[] listFiles(String path)    ÇöÀç ÀÛ¾÷ µð·ºÅä¸®¿¡ ÀÖ´Â ÆÄÀÏ ¸ñ·ÏÀ» ±¸ÇÑ´Ù.
-    °æ·Î¸¦ ÁöÁ¤ÇÒ °æ¿ì ÇØ´ç °æ·ÎÀÇ ÆÄÀÏ ¸ñ·ÏÀ» ±¸ÇÑ´Ù.
+    FTPFile[] listFiles(String path)    í˜„ìž¬ ìž‘ì—… ë””ë ‰í† ë¦¬ì— ìžˆëŠ” íŒŒì¼ ëª©ë¡ì„ êµ¬í•œë‹¤.
+    ê²½ë¡œë¥¼ ì§€ì •í•  ê²½ìš° í•´ë‹¹ ê²½ë¡œì˜ íŒŒì¼ ëª©ë¡ì„ êµ¬í•œë‹¤.
     String[] listNames()
-    FTPFile[] listFiles(String path)    ÇöÀç ÀÛ¾÷ µð·ºÅä¸®¿¡ ÀÖ´Â ÆÄÀÏ ÀÌ¸§À» ±¸ÇÑ´Ù.
-    °æ·Î¸¦ ÁöÁ¤ÇÒ °æ¿ì ÇØ´ç °æ·ÎÀÇ ÆÄÀÏ ÀÌ¸§À» ±¸ÇÑ´Ù.
-    makeDirectory(String path)  »õ·Î¿î µð·ºÅä¸®¸¦ »ý¼ºÇÑ´Ù.
-    rename(String from, String to)  from¿¡ ÇØ´çÇÏ´Â °æ·Î¸¦ to·Î º¯°æÇÑ´Ù.
-    retriveFile(String remoteName, OutputStream local)  FTP ¼­¹öÀÇ remoteName ÆÄÀÏÀ» local¿¡ ÁöÁ¤µÈ Ãâ·Â ½ºÆ®¸²¿¡ ´Ù¿î·Îµå ÇÑ´Ù. ¼º°øÀûÀ¸·Î ¿Ï·áµÇ¸é true¸¦ ¸®ÅÏÇÑ´Ù.
-    InputStream retrieveFileStream(String remoteName)   FTP ¼­¹öÀÇ remoteName ÆÄÀÏ·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀÐ¾î¿À´Â ÀÔ·Â ½ºÆ®¸²À» ¸®ÅÏÇÑ´Ù.
-    storeFile(String remoteName, InputStream local) local ÀÔ·Â ½ºÆ®¸²À¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀÐ¾î¿Í FTP ¼­¹ö¿¡ remoteName °æ·Î·Î ¾÷·ÎµåÇÑ´Ù. ¼º°øÀûÀ¸·Î ÆÄÀÏÀ» ¾÷·Îµå ÇÏ¸é true¸¦ ¸®ÅÏÇÑ´Ù.
-    logout()    FTP ¼­¹ö¿¡¼­ ·Î±×¾Æ¿ôÇÑ´Ù.
-    disconnect()    ¼­¹ö¿ÍÀÇ ¿¬°áÀ» Á¾·áÇÑ´Ù.
-    ÀÌ ¿Ü¿¡ ¸î°¡Áö ¸Þ¼Òµå°¡ ´õ Á¸ÀçÇÏÁö¸¸, ÀÏ´Ü À§ ¸Þ¼Òµå Á¤µµ¸¸ »ç¿ëÇÏ¸é ÃæºÐÈ÷ FTP ÇÁ·ÎÅäÄÝÀ» »ç¿ëÇØ¼­ ÆÄÀÏÀ» ¼Û¼ö½Å ÇÒ ¼ö ÀÖ°Ô µÈ´Ù.
-    ÆÄÀÏ ´Ù¿î·Îµå
-    ÆÄÀÏÀ» ´Ù¿î·Îµå ÇÏ±â À§ÇØ¼­´Â ´ÙÀ½°ú °°Àº ¼ø¼­·Î ÄÚµå¸¦ ÀÛ¼ºÇÏ¸é µÈ´Ù.
-    FTPClient.connect(): FTP ¼­¹ö¿¡ Á¢¼ÓÇÑ´Ù.
-    FTPClient.login(): ·Î±×ÀÎ ÇÑ´Ù.
-    FTPClient.changeWorkingDirectory(): ÆÄÀÏÀÌ ÀÖ´Â Æú´õ·Î ÀÌµ¿ÇÑ´Ù.
-    FTPClient.retrieveFile(): ÆÄÀÏÀ» ´Ù¿î·Îµå ÇÑ´Ù.
-    FTPClient.logout(): ·Î±×¾Æ¿ôÇÑ´Ù.
-    FTPClient.disconnect(): ¿¬°áÀ» Á¾·áÇÑ´Ù.
-    ÀÌ¸¦ ½ÇÁ¦ ÄÚµå·Î ÀÛ¼ºÇÏ¸é ´ÙÀ½°ú °°´Ù.
+    FTPFile[] listFiles(String path)    í˜„ìž¬ ìž‘ì—… ë””ë ‰í† ë¦¬ì— ìžˆëŠ” íŒŒì¼ ì´ë¦„ì„ êµ¬í•œë‹¤.
+    ê²½ë¡œë¥¼ ì§€ì •í•  ê²½ìš° í•´ë‹¹ ê²½ë¡œì˜ íŒŒì¼ ì´ë¦„ì„ êµ¬í•œë‹¤.
+    makeDirectory(String path)  ìƒˆë¡œìš´ ë””ë ‰í† ë¦¬ë¥¼ ìƒì„±í•œë‹¤.
+    rename(String from, String to)  fromì— í•´ë‹¹í•˜ëŠ” ê²½ë¡œë¥¼ toë¡œ ë³€ê²½í•œë‹¤.
+    retriveFile(String remoteName, OutputStream local)  FTP ì„œë²„ì˜ remoteName íŒŒì¼ì„ localì— ì§€ì •ëœ ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ì— ë‹¤ìš´ë¡œë“œ í•œë‹¤. ì„±ê³µì ìœ¼ë¡œ ì™„ë£Œë˜ë©´ trueë¥¼ ë¦¬í„´í•œë‹¤.
+    InputStream retrieveFileStream(String remoteName)   FTP ì„œë²„ì˜ remoteName íŒŒì¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ì½ì–´ì˜¤ëŠ” ìž…ë ¥ ìŠ¤íŠ¸ë¦¼ì„ ë¦¬í„´í•œë‹¤.
+    storeFile(String remoteName, InputStream local) local ìž…ë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ì½ì–´ì™€ FTP ì„œë²„ì— remoteName ê²½ë¡œë¡œ ì—…ë¡œë“œí•œë‹¤. ì„±ê³µì ìœ¼ë¡œ íŒŒì¼ì„ ì—…ë¡œë“œ í•˜ë©´ trueë¥¼ ë¦¬í„´í•œë‹¤.
+    logout()    FTP ì„œë²„ì—ì„œ ë¡œê·¸ì•„ì›ƒí•œë‹¤.
+    disconnect()    ì„œë²„ì™€ì˜ ì—°ê²°ì„ ì¢…ë£Œí•œë‹¤.
+    ì´ ì™¸ì— ëª‡ê°€ì§€ ë©”ì†Œë“œê°€ ë” ì¡´ìž¬í•˜ì§€ë§Œ, ì¼ë‹¨ ìœ„ ë©”ì†Œë“œ ì •ë„ë§Œ ì‚¬ìš©í•˜ë©´ ì¶©ë¶„ížˆ FTP í”„ë¡œí† ì½œì„ ì‚¬ìš©í•´ì„œ íŒŒì¼ì„ ì†¡ìˆ˜ì‹  í•  ìˆ˜ ìžˆê²Œ ëœë‹¤.
+    íŒŒì¼ ë‹¤ìš´ë¡œë“œ
+    íŒŒì¼ì„ ë‹¤ìš´ë¡œë“œ í•˜ê¸° ìœ„í•´ì„œëŠ” ë‹¤ìŒê³¼ ê°™ì€ ìˆœì„œë¡œ ì½”ë“œë¥¼ ìž‘ì„±í•˜ë©´ ëœë‹¤.
+    FTPClient.connect(): FTP ì„œë²„ì— ì ‘ì†í•œë‹¤.
+    FTPClient.login(): ë¡œê·¸ì¸ í•œë‹¤.
+    FTPClient.changeWorkingDirectory(): íŒŒì¼ì´ ìžˆëŠ” í´ë”ë¡œ ì´ë™í•œë‹¤.
+    FTPClient.retrieveFile(): íŒŒì¼ì„ ë‹¤ìš´ë¡œë“œ í•œë‹¤.
+    FTPClient.logout(): ë¡œê·¸ì•„ì›ƒí•œë‹¤.
+    FTPClient.disconnect(): ì—°ê²°ì„ ì¢…ë£Œí•œë‹¤.
+    ì´ë¥¼ ì‹¤ì œ ì½”ë“œë¡œ ìž‘ì„±í•˜ë©´ ë‹¤ìŒê³¼ ê°™ë‹¤.
         FTPClient ftp = null;
         try {
             ftp = new FTPClient();
@@ -4159,9 +4212,9 @@ FTP, TFTP, SMTP, POP3, telnet, Finger, Whois, Time, Echo µî
                 fos = new FileOutputStream(f);
                 boolean isSuccess = ftp.retrieveFile("oradump1.tmp", fos);
                 if (isSuccess) {
-                    // ´Ù¿î·Îµå ¼º°ø
+                    // ë‹¤ìš´ë¡œë“œ ì„±ê³µ
                 } else {
-                    // ´Ù¿î·Îµå ½ÇÆÐ
+                    // ë‹¤ìš´ë¡œë“œ ì‹¤íŒ¨
                 }
             } catch(IOException ex) {
                 System.out.println(ex.getMessage());
@@ -4179,8 +4232,8 @@ FTP, TFTP, SMTP, POP3, telnet, Finger, Whois, Time, Echo µî
             }
         }
 
-    ÆÄÀÏ ´Ù¿î·Îµå
-    ÆÄÀÏ ¾÷·Îµå´Â ÆÄÀÏÀ» ´Ù¿î·Îµå ÇÏ´Â °Í°ú Å©°Ô ´Ù¸£Áö ¾Ê´Ù. Â÷ÀÌÁ¡ÀÌ ÀÖ´Ù¸é retrieveFile() ¸Þ¼Òµå ´ë½Å storeFile() ¸Þ¼Òµå¸¦ »ç¿ëÇÑ´Ù´Â °Í »ÓÀÌ´Ù. ÆÄÀÏ ¾÷·Îµå ÇÏ´Â ¿¹Á¦ ÄÚµå´Â ´ÙÀ½°ú °°´Ù.
+    íŒŒì¼ ë‹¤ìš´ë¡œë“œ
+    íŒŒì¼ ì—…ë¡œë“œëŠ” íŒŒì¼ì„ ë‹¤ìš´ë¡œë“œ í•˜ëŠ” ê²ƒê³¼ í¬ê²Œ ë‹¤ë¥´ì§€ ì•Šë‹¤. ì°¨ì´ì ì´ ìžˆë‹¤ë©´ retrieveFile() ë©”ì†Œë“œ ëŒ€ì‹  storeFile() ë©”ì†Œë“œë¥¼ ì‚¬ìš©í•œë‹¤ëŠ” ê²ƒ ë¿ì´ë‹¤. íŒŒì¼ ì—…ë¡œë“œ í•˜ëŠ” ì˜ˆì œ ì½”ë“œëŠ” ë‹¤ìŒê³¼ ê°™ë‹¤.
         FTPClient ftp = null;
         try {
             ftp = new FTPClient();
@@ -4196,7 +4249,7 @@ FTP, TFTP, SMTP, POP3, telnet, Finger, Whois, Time, Echo µî
                 fis = new FileInputStream(uploadFile);
                 boolean isSuccess = ftp.storeFile(uploadFile.getName(), fis);
                 if (isSuccess) {
-                    System.out.println("¾÷·Îµå ¼º°ø");
+                    System.out.println("ì—…ë¡œë“œ ì„±ê³µ");
                 }
             } catch(IOException ex) {
                 System.out.println(ex.getMessage());
@@ -4214,27 +4267,27 @@ FTP, TFTP, SMTP, POP3, telnet, Finger, Whois, Time, Echo µî
             }
         }
 
-    FTPFile Å¬·¡½º
-    FTPClient.listFiles() ¸Þ¼Òµå¸¦ »ç¿ëÇÏ¸é ÇöÀç µð·ºÅä¸®ÀÇ ÆÄÀÏ ¹× Æú´õ ¸ñ·ÏÀ» ÀÐ¾î¿Ã ¼ö ÀÖ´Âµ¥, ÀÌ ¶§ °¢ ÆÄÀÏ°ú Æú´õ´Â FTPFile °´Ã¼·Î Ç¥ÇöµÈ´Ù. FTPFile Å¬·¡½º´Â ÆÄÀÏ ¹× Æú´õ¿¡ ´ëÇÑ Á¤º¸¸¦ Á¦°øÇÏ´Âµ¥, ÀÌ¿Í °ü·ÃµÈ ¸Þ¼Òµå´Â ´ÙÀ½°ú °°´Ù.
-    ¸Þ¼Òµå  ¼³¸í
-    String getName()    ÆÄÀÏÀÇ ÀÌ¸§À» ±¸ÇÑ´Ù.
-    String getSize()    ÆÄÀÏÀÇ Å©±â¸¦ ±¸ÇÑ´Ù.
-    boolean isDirectory()   Æú´õÀÎ °æ¿ì true¸¦ ¸®ÅÏÇÑ´Ù.
-    boolean isFile()    ÆÄÀÏÀÎ °æ¿ì true¸¦ ¸®ÅÏÇÑ´Ù.
-    boolean isSymbolicLink()    ½Éº¼ ¸µÅ©ÀÎ °æ¿ì true¸¦ ¸®ÅÏÇÑ´Ù.
-    String getLink()    ½Éº¼ ¸µÅ©ÀÎ °æ¿ì ¸µÅ©°¡ °¡¸®Å°´Â ÆÄÀÏÀÇ ÀÌ¸§À» ¸®ÅÏÇÑ´Ù.
-    Calendar getTimestamp() »ý¼º³¯Â¥¸¦ ±¸ÇÑ´Ù.
-    ÀÌ ¿Ü¿¡µµ FTPFile Å¬·¡½º´Â ÆÄÀÏÀÇ ¼ÒÀ¯ÀÚ ¹× ±×·ì, ±ÇÇÑ °ü·Ã Á¤º¸¸¦ ±¸ÇÒ ¼ö ÀÖ´Â ¸Þ¼Òµå¸¦ Á¦°øÇÏ°í ÀÖ´Ù.
-    °á·Ð
-    º» ±Û¿¡¼­´Â Jakarta Commons Net API¸¦ »ç¿ëÇÏ¿© FTP ÆÄÀÏ ¾÷·Îµå/´Ù¿î·Îµå ±â´ÉÀ» ±¸ÇöÇÏ´Â ¹æ¹ýÀ» »ìÆìºÃ´Ù. Commons Net APIÀÇ FTPClient Å¬·¡½º´Â °³¹ßÀÚ ´ë½Å FTP ÇÁ·ÎÅäÄÝÀ» Ã³¸®ÇØÁÜÀ¸·Î½á °³¹ßÀÚ°¡ ºü¸£°Ô FTP °ü·Ã ±â´ÉÀ» ±¸ÇöÇÒ ¼ö ÀÖ°Ô ÇØÁØ´Ù´Â °ÍÀ» ¾Ë ¼ö ÀÖ¾úÀ» °ÍÀÌ´Ù. FTP »Ó¸¸ ¾Æ´Ï¶ó SMTP/POP3, Telnet µî ´Ù¾çÇÑ ÇÁ·ÎÅäÄÝÀ» Ã³¸®ÇÒ ¼ö ÀÖ´Â Å¬¶óÀÌ¾ðÆ® ¸ðµâÀ» Á¦°øÇÏ°í ÀÖÀ¸¹Ç·Î, Commons NetÀ» »ç¿ëÇÏ¸é ÀÌµé ÇÁ·ÎÅäÄÝ°ú °ü·ÃµÈ Å¬¶óÀÌ¾ðÆ® ¾îÇÃ¸®ÄÉÀÌ¼ÇÀ» ºü¸£°Ô °³¹ßÇÒ ¼ö ÀÖÀ» °ÍÀÌ´Ù.
-    ÃâÃ³ : http://javacan.madvirus.net/main/content/read.tle?contentId=123#sectionTitleListA
+    FTPFile í´ëž˜ìŠ¤
+    FTPClient.listFiles() ë©”ì†Œë“œë¥¼ ì‚¬ìš©í•˜ë©´ í˜„ìž¬ ë””ë ‰í† ë¦¬ì˜ íŒŒì¼ ë° í´ë” ëª©ë¡ì„ ì½ì–´ì˜¬ ìˆ˜ ìžˆëŠ”ë°, ì´ ë•Œ ê° íŒŒì¼ê³¼ í´ë”ëŠ” FTPFile ê°ì²´ë¡œ í‘œí˜„ëœë‹¤. FTPFile í´ëž˜ìŠ¤ëŠ” íŒŒì¼ ë° í´ë”ì— ëŒ€í•œ ì •ë³´ë¥¼ ì œê³µí•˜ëŠ”ë°, ì´ì™€ ê´€ë ¨ëœ ë©”ì†Œë“œëŠ” ë‹¤ìŒê³¼ ê°™ë‹¤.
+    ë©”ì†Œë“œ  ì„¤ëª…
+    String getName()    íŒŒì¼ì˜ ì´ë¦„ì„ êµ¬í•œë‹¤.
+    String getSize()    íŒŒì¼ì˜ í¬ê¸°ë¥¼ êµ¬í•œë‹¤.
+    boolean isDirectory()   í´ë”ì¸ ê²½ìš° trueë¥¼ ë¦¬í„´í•œë‹¤.
+    boolean isFile()    íŒŒì¼ì¸ ê²½ìš° trueë¥¼ ë¦¬í„´í•œë‹¤.
+    boolean isSymbolicLink()    ì‹¬ë³¼ ë§í¬ì¸ ê²½ìš° trueë¥¼ ë¦¬í„´í•œë‹¤.
+    String getLink()    ì‹¬ë³¼ ë§í¬ì¸ ê²½ìš° ë§í¬ê°€ ê°€ë¦¬í‚¤ëŠ” íŒŒì¼ì˜ ì´ë¦„ì„ ë¦¬í„´í•œë‹¤.
+    Calendar getTimestamp() ìƒì„±ë‚ ì§œë¥¼ êµ¬í•œë‹¤.
+    ì´ ì™¸ì—ë„ FTPFile í´ëž˜ìŠ¤ëŠ” íŒŒì¼ì˜ ì†Œìœ ìž ë° ê·¸ë£¹, ê¶Œí•œ ê´€ë ¨ ì •ë³´ë¥¼ êµ¬í•  ìˆ˜ ìžˆëŠ” ë©”ì†Œë“œë¥¼ ì œê³µí•˜ê³  ìžˆë‹¤.
+    ê²°ë¡ 
+    ë³¸ ê¸€ì—ì„œëŠ” Jakarta Commons Net APIë¥¼ ì‚¬ìš©í•˜ì—¬ FTP íŒŒì¼ ì—…ë¡œë“œ/ë‹¤ìš´ë¡œë“œ ê¸°ëŠ¥ì„ êµ¬í˜„í•˜ëŠ” ë°©ë²•ì„ ì‚´íŽ´ë´¤ë‹¤. Commons Net APIì˜ FTPClient í´ëž˜ìŠ¤ëŠ” ê°œë°œìž ëŒ€ì‹  FTP í”„ë¡œí† ì½œì„ ì²˜ë¦¬í•´ì¤Œìœ¼ë¡œì¨ ê°œë°œìžê°€ ë¹ ë¥´ê²Œ FTP ê´€ë ¨ ê¸°ëŠ¥ì„ êµ¬í˜„í•  ìˆ˜ ìžˆê²Œ í•´ì¤€ë‹¤ëŠ” ê²ƒì„ ì•Œ ìˆ˜ ìžˆì—ˆì„ ê²ƒì´ë‹¤. FTP ë¿ë§Œ ì•„ë‹ˆë¼ SMTP/POP3, Telnet ë“± ë‹¤ì–‘í•œ í”„ë¡œí† ì½œì„ ì²˜ë¦¬í•  ìˆ˜ ìžˆëŠ” í´ë¼ì´ì–¸íŠ¸ ëª¨ë“ˆì„ ì œê³µí•˜ê³  ìžˆìœ¼ë¯€ë¡œ, Commons Netì„ ì‚¬ìš©í•˜ë©´ ì´ë“¤ í”„ë¡œí† ì½œê³¼ ê´€ë ¨ëœ í´ë¼ì´ì–¸íŠ¸ ì–´í”Œë¦¬ì¼€ì´ì…˜ì„ ë¹ ë¥´ê²Œ ê°œë°œí•  ìˆ˜ ìžˆì„ ê²ƒì´ë‹¤.
+    ì¶œì²˜ : http://javacan.madvirus.net/main/content/read.tle?contentId=123#sectionTitleListA
     ==========================================================================================
     Commons net
     I. Commons net
-    Jakarta CommonsÀÇ netÀº network utility collectionÀÔ´Ï´Ù.
-    ÀÎÅÍ³Ý ÇÁ·ÎÅäÄÝÀ» ´ëºÎºÐÁö¿øÇÏ´Â °­·ÂÇÑ À¯Æ¿¸®Æ¼·Î »ç¿ëÀÌ ½±°í °£°áÇÕ´Ï´Ù.
-    Å¬¶óÀÌ¾ðÆ®ÃøÀÇ ±âº»ÀûÀÎ Internet protocolÀ» ±¸ÇöÇÔÀ¸·Î¼­ °íÂ÷¿øÀûÀÎ abstract°¡ ¾Æ´Ñ ±âº»ÀûÀÎ ÇÁ·ÎÅäÄÝ access°¡ ¸ñÀûÀÌ±â ¶§¹®¿¡ ºÎºÐÀûÀ¸·Î object-orient ±ÔÄ¢¿¡ À§¹èµÇ´Â »çÇ×ÀÌ ÀÖ´Ù´Â°ÍÀ» Âü°íÀûÀ¸·Î ¾ËÀÚ
-    Commons netÀÌ Áö¿øÇÏ´Â ÇÁ·ÎÅäÄÝÀº ´ÙÀ½°ú °°´Ù
+    Jakarta Commonsì˜ netì€ network utility collectionìž…ë‹ˆë‹¤.
+    ì¸í„°ë„· í”„ë¡œí† ì½œì„ ëŒ€ë¶€ë¶„ì§€ì›í•˜ëŠ” ê°•ë ¥í•œ ìœ í‹¸ë¦¬í‹°ë¡œ ì‚¬ìš©ì´ ì‰½ê³  ê°„ê²°í•©ë‹ˆë‹¤.
+    í´ë¼ì´ì–¸íŠ¸ì¸¡ì˜ ê¸°ë³¸ì ì¸ Internet protocolì„ êµ¬í˜„í•¨ìœ¼ë¡œì„œ ê³ ì°¨ì›ì ì¸ abstractê°€ ì•„ë‹Œ ê¸°ë³¸ì ì¸ í”„ë¡œí† ì½œ accessê°€ ëª©ì ì´ê¸° ë•Œë¬¸ì— ë¶€ë¶„ì ìœ¼ë¡œ object-orient ê·œì¹™ì— ìœ„ë°°ë˜ëŠ” ì‚¬í•­ì´ ìžˆë‹¤ëŠ”ê²ƒì„ ì°¸ê³ ì ìœ¼ë¡œ ì•Œìž
+    Commons netì´ ì§€ì›í•˜ëŠ” í”„ë¡œí† ì½œì€ ë‹¤ìŒê³¼ ê°™ë‹¤
     FTP
     NNTP
     SMTP
@@ -4248,67 +4301,67 @@ FTP, TFTP, SMTP, POP3, telnet, Finger, Whois, Time, Echo µî
     Echo
     Discard
     NTP/SNTP
-    FTPÀÇ °æ¿ì ÀÌÀü¿¡´Â sun ÆÐÅ°ÁöÀÇ FtpClient¸¦ »ç¿ëÇßÁö¸¸ ÀÌÁ¦´Â Commons netÀÇ FTP¸¦ »ç¿ëÇØ º¾½Ã´Ù
-    II. ÁØºñ¹°~
-    Commons netÀº ÀÚÃ¼ÀûÀ¸·Î ORO¸¦ »ç¿ëÇÕ´Ï´Ù
-    Jakarta ORO¶õ ÆÄÀÏÀÌ¸§ÀÇ Ä¡È¯, ºÐÇÒ, ÇÊÅÍ¸µ µîÀ» ¼öÇàÇÏ±â À§ÇÑ Perl5 È£È¯ Á¤±Ô½Ä, AWK¿Í °°Àº Á¤±Ô½Ä, glob Ç¥Çö, ±×¸®°í À¯Æ¿¸®Æ¼ Å¬·¡½ºµéÀ» Á¦°øÇÏ´Â ÅØ½ºÆ® Ã³¸® ÀÚ¹Ù Å¬·¡½ºµéÀÔ´Ï´Ù
+    FTPì˜ ê²½ìš° ì´ì „ì—ëŠ” sun íŒ¨í‚¤ì§€ì˜ FtpClientë¥¼ ì‚¬ìš©í–ˆì§€ë§Œ ì´ì œëŠ” Commons netì˜ FTPë¥¼ ì‚¬ìš©í•´ ë´…ì‹œë‹¤
+    II. ì¤€ë¹„ë¬¼~
+    Commons netì€ ìžì²´ì ìœ¼ë¡œ OROë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤
+    Jakarta OROëž€ íŒŒì¼ì´ë¦„ì˜ ì¹˜í™˜, ë¶„í• , í•„í„°ë§ ë“±ì„ ìˆ˜í–‰í•˜ê¸° ìœ„í•œ Perl5 í˜¸í™˜ ì •ê·œì‹, AWKì™€ ê°™ì€ ì •ê·œì‹, glob í‘œí˜„, ê·¸ë¦¬ê³  ìœ í‹¸ë¦¬í‹° í´ëž˜ìŠ¤ë“¤ì„ ì œê³µí•˜ëŠ” í…ìŠ¤íŠ¸ ì²˜ë¦¬ ìžë°” í´ëž˜ìŠ¤ë“¤ìž…ë‹ˆë‹¤
     Commons net http://jakarta.apache.org/site/downloads/downloads_commons-net.cgi
     Jakarta ORO http://jakarta.apache.org/site/downloads/downloads_oro.cgi
-    Âü°íÀÚ·á
+    ì°¸ê³ ìžë£Œ
     Commons net API http://jakarta.apache.org/commons/net/apidocs/index.html
     Commons net http://jakarta.apache.org/commons/net/
-    III. org.apache.commons.net.ftp ÀÇ Èå¸§
-    sun ÆÐÅ°ÁöÀÇ FTPClientÃ³·³ FTP¿©·¯ µ¿ÀÛÀ» Commons netÀÇ FTPClient·Î ±¸ÇöÇØ º¸ÀÚ
-    ´ÙÀ½ ¨ç ~ ¨í±îÁö ¸ñ·ÏÀº ÇÊ¼öÇ×¸ñÀ¸·Î ±¸ÇöµÇ¾î¾ß ÇÕ´Ï´Ù.
-    ³í¸®ÀûÀ¸·Î º¸¸é °£´ÜÇÕ´Ï´Ù ¨ç FTPClient »ý¼º
-    ¸ÕÀú °¡Àå Áß½ÉÀûÀÎ ¿ªÇÒÀ» ÇÏ´Â FTPClient¸¦ »ý¼ºÇÕ´Ï´Ù
+    III. org.apache.commons.net.ftp ì˜ íë¦„
+    sun íŒ¨í‚¤ì§€ì˜ FTPClientì²˜ëŸ¼ FTPì—¬ëŸ¬ ë™ìž‘ì„ Commons netì˜ FTPClientë¡œ êµ¬í˜„í•´ ë³´ìž
+    ë‹¤ìŒ â‘  ~ â‘¦ê¹Œì§€ ëª©ë¡ì€ í•„ìˆ˜í•­ëª©ìœ¼ë¡œ êµ¬í˜„ë˜ì–´ì•¼ í•©ë‹ˆë‹¤.
+    ë…¼ë¦¬ì ìœ¼ë¡œ ë³´ë©´ ê°„ë‹¨í•©ë‹ˆë‹¤ â‘  FTPClient ìƒì„±
+    ë¨¼ì € ê°€ìž¥ ì¤‘ì‹¬ì ì¸ ì—­í• ì„ í•˜ëŠ” FTPClientë¥¼ ìƒì„±í•©ë‹ˆë‹¤
     FTPClient ftpClient = new FTPClient();
-    ¨è FTPServer¿¡ Connect
-    ¼­¹ö¿¡ ¿¬°áÀ» ÇÕ´Ï´Ù
+    â‘¡ FTPServerì— Connect
+    ì„œë²„ì— ì—°ê²°ì„ í•©ë‹ˆë‹¤
     ftpClient.connect(server);
-    ¨é ÀÀ´äÀÌ Á¤»óÀûÀÎÁö È®ÀÎ ÇÕ´Ï´Ù
-    ÀÀ´äÀ» ¹Þ¾Æ¿Í¼­
+    â‘¢ ì‘ë‹µì´ ì •ìƒì ì¸ì§€ í™•ì¸ í•©ë‹ˆë‹¤
+    ì‘ë‹µì„ ë°›ì•„ì™€ì„œ
     int reply = ftpClient.getReplyCode();
-    Á¤»óÀûÀÎÁö È®ÀÎÇØ º¾´Ï´Ù
+    ì •ìƒì ì¸ì§€ í™•ì¸í•´ ë´…ë‹ˆë‹¤
     if (!FTPReply.isPositiveCompletion(reply)) {
-    Á¤»óÀûÀÌÁö ¾ÊÀ¸¸é ¿¬°áÀ» ²÷°í Á¾·á ÇÕ´Ï´Ù
+    ì •ìƒì ì´ì§€ ì•Šìœ¼ë©´ ì—°ê²°ì„ ëŠê³  ì¢…ë£Œ í•©ë‹ˆë‹¤
     ftpClient.disconnect();
 
     System.out.println("FTP server refused connection.");
     } else {
-    Á¤»óÀûÀÌ¸é °è¼Ó ÁøÇà ÇÕ´Ï´Ù
+    ì •ìƒì ì´ë©´ ê³„ì† ì§„í–‰ í•©ë‹ˆë‹¤
     System.out.println("Connect successful");
     ..
     }
-    ¨ê FTP Server ·Î±×ÀÎ
+    â‘£ FTP Server ë¡œê·¸ì¸
     ftpClient.login(username, password);
-    ¨ë ¿©·¯°¡Áö ÀÛ¾÷À» ÇÕ´Ï´Ù
+    â‘¤ ì—¬ëŸ¬ê°€ì§€ ìž‘ì—…ì„ í•©ë‹ˆë‹¤
     list, get, put...
-    ¨ì FTP Server ·Î±×¾Æ¿ô
+    â‘¥ FTP Server ë¡œê·¸ì•„ì›ƒ
     ftpClient.logout();
-    ¨í FTP Server disconnect
+    â‘¦ FTP Server disconnect
     ftpClient.disconnect();
-    IV. »ç¿ë¿¹Á¦ - ¸ñ·Ïº¸±â
-    º»°ÝÀûÀ¸·Î FTP¿¡ Á¢¼ÓÇÏ¿© ¸ñ·ÏÀ» °¡Á®¿À´Â ¼Ò½º¸¦ º¾½Ã´Ù FTPClient ftpClient = null;
+    IV. ì‚¬ìš©ì˜ˆì œ - ëª©ë¡ë³´ê¸°
+    ë³¸ê²©ì ìœ¼ë¡œ FTPì— ì ‘ì†í•˜ì—¬ ëª©ë¡ì„ ê°€ì ¸ì˜¤ëŠ” ì†ŒìŠ¤ë¥¼ ë´…ì‹œë‹¤ FTPClient ftpClient = null;
     try {
     ftpClient = new FTPClient();
-    ftpClient.setControlEncoding("euc-kr"); // ÇÑ±ÛÆÄÀÏ¸í ¶§¹®¿¡ µðÆúÆ® ÀÎÄÚµùÀ» euc-kr·Î ÇÕ´Ï´Ù
-    ftpClient.connect("user.chollian.net"); // Ãµ¸®¾È FTP¿¡ Á¢¼ÓÇÕ´Ï´Ù
-    int reply = ftpClient.getReplyCode(); // ÀÀ´äÄÚµå°¡ ºñÁ¤»óÀÌ¸é Á¾·áÇÕ´Ï´Ù
+    ftpClient.setControlEncoding("euc-kr"); // í•œê¸€íŒŒì¼ëª… ë•Œë¬¸ì— ë””í´íŠ¸ ì¸ì½”ë”©ì„ euc-krë¡œ í•©ë‹ˆë‹¤
+    ftpClient.connect("user.chollian.net"); // ì²œë¦¬ì•ˆ FTPì— ì ‘ì†í•©ë‹ˆë‹¤
+    int reply = ftpClient.getReplyCode(); // ì‘ë‹µì½”ë“œê°€ ë¹„ì •ìƒì´ë©´ ì¢…ë£Œí•©ë‹ˆë‹¤
     if (!FTPReply.isPositiveCompletion(reply)) {
     ftpClient.disconnect();
     System.out.println("FTP server refused connection.");
     } else {
 
-    System.out.print(ftpClient.getReplyString()); // ÀÀ´ä ¸Þ¼¼Áö¸¦ Âï¾îº¾½Ã´Ù
-    ftpClient.setSoTimeout(10000); // ÇöÀç Ä¿³Ø¼Ç timeoutÀ» millisecond °ªÀ¸·Î ÀÔ·ÂÇÕ´Ï´Ù
-    ftpClient.login(username, password); // ·Î±×ÀÎ À¯Àú¸í°ú ºñ¹Ð¹øÈ£¸¦ ÀÔ·Â ÇÕ´Ï´Ù
-    // ¸ñ·Ïº¸±â ±¸Çö
-    FTPFile[] ftpfiles = ftpClient.listFiles("/public"); // public Æú´õÀÇ ¸ðµç ÆÄÀÏÀ» list ÇÕ´Ï´Ù
+    System.out.print(ftpClient.getReplyString()); // ì‘ë‹µ ë©”ì„¸ì§€ë¥¼ ì°ì–´ë´…ì‹œë‹¤
+    ftpClient.setSoTimeout(10000); // í˜„ìž¬ ì»¤ë„¥ì…˜ timeoutì„ millisecond ê°’ìœ¼ë¡œ ìž…ë ¥í•©ë‹ˆë‹¤
+    ftpClient.login(username, password); // ë¡œê·¸ì¸ ìœ ì €ëª…ê³¼ ë¹„ë°€ë²ˆí˜¸ë¥¼ ìž…ë ¥ í•©ë‹ˆë‹¤
+    // ëª©ë¡ë³´ê¸° êµ¬í˜„
+    FTPFile[] ftpfiles = ftpClient.listFiles("/public"); // public í´ë”ì˜ ëª¨ë“  íŒŒì¼ì„ list í•©ë‹ˆë‹¤
     if (ftpfiles != null) {
     for (int i = 0; i < ftpfiles.length; i++) {
     FTPFile file = ftpfiles[i];
-    System.out.println(file.toString()); // file.getName(), file.getSize() µîµî..
+    System.out.println(file.toString()); // file.getName(), file.getSize() ë“±ë“±..
     }
     }
     ftpClient.logout();
@@ -4324,13 +4377,13 @@ FTP, TFTP, SMTP, POP3, telnet, Finger, Whois, Time, Echo µî
     ioe.printStackTrace();
     }
     }
-    ¸ñ·Ïº¸±â ¹æ¹ý¿¡´Â ÇÑ°¡Áö ¹æ¹ýÀÌ ´õ ÀÖ½À´Ï´Ù
-    À§ÀÇ ÄÚµå´Â ÇØ´ç µð·ºÅä¸®³»ÀÇ ¸ðµç ÆÄÀÏÀ» °¡Á®¿À´Â ¹æ¹ýÀÌ¸ç ´ÙÀ½ ¹æ¹ýÀº ÇØ´ç µð·ºÅä¸®ÀÇ ¸ðµç ÆÄÀÏÀ» Á¤ÇØÁø ¼ö·Î Â©¶ó °¡Á®¿À´Â ¹æ¹ýÀÌ ÀÖ½À´Ï´Ù.
-    À§ÀÇ »¡°£»ö ÄÚµå´ë½Å ´ÙÀ½ ÄÚµå°¡ µé¾î°¥ ¼ö ÀÖ½À´Ï´Ù.
+    ëª©ë¡ë³´ê¸° ë°©ë²•ì—ëŠ” í•œê°€ì§€ ë°©ë²•ì´ ë” ìžˆìŠµë‹ˆë‹¤
+    ìœ„ì˜ ì½”ë“œëŠ” í•´ë‹¹ ë””ë ‰í† ë¦¬ë‚´ì˜ ëª¨ë“  íŒŒì¼ì„ ê°€ì ¸ì˜¤ëŠ” ë°©ë²•ì´ë©° ë‹¤ìŒ ë°©ë²•ì€ í•´ë‹¹ ë””ë ‰í† ë¦¬ì˜ ëª¨ë“  íŒŒì¼ì„ ì •í•´ì§„ ìˆ˜ë¡œ ì§¤ë¼ ê°€ì ¸ì˜¤ëŠ” ë°©ë²•ì´ ìžˆìŠµë‹ˆë‹¤.
+    ìœ„ì˜ ë¹¨ê°„ìƒ‰ ì½”ë“œëŒ€ì‹  ë‹¤ìŒ ì½”ë“œê°€ ë“¤ì–´ê°ˆ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
     int page = 1;
-    FTPListParseEngine engine = ftpClient.initiateListParsing("/public"); // ¸ñ·ÏÀ» ³ªÅ¸³¾ µð·ºÅä¸®
+    FTPListParseEngine engine = ftpClient.initiateListParsing("/public"); // ëª©ë¡ì„ ë‚˜íƒ€ë‚¼ ë””ë ‰í† ë¦¬
     while (engine.hasNext()) {
-    FTPFile[] ftpfiles = engine.getNext(10); // 10°³ ´ÜÀ§·Î ²÷¾î¼­ °¡Á®¿Â´Ù
+    FTPFile[] ftpfiles = engine.getNext(10); // 10ê°œ ë‹¨ìœ„ë¡œ ëŠì–´ì„œ ê°€ì ¸ì˜¨ë‹¤
 
     System.out.println("------------------------ "+page+" ------------------------");
     if (ftpfiles != null) {
@@ -4341,49 +4394,49 @@ FTP, TFTP, SMTP, POP3, telnet, Finger, Whois, Time, Echo µî
     }
     System.out.println("------------------------ "+(page++)+" -------------------------");
     }
-    V. »ç¿ë¿¹Á¦ - get (ÆÄÀÏ ´Ù¿î·Îµå)
-    ¼­¹öÀÇ /public/Å×½ºÆ®.txt ÆÄÀÏÀ» Å¬¶óÀÌ¾ðÆ®ÀÇ C:\\Test\\Å×½ºÆ®.txt ¿¡ ´Ù¿î¹Þ´Â ¿¹Á¦ File get_file = new File("C:\\Test\\Å×½ºÆ®.txt");
+    V. ì‚¬ìš©ì˜ˆì œ - get (íŒŒì¼ ë‹¤ìš´ë¡œë“œ)
+    ì„œë²„ì˜ /public/í…ŒìŠ¤íŠ¸.txt íŒŒì¼ì„ í´ë¼ì´ì–¸íŠ¸ì˜ C:\\Test\\í…ŒìŠ¤íŠ¸.txt ì— ë‹¤ìš´ë°›ëŠ” ì˜ˆì œ File get_file = new File("C:\\Test\\í…ŒìŠ¤íŠ¸.txt");
     OutputStream outputStream = new FileOutputStream(get_file);
-    boolean result = ftpClient.retrieveFile("/public/Å×½ºÆ®.txt", outputStream);
+    boolean result = ftpClient.retrieveFile("/public/í…ŒìŠ¤íŠ¸.txt", outputStream);
     outputStream.close();
-    VI. »ç¿ë¿¹Á¦ - put(ÆÄÀÏ ¾÷·Îµå)
-    Å¬¶óÀÌ¾ðÆ®ÀÇ C:\\Test\\º¸³»ÀÚ.txt ÆÄÀÏÀ» ¼­¹öÀÇ /public/º¸³»ÀÚ.txt ¿¡ ¾÷·ÎµåÇÏ´Â ¿¹Á¦
-    ¸¸ÀÏ ¼­¹ö¿¡ ÀÌ¹Ì /public/º¸³»ÀÚ.txt ÆÄÀÏÀÌ ÀÖ´Ù¸é µ¤¾î¾²°Ô µÈ´Ù File put_file = new File("C:\\Test\\º¸³»ÀÚ.txt");
+    VI. ì‚¬ìš©ì˜ˆì œ - put(íŒŒì¼ ì—…ë¡œë“œ)
+    í´ë¼ì´ì–¸íŠ¸ì˜ C:\\Test\\ë³´ë‚´ìž.txt íŒŒì¼ì„ ì„œë²„ì˜ /public/ë³´ë‚´ìž.txt ì— ì—…ë¡œë“œí•˜ëŠ” ì˜ˆì œ
+    ë§Œì¼ ì„œë²„ì— ì´ë¯¸ /public/ë³´ë‚´ìž.txt íŒŒì¼ì´ ìžˆë‹¤ë©´ ë®ì–´ì“°ê²Œ ëœë‹¤ File put_file = new File("C:\\Test\\ë³´ë‚´ìž.txt");
     inputStream = new FileInputStream(put_file);
-    boolean result = ftpClient.storeFile("/public/º¸³»ÀÚ.txt", inputStream);
+    boolean result = ftpClient.storeFile("/public/ë³´ë‚´ìž.txt", inputStream);
     inputStream.close();
-    VII. »ç¿ë¿¹Á¦ - append (ÆÄÀÏ¾÷·Îµå)
-    À§ÀÇ ¿¹Á¦¿Í °°Àº ±â´ÉÀ» ÇÏÁö¸¸ ÀÌ¹Ì ÆÄÀÏ¿¡ µ¿ÀÏÇÑ ÆÄÀÏÀÌ ÀÖÀ¸¸é false¸¦ ¹ÝÈ¯ÇÏ¸é¼­ ½ÇÇàÇÏÁö ¾Ê´Â´Ù File append_file = new File("C:\\Test\\´õÇØ¶ó.txt");
+    VII. ì‚¬ìš©ì˜ˆì œ - append (íŒŒì¼ì—…ë¡œë“œ)
+    ìœ„ì˜ ì˜ˆì œì™€ ê°™ì€ ê¸°ëŠ¥ì„ í•˜ì§€ë§Œ ì´ë¯¸ íŒŒì¼ì— ë™ì¼í•œ íŒŒì¼ì´ ìžˆìœ¼ë©´ falseë¥¼ ë°˜í™˜í•˜ë©´ì„œ ì‹¤í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤ File append_file = new File("C:\\Test\\ë”í•´ë¼.txt");
     inputStream = new FileInputStream(append_file);
-    boolean result = ftpClient.appendFile("/public/´õÇØ¶ó.txt", inputStream);
+    boolean result = ftpClient.appendFile("/public/ë”í•´ë¼.txt", inputStream);
     inputStream.close();
-    VIII. »ç¿ë¿¹Á¦ - rename (ÆÄÀÏ ÀÌ¸§º¯°æ)
-    º¯°æÀü ÆÄÀÏ¸í°ú º¯°æÇÒ ÆÄÀÏ¸íÀ» ÆÄ¶ó¹ÌÅÍ·Î ÁØ´Ù boolean result = ftpClient.rename("/public/¹Ù²Ù±âÀüÆÄÀÏ.txt", "/public/¹Ù²ÛÈÄÆÄÀÏ.txt");
-    IX. »ç¿ë¿¹Á¦ - delete (ÆÄÀÏ»èÁ¦)
-    »èÁ¦ÇÒ ÆÄÀÏÀ» ¼±ÅÃÇÑ´Ù boolean result = ftpClient.deleteFile("/public/test.txt");
-    X. »ç¿ë¿¹Á¦ - directory »ý¼º
-    /public ¿¡ oops µð·ºÅä¸®¸¦ »ý¼ºÇÑ´Ù boolean result = ftpClient.makeDirectory("/public/oops");
-    XI. »ç¿ë¿¹Á¦ - OS Ä¿¸Çµå ÀÔ·ÂÇÏ±â
-    /public ¿¡ oops µð·ºÅä¸®¸¦ »ý¼ºÇÑ´Ù ftpClient.sendCommand(FTPCommand.MAKE_DIRECTORY, "/public/oops");
-    sendCommand ÇÔ¼ö¿¡ FTPCommandÀÇ ½ÇÇàÇÒ OS¸í·ÉÀ» static ¸â¹öº¯¼ö¸¦ ³Ñ°ÜÁØ´Ù
-    XII. »ç¿ë¿¹Á¦ - ÀÛ¾÷µð·ºÅä¸® ¼³Á¤ÇÏ±â
-    ÀÛ¾÷µð·ºÅä¸®¸¦ /public ¼³Á¤ÇÑ ÈÄ oops µð·ºÅä¸®¸¦ ¼³Á¤ÇÑ´Ù (À§ÀÇ ¿¹Á¦¿Í ºñ±³ÇØº¸¶ó!) ftpClient.changeWorkingDirectory("/public");
-    boolean result = ftpClient.makeDirectory("oops"); // /public/oops Àý´ë°æ·Î¸¦ ÀûÁö ¾Ê¾Æµµ µÈ´Ù
-    XIII. »ç¿ë¿¹Á¦ - ÆÄÀÏ ¹× Àü¼ÛÇüÅÂ ¼³Á¤
-    ÆÄÀÏ ÇüÅÂ ¼³Á¤ ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-    ÆÄÀÏ Å¸ÀÔ
+    VIII. ì‚¬ìš©ì˜ˆì œ - rename (íŒŒì¼ ì´ë¦„ë³€ê²½)
+    ë³€ê²½ì „ íŒŒì¼ëª…ê³¼ ë³€ê²½í•  íŒŒì¼ëª…ì„ íŒŒë¼ë¯¸í„°ë¡œ ì¤€ë‹¤ boolean result = ftpClient.rename("/public/ë°”ê¾¸ê¸°ì „íŒŒì¼.txt", "/public/ë°”ê¾¼í›„íŒŒì¼.txt");
+    IX. ì‚¬ìš©ì˜ˆì œ - delete (íŒŒì¼ì‚­ì œ)
+    ì‚­ì œí•  íŒŒì¼ì„ ì„ íƒí•œë‹¤ boolean result = ftpClient.deleteFile("/public/test.txt");
+    X. ì‚¬ìš©ì˜ˆì œ - directory ìƒì„±
+    /public ì— oops ë””ë ‰í† ë¦¬ë¥¼ ìƒì„±í•œë‹¤ boolean result = ftpClient.makeDirectory("/public/oops");
+    XI. ì‚¬ìš©ì˜ˆì œ - OS ì»¤ë§¨ë“œ ìž…ë ¥í•˜ê¸°
+    /public ì— oops ë””ë ‰í† ë¦¬ë¥¼ ìƒì„±í•œë‹¤ ftpClient.sendCommand(FTPCommand.MAKE_DIRECTORY, "/public/oops");
+    sendCommand í•¨ìˆ˜ì— FTPCommandì˜ ì‹¤í–‰í•  OSëª…ë ¹ì„ static ë©¤ë²„ë³€ìˆ˜ë¥¼ ë„˜ê²¨ì¤€ë‹¤
+    XII. ì‚¬ìš©ì˜ˆì œ - ìž‘ì—…ë””ë ‰í† ë¦¬ ì„¤ì •í•˜ê¸°
+    ìž‘ì—…ë””ë ‰í† ë¦¬ë¥¼ /public ì„¤ì •í•œ í›„ oops ë””ë ‰í† ë¦¬ë¥¼ ì„¤ì •í•œë‹¤ (ìœ„ì˜ ì˜ˆì œì™€ ë¹„êµí•´ë³´ë¼!) ftpClient.changeWorkingDirectory("/public");
+    boolean result = ftpClient.makeDirectory("oops"); // /public/oops ì ˆëŒ€ê²½ë¡œë¥¼ ì ì§€ ì•Šì•„ë„ ëœë‹¤
+    XIII. ì‚¬ìš©ì˜ˆì œ - íŒŒì¼ ë° ì „ì†¡í˜•íƒœ ì„¤ì •
+    íŒŒì¼ í˜•íƒœ ì„¤ì • ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+    íŒŒì¼ íƒ€ìž…
     FTP.BINARY_FILE_TYPE, FTP.ASCII_FILE_TYPE, FTP.EBCDIC_FILE_TYPE, FTP.IMAGE_FILE_TYPE , FTP.LOCAL_FILE_TYPE
-    ÀÌ °ªÀ» ¼³Á¤ÇÏÁö ¾ÊÀ¸¸é µðÆúÆ®´Â ASCII ÀÌ´Ù
-    Àü¼Û ÇüÅÂ ¼³Á¤ ftpClient.setFileTransferMode(FTP.STREAM_TRANSFER_MODE);
-    Àü¼Û Å¸ÀÔ
+    ì´ ê°’ì„ ì„¤ì •í•˜ì§€ ì•Šìœ¼ë©´ ë””í´íŠ¸ëŠ” ASCII ì´ë‹¤
+    ì „ì†¡ í˜•íƒœ ì„¤ì • ftpClient.setFileTransferMode(FTP.STREAM_TRANSFER_MODE);
+    ì „ì†¡ íƒ€ìž…
     FTP.BLOCK_TRANSFER_MODE, FTP.COMPRESSED_TRANSFER_MODE
-    ÀÌ°ªÀ» ¼³Á¤ÇÏÁö ¾ÊÀ¸¸é µðÆúÆ®´Â FTP.STREAM_TRANSFER_MODE ÀÌ´Ù
-    XIV. FTPÁ¢¼Ó½Ã ±Û¸ñ·ÏÀÌ º¸ÀÌÁö ¾Ê´Â°æ¿ì ¾Æ·¡ URLÀ» Âü°íÇÏ¼¼¿ä
-    Jakarta Commons Net ¿¡¼­ FTP »ç¿ë½Ã ¸ñ·ÏÀÌ ¾Èº¸ÀÏ °æ¿ì
+    ì´ê°’ì„ ì„¤ì •í•˜ì§€ ì•Šìœ¼ë©´ ë””í´íŠ¸ëŠ” FTP.STREAM_TRANSFER_MODE ì´ë‹¤
+    XIV. FTPì ‘ì†ì‹œ ê¸€ëª©ë¡ì´ ë³´ì´ì§€ ì•ŠëŠ”ê²½ìš° ì•„ëž˜ URLì„ ì°¸ê³ í•˜ì„¸ìš”
+    Jakarta Commons Net ì—ì„œ FTP ì‚¬ìš©ì‹œ ëª©ë¡ì´ ì•ˆë³´ì¼ ê²½ìš°
     http://www.jakartaproject.com/article/jakarta/1132032615162
-    ¸ñ·ÏÀÌ ¾Èº¸ÀÏ °æ¿ì ÇØ°á±â IÅº
+    ëª©ë¡ì´ ì•ˆë³´ì¼ ê²½ìš° í•´ê²°ê¸° Iíƒ„
     http://www.jakartaproject.com/article/jakarta/1135307924491
-    Å×½ºÆ®ÇÑ ÆÄÀÏÀ» Ã·ºÎÇÕ´Ï´Ù ^^
+    í…ŒìŠ¤íŠ¸í•œ íŒŒì¼ì„ ì²¨ë¶€í•©ë‹ˆë‹¤ ^^
 
 ----------------------------------------------------------------------------------------------------
 [ tain.kr.test ]
@@ -4413,37 +4466,37 @@ FTP, TFTP, SMTP, POP3, telnet, Finger, Whois, Time, Echo µî
 
 ----------------------------------------------------------------------------------------------------
 /*
-    ¿À¶óÅ¬ ½ºÅ©¸³Æ®·Î Reverse Engineer ÇÏ¿© Comment¸¦ ³í¸®¸íÀ¸·Î º¯°æÇÏ±â
+    ì˜¤ë¼í´ ìŠ¤í¬ë¦½íŠ¸ë¡œ Reverse Engineer í•˜ì—¬ Commentë¥¼ ë…¼ë¦¬ëª…ìœ¼ë¡œ ë³€ê²½í•˜ê¸°
 
     1)  Tools => Reverse Engineer
-        New Model Type : Logical/Physical ¼±ÅÃ
-        Toget Database : Oracle / 10.x/11.x ¼±ÅÃ
+        New Model Type : Logical/Physical ì„ íƒ
+        Toget Database : Oracle / 10.x/11.x ì„ íƒ
         Next
-        Reverse Engineer From : Script File ¼±ÅÃÇÏ¿© ÆÄÀÏ ÁöÁ¤
+        Reverse Engineer From : Script File ì„ íƒí•˜ì—¬ íŒŒì¼ ì§€ì •
 
-    2) Physical ¸ðµ¨ ¼±ÅÃ
+    2) Physical ëª¨ë¸ ì„ íƒ
 
-        Å×ÀÌºí ÀüÃ¼ ¼±ÅÃ
-        Å×ÀÌºíÀ» ¿Ü °ø°£¿¡¼­ ¸¶¿ì½º ¿À¸¥ÂÊ Å¬¸¯  => ¸Þ´º : Harden Physical Names Å¬¸¯
+        í…Œì´ë¸” ì „ì²´ ì„ íƒ
+        í…Œì´ë¸”ì„ ì™¸ ê³µê°„ì—ì„œ ë§ˆìš°ìŠ¤ ì˜¤ë¥¸ìª½ í´ë¦­  => ë©”ë‰´ : Harden Physical Names í´ë¦­
 
-    3) Logical ¸ðµ¨ ¼±ÅÃ
+    3) Logical ëª¨ë¸ ì„ íƒ
 
         Model => Domain dictionary
-        Macro Toolbox ¹öÆ° Å¬¸¯
-        Macros -> Attribute Macro -> %ColumnComment ¼±ÅÃ
-        Colse ¹öÆ° Å¬¸¯
-        Name Inherited by Attribute : %ColumnComment ¸¸ ³²±â°í »èÁ¦
-        OK ¹öÆ° Å¬¸¯
+        Macro Toolbox ë²„íŠ¼ í´ë¦­
+        Macros -> Attribute Macro -> %ColumnComment ì„ íƒ
+        Colse ë²„íŠ¼ í´ë¦­
+        Name Inherited by Attribute : %ColumnComment ë§Œ ë‚¨ê¸°ê³  ì‚­ì œ
+        OK ë²„íŠ¼ í´ë¦­
 
         Model => Attribute
-        Reset ¹öÆ° Å¬¸¯
-        Remove overrridden properties for : Reset all attributes in model ¼±ÅÃ
-        Select Properties to Reset : Definition Á¦°Å / Domain Parent Á¦°Å / Logical Data Type Á¦°Å
+        Reset ë²„íŠ¼ í´ë¦­
+        Remove overrridden properties for : Reset all attributes in model ì„ íƒ
+        Select Properties to Reset : Definition ì œê±° / Domain Parent ì œê±° / Logical Data Type ì œê±°
 
-        Logical Only ¼±ÅÃ
-        OK ¹öÆ° Å¬¸¯
+        Logical Only ì„ íƒ
+        OK ë²„íŠ¼ í´ë¦­
 
-    4) ¿Ï·á
+    4) ì™„ë£Œ
 
 */
 
@@ -4454,7 +4507,7 @@ FTP, TFTP, SMTP, POP3, telnet, Finger, Whois, Time, Echo µî
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-[ Maven DOS Ã¢¿¡¼­ ½ÇÇà½Ã HttpServlet symbol ¿¡·¯ ¹ß»ý½Ã Ã³¸®¹æ¹ý pom.xml À§¿¡ Ãß°¡ÇÑ´Ù. ]
+[ Maven DOS ì°½ì—ì„œ ì‹¤í–‰ì‹œ HttpServlet symbol ì—ëŸ¬ ë°œìƒì‹œ ì²˜ë¦¬ë°©ë²• pom.xml ìœ„ì— ì¶”ê°€í•œë‹¤. ]
 
     <dependencies>
         <dependency>
@@ -4513,22 +4566,22 @@ mvn install:install-file -DgroupId=kang.tain -DartifactId=terajdbc4             
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-ibatis¸¦ ¾²´Ùº¸¸é Äõ¸®¸¦ outÀ¸·Î Ãâ·ÂÇÏ°í ½ÍÀ»¶§°¡ ¸¹Áö¿ä
-ÀÏ´Ü file·Î »ý¼ºÇÏ´Â°Ç ÃßÈÄ¿¡ Æ÷½ºÆÃ ÇÏ°í, ·ÎÄÃ¿¡¼­ console¿¡ Âï´Â¹æ¹ýÀ» Á¤¸®ÇÏ°Ú½À´Ï´Ù.
+ibatisë¥¼ ì“°ë‹¤ë³´ë©´ ì¿¼ë¦¬ë¥¼ outìœ¼ë¡œ ì¶œë ¥í•˜ê³  ì‹¶ì„ë•Œê°€ ë§Žì§€ìš”
+ì¼ë‹¨ fileë¡œ ìƒì„±í•˜ëŠ”ê±´ ì¶”í›„ì— í¬ìŠ¤íŒ… í•˜ê³ , ë¡œì»¬ì—ì„œ consoleì— ì°ëŠ”ë°©ë²•ì„ ì •ë¦¬í•˜ê² ìŠµë‹ˆë‹¤.
 
 WEB-INF/lib/log4.jar
 WEB-INF/classes/log4j.properties
 
     # Global logging configuration
-    # ¿¡·¯°¡ ¹ß»ýÇßÀ»½Ã Ãâ·Â
+    # ì—ëŸ¬ê°€ ë°œìƒí–ˆì„ì‹œ ì¶œë ¥
     log4j.rootLogger=ERROR, stdout
 
     # SqlMap logging configuration
-    # Äõ¸®¸¦ Ãâ·ÂÇÏ°í ½ÍÀ¸¹Ç·Î, DEBUG·¹º§·Î ¼³Á¤
+    # ì¿¼ë¦¬ë¥¼ ì¶œë ¥í•˜ê³  ì‹¶ìœ¼ë¯€ë¡œ, DEBUGë ˆë²¨ë¡œ ì„¤ì •
     log4j.logger.java.sql.Connection=DEBUG
     log4j.logger.java.sql.Statement=DEBUG
     log4j.logger.java.sql.PreparedStatement=DEBUG
-    # Äõ¸®°¡ ÀÌÁßÀ¸·Î Ãâ·ÂµÇ¹Ç·Î, falseÃ³¸®
+    # ì¿¼ë¦¬ê°€ ì´ì¤‘ìœ¼ë¡œ ì¶œë ¥ë˜ë¯€ë¡œ, falseì²˜ë¦¬
     log4j.additivity.java.sql.Connection=false
 
     # Console output
@@ -4537,15 +4590,15 @@ WEB-INF/classes/log4j.properties
     log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
     log4j.appender.stdout.layout.ConversionPattern=%5p ({%t} %F[%M]:%L) [%d] - %m%n
 
-web.xml¿¡
+web.xmlì—
     <param-value>
         /WEB-INF/classes/log4j.properties
     </param-value>
 
-Ãß°¡ÇÏ¸é ³¡ÀÔ´Ï´Ù.
+ì¶”ê°€í•˜ë©´ ëìž…ë‹ˆë‹¤.
 
 
-ÆÄÀÏ¿¡ Ãâ·ÂÇÒ ·Î±× ·¹º§À» ÁöÁ¤
+íŒŒì¼ì— ì¶œë ¥í•  ë¡œê·¸ ë ˆë²¨ì„ ì§€ì •
     log4j.appender.file.Threshold=DEBUG
 
 
@@ -4560,7 +4613,7 @@ web.xml¿¡
 	
 	Install Path : C:\Program Files (x86)\Subversion
 	
-	½Ã½ºÅÛ È¯°æº¯¼ö : Path=%Path%;C:\Program Files (x86)\Subversion\bin;
+	ì‹œìŠ¤í…œ í™˜ê²½ë³€ìˆ˜ : Path=%Path%;C:\Program Files (x86)\Subversion\bin;
 
 
 ----------------------------------------------------------------------------------------------------

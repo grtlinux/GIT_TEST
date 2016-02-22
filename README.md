@@ -27,12 +27,18 @@ You have a choice -> Window > Preferences > type filter text : `encod`
 
 You have to set Preferences > Java > Code Style > Code Templates > Import : codetemplates_20160201.xml 
 
+<<<<<<< HEAD
 You have to set Preferences > General > Appearance > Colors and Fonts
 
 	Text Editor Block Selection Font  : FONT-9
 	Text Font                         : FONT-9
 
 You have to set Preferences > Java > Editor > Content Assist > Syntax Coloring     To Good Viewer
+=======
+You have to set Preferences > type filter text : `fonts`
+ * Basic > Text Editor Block Selection Font : FONT - 9
+ * Basic > Text Font : FONT - 9
+>>>>>>> refs/remotes/origin/master
 
 ----------------------------------------------------------------------------------------
 
