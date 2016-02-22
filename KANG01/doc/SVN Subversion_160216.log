@@ -227,6 +227,9 @@ svn list svn://localhost/kang02/tags/0.1
 svn import src svn://localhost/kang02/tags/0.2/src -m "a" --username admin --password admin123
 svn list svn://localhost/kang02/tags/0.2
 
+svn import FOLDER svn://localhost/REPO_01/FOLDER -m "a" --username admin --password admin123
+
+
 
 
 cd d:\SVN_TEST\TGT\KANG01
