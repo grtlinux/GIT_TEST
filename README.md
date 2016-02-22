@@ -29,14 +29,15 @@ You have to set Preferences > Java > Code Style > Code Templates > Import : code
 
 You have to set Preferences > General > Appearance > Colors and Fonts
 
-	Text Editor Block Selection Font  : ±¼¸²Ã¼-9
-	Text Font                         : ±¼¸²Ã¼-9
+	Text Editor Block Selection Font  : FONT-9
+	Text Font                         : FONT-9
 
 You have to set Preferences > Java > Editor > Content Assist > Syntax Coloring     To Good Viewer
 
 ----------------------------------------------------------------------------------------
 
 1. [http://pyrasis.com/private/2014/07/19/open-windows-project-essential-utility-book](http://pyrasis.com/private/2014/07/19/open-windows-project-essential-utility-book)
+2. [http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91](http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91)
 
 ----------------------------------------------------------------------------------------
 
