@@ -24,6 +24,7 @@ and tabs. Above that, it has by default enabled blocking ads with a built-in plu
 You have a choice -> Window > Preferences > type filter text : `encod`
  * General > Content Types
  * General > Workspace > Text file encoding : EUC-KR, New text file line delimiter : unix
+ * General > Content Types > Text > Runtime log files > *.log (locked) : Default encoding : UTF-8 -> Update, *.log files is set encoding character set to be UTF-8.
 
 You have to set Preferences > Java > Code Style > Code Templates > Import : codetemplates_20160201.xml 
 
