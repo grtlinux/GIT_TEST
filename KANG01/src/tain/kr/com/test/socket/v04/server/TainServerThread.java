@@ -69,7 +69,7 @@ public class TainServerThread extends Thread {
 			this.socket = socket;
 			this.dis = new DataInputStream(this.socket.getInputStream());
 			this.dos = new DataOutputStream(this.socket.getOutputStream());
-			if (flag) log.debug(String.format("%s : idxThr=%d, socket=%s", this.getName(), this.idxThr, this.socket.toString()));
+			if (flag) log.debug(String.format("%s : ########## START idxThr=%d ########## socket=%s ", this.getName(), this.idxThr, this.socket.toString()));
 		}
 	}
 	
@@ -185,14 +185,31 @@ public class TainServerThread extends Thread {
 					String trCode = PacketHeader.TR_CODE.getString(packet);
 					if (flag) log.debug("> TR_CODE = " + trCode);
 
+					// java 1.7 or higher
+					switch (trCode) {
+					case "TR0200": packet = new TainServerTR0201(this.socket, this.dis, this.dos, packet).execute(); break;
+					case "TR0210": packet = new TainServerTR0211(this.socket, this.dis, this.dos, packet).execute(); break;
+					case "TR0500": packet = new TainServerTR0501(this.socket, this.dis, this.dos, packet).execute(); break;
+					case "TR0510": packet = new TainServerTR0511(this.socket, this.dis, this.dos, packet).execute(); break;
+					default:
+						PacketHeader.RET_CODE.setVal(packet, "99999");
+						PacketHeader.FILLER.setVal(packet, "NO_TR_CODE");
+						break;
+					}
+					/*
 					if ("TR0200".equals(trCode)) {
 						packet = new TainServerTR0201(this.socket, this.dis, this.dos, packet).execute();
+					} else if ("TR0210".equals(trCode)) {
+						packet = new TainServerTR0211(this.socket, this.dis, this.dos, packet).execute();
 					} else if ("TR0500".equals(trCode)) {
 						packet = new TainServerTR0501(this.socket, this.dis, this.dos, packet).execute();
+					} else if ("TR0510".equals(trCode)) {
+						packet = new TainServerTR0511(this.socket, this.dis, this.dos, packet).execute();
 					} else {
 						PacketHeader.RET_CODE.setVal(packet, "99999");
 						PacketHeader.FILLER.setVal(packet, "NO_TR_CODE");
 					}
+					*/
 					
 					if (!flag) log.debug("[" + new String(packet) + "]");
 				}
@@ -221,6 +238,10 @@ public class TainServerThread extends Thread {
 				if (this.dos != null) try { this.dos.close(); } catch (Exception e) {}
 				if (this.socket != null) try { this.socket.close(); } catch (Exception e) {}
 			}
+		}
+		
+		if (flag) {
+			if (flag) log.debug(String.format("%s : ########## FINISH idxThr=%d ##########", this.getName(), this.idxThr));
 		}
 	}
 	

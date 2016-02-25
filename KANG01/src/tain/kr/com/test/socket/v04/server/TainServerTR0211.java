@@ -21,12 +21,11 @@ package tain.kr.com.test.socket.v04.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.net.Socket;
 
 import org.apache.log4j.Logger;
 
-import tain.kr.com.test.socket.v04.common.Exec;
 import tain.kr.com.test.socket.v04.common.PacketHeader;
 
 /**
@@ -36,56 +35,6 @@ import tain.kr.com.test.socket.v04.common.PacketHeader;
  *   -. FileName   : TainServerThread.java
  *   -. Package    : tain.kr.com.test.socket.v02
  *   -. Comment    :
- *        @echo on
- *
- *        :: program : mvn_dos.ba
- *        ::
- *        :: ----------------------------------------------------------------------------
- *        :: set environment
- *
- *        set JAVA_HOME=M:\PROG\jdk1.7.0_79
- *        set M2_HOME=P:\maven\apache-maven-3.3.3
- *        set PATH=%PATH%;%JAVA_HOME%\bin;%M2_HOME%\bin;
- *
- *        :: ----------------------------------------------------------------------------
- *        :: version check
- *
- *        cmd /c svnserve --version
- *
- *        cmd /c java -version
- *
- *        cmd /c mvn --version
- *
- *        :: pause
- *
- *        :: ----------------------------------------------------------------------------
- *        :: export
- *
- *        del M:\TEMP\DEPLOY_TEST\CLIENT\SASEMARTCMS-1.0.0.war
- *
- *        rmdir /S /Q                                      M:\TEMP\DEPLOY_TEST\CLIENT\SASEMARTCMS
- *
- *        cmd /c svn export svn://localhost/REPO_02/SASEMARTCMS   M:\TEMP\DEPLOY_TEST\CLIENT\SASEMARTCMS
- *
- *        echo "########################## EXPORT SUCCESS ###########################"
- *
- *        :: pause
- *
- *        :: ----------------------------------------------------------------------------
- *        :: build
- *
- *        cmd /c mvn -file  M:\TEMP\DEPLOY_TEST\CLIENT\SASEMARTCMS       clean install
- *
- *        echo "########################## MAVEN COMPILE SUCCESS ###########################"
- *
- *
- *        :: ----------------------------------------------------------------------------
- *        :: finish
- *
- *        move M:\TEMP\DEPLOY_TEST\CLIENT\SASEMARTCMS\target\SASEMARTCMS-1.0.0.war M:\TEMP\DEPLOY_TEST\CLIENT
- *
- *        echo "########################## ALL SUCCESS ###########################"
- *    
  *   -. Author     : taincokr
  *   -. First Date : 2016. 2. 16. {time}
  * </PRE>
@@ -94,11 +43,11 @@ import tain.kr.com.test.socket.v04.common.PacketHeader;
  *
  */
 @SuppressWarnings("unused")
-public class TainServerTR0501 {
+public class TainServerTR0211 {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TainServerTR0501.class);
+	private static final Logger log = Logger.getLogger(TainServerTR0211.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -110,8 +59,11 @@ public class TainServerTR0501 {
 	private DataInputStream dis = null;
 	private DataOutputStream dos = null;
 	private byte[] packet = null;
+	
+	private long fileSize = -1;
+	private String fileName = "M:/TEMP/DEPLOY_TEST/SERVER/SASEMARTCMS-1.0.0.war";
 
-	public TainServerTR0501(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
+	public TainServerTR0211(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
 		
 		if (flag) {
 			this.socket = socket;
@@ -122,19 +74,59 @@ public class TainServerTR0501 {
 	}
 	
 	public byte[] execute() throws Exception {
+		
+		if (flag) {
+			/*
+			 * get file size
+			 */
+			this.fileSize = Long.parseLong(PacketHeader.DATA_LEN.getString(this.packet));
+			
+			if (flag) log.debug(String.format("fileSize = %,d", this.fileSize));
+		}
 	
 		if (flag) {
 			/*
-			 * execute shell program
+			 * file receiver
 			 */
-			if (!flag) Exec.run(new String[] {"cmd", "/c", "D:/TR500.cmd"}, false);
-			if (!flag) Exec.run(new String[] {"cmd", "/c", "start"}, false);
-			if (flag) Exec.run(new String[] {"cmd", "/c", "M:/TEMP/DEPLOY_TEST/CLIENT/mvn_client_dos.bat"}, new FileWriter("M:/TEMP/DEPLOY_TEST/CLIENT/TR0501.log"), false);
-			if (!flag) Exec.run(new String[] {"cmd", "/c", "M:/TEMP/DEPLOY_TEST/CLIENT/mvn_dos.bat"}, false);
+			
+			FileOutputStream fos = null;
+			
+			try {
+				
+				fos = new FileOutputStream(this.fileName);
+				
+				byte[] buf = new byte[10240];
+				
+				for (int i=1; ; i++) {
+				
+					int readed = this.dis.read(buf);
+					if (readed < 0)
+						break;
+					
+					fos.write(buf, 0, readed);
+					
+					if (flag) {
+						System.out.print("#");
+						if (i % 100 == 0)
+							System.out.println();
+					}
+					
+					fileSize -= readed;
+					if (fileSize <= 0) {
+						if (flag) System.out.println();
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (fos != null) try { fos.close(); } catch (Exception e) {}
+			}
 		}
 		
 		if (flag) {
-			PacketHeader.TR_CODE.setVal(this.packet, "TR0501");
+			PacketHeader.TR_CODE.setVal(this.packet, "TR0201");
 			PacketHeader.RET_CODE.setVal(this.packet, "00000");
 			PacketHeader.FILLER.setVal(this.packet, "SUCCESS");
 		}

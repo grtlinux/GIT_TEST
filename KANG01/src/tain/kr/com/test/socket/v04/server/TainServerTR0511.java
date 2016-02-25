@@ -94,11 +94,11 @@ import tain.kr.com.test.socket.v04.common.PacketHeader;
  *
  */
 @SuppressWarnings("unused")
-public class TainServerTR0501 {
+public class TainServerTR0511 {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TainServerTR0501.class);
+	private static final Logger log = Logger.getLogger(TainServerTR0511.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,7 +111,7 @@ public class TainServerTR0501 {
 	private DataOutputStream dos = null;
 	private byte[] packet = null;
 
-	public TainServerTR0501(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
+	public TainServerTR0511(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
 		
 		if (flag) {
 			this.socket = socket;
@@ -129,12 +129,12 @@ public class TainServerTR0501 {
 			 */
 			if (!flag) Exec.run(new String[] {"cmd", "/c", "D:/TR500.cmd"}, false);
 			if (!flag) Exec.run(new String[] {"cmd", "/c", "start"}, false);
-			if (flag) Exec.run(new String[] {"cmd", "/c", "M:/TEMP/DEPLOY_TEST/CLIENT/mvn_client_dos.bat"}, new FileWriter("M:/TEMP/DEPLOY_TEST/CLIENT/TR0501.log"), false);
+			if (flag) Exec.run(new String[] {"cmd", "/c", "M:/TEMP/DEPLOY_TEST/SERVER/mvn_server_dos.bat"}, new FileWriter("M:/TEMP/DEPLOY_TEST/SERVER/TR0511.log"), false);
 			if (!flag) Exec.run(new String[] {"cmd", "/c", "M:/TEMP/DEPLOY_TEST/CLIENT/mvn_dos.bat"}, false);
 		}
 		
 		if (flag) {
-			PacketHeader.TR_CODE.setVal(this.packet, "TR0501");
+			PacketHeader.TR_CODE.setVal(this.packet, "TR0511");
 			PacketHeader.RET_CODE.setVal(this.packet, "00000");
 			PacketHeader.FILLER.setVal(this.packet, "SUCCESS");
 		}

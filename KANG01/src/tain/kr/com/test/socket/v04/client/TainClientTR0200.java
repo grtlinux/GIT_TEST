@@ -179,7 +179,7 @@ public class TainClientTR0200 extends Thread {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private String fileName = "D:/KANG/WORK_04_M/TEMP/javadocs_1.6.zip";
+	private String fileName = "D:/PROG_P/Java_200Á¦.iso";
 	// private String fileName = "D:/KANG/WORK_04_M/TEMP/eclipse-jee-mars-1-win32-x86_64.zip";
 	
 	private long getFileSize() throws Exception {

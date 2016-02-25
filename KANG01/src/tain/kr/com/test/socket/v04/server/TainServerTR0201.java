@@ -61,7 +61,7 @@ public class TainServerTR0201 {
 	private byte[] packet = null;
 	
 	private long fileSize = -1;
-	private String fileName = "M:/TR0200.zip";
+	private String fileName = "M:/TEMP/DEPLOY_TEST/SERVER/SASEMARTCMS-1.0.0.war";
 
 	public TainServerTR0201(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
 		

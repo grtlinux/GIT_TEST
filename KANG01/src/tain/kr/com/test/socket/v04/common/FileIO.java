@@ -98,6 +98,8 @@ public class FileIO {
 			if (is != null)
 				is.close();
 			
+			os.flush();
+			
 			if (os != null)
 				os.close();
 		}
@@ -117,7 +119,11 @@ public class FileIO {
 		while ((n = is.read(b)) != -1) {
 			os.write(b, 0, n);
 		}
+
 		is.close();
+		
+		os.flush();
+		
 		if (close)
 			os.close();
 	}
@@ -138,9 +144,11 @@ public class FileIO {
 		}
 		
 		is.close();
-		// TODO : have to check  at 2016.02.18
-		//if (close)
-		//	os.close();
+
+		os.flush();
+		
+		if (close)
+			os.close();
 	}
 	
 	/**
@@ -185,6 +193,9 @@ public class FileIO {
 			while ((n = is.read(b)) != -1) {
 				os.write(b, 0, n);
 			}
+
+			os.flush();
+			
 		} finally {
 			is.close();
 			os.close();
@@ -213,6 +224,9 @@ public class FileIO {
 			while ((n = is.read(b)) != -1) {
 				os.write(b, 0, n);
 			}
+
+			os.flush();
+			
 		} finally {
 			if (is != null)
 				is.close();
@@ -327,6 +341,9 @@ public class FileIO {
 					is = base.getInputStream(file);
 					os = new FileOutputStream(new File(toDir, file.getName()));
 					copyFile(is, os, false);
+
+					os.flush();
+					
 				} finally {
 					if (os != null)
 						os.close();
