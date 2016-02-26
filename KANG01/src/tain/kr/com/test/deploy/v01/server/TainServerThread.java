@@ -17,7 +17,7 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.test.deploy.v01.client.tr;
+package tain.kr.com.test.deploy.v01.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -27,13 +27,17 @@ import java.util.ResourceBundle;
 import org.apache.log4j.Logger;
 
 import tain.kr.com.test.deploy.v01.common.PacketHeader;
+import tain.kr.com.test.deploy.v01.server.tr.TR0001;
+import tain.kr.com.test.deploy.v01.server.tr.TR0101;
+import tain.kr.com.test.deploy.v01.server.tr.TR0201;
+import tain.kr.com.test.deploy.v01.server.tr.TR0501;
 
 /**
  * Code Templates > Comments > Types
  *
  * <PRE>
- *   -. FileName   : TR0000.java
- *   -. Package    : tain.kr.com.test.deploy.v01.client.tr
+ *   -. FileName   : TainServerThread.java
+ *   -. Package    : tain.kr.com.test.deploy.v01.server
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 2. 25. {time}
@@ -42,102 +46,108 @@ import tain.kr.com.test.deploy.v01.common.PacketHeader;
  * @author taincokr
  *
  */
-public class TR0000 extends Thread {
+public class TainServerThread extends Thread {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TR0000.class);
+	private static final Logger log = Logger.getLogger(TainServerThread.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	private String className = null;
-	private String trCode = null;
 	private ResourceBundle resourceBundle = null;
-	private String comment = null;
-
-	private String host = null;
-	private String port = null;
 	
+	private int idxThr = -1;
 	private Socket socket = null;
+	
 	private DataInputStream dis = null;
 	private DataOutputStream dos = null;
-
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	public TR0000() throws Exception {
+	private void init() throws Exception {
 		
 		if (flag) {
-			this.className = this.getClass().getName();
-			this.trCode = this.className.substring(this.className.lastIndexOf("TR"));
-			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
-			this.comment = this.resourceBundle.getString("tain.comment");
+			this.className = new Object(){}.getClass().getEnclosingClass().getName();
 			
-			this.host = this.resourceBundle.getString("tain.server.host");
-			this.port = this.resourceBundle.getString("tain.server.port");
-		}
-		
-		if (flag) {
-			this.socket = new Socket(this.host, Integer.parseInt(this.port));
-			this.dis = new DataInputStream(this.socket.getInputStream());
-			this.dos = new DataOutputStream(this.socket.getOutputStream());
+			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
 		}
 		
 		if (flag) {
 			log.debug(">>>>> " + this.className);
-			log.debug(">>>>> " + this.comment);
-			log.debug(">>>>> host = " + this.host + ", port = " + this.port + ", trCode = " + this.trCode);
-			log.debug("Connection .....");
+			log.debug(">>>>> " + this.resourceBundle.getString("tain.comment"));
+		}
+	}
+	
+	public TainServerThread(int idxThr, Socket socket) throws Exception {
+		
+		if (flag) init();
+		
+		if (flag) {
+			this.idxThr = idxThr;
+			this.socket = socket;
+			this.dis = new DataInputStream(this.socket.getInputStream());
+			this.dos = new DataOutputStream(this.socket.getOutputStream());
+			
+			if (flag) log.debug(String.format("%s : ########## START idxThr=%d ########## socket=%s ", this.getName(), this.idxThr, this.socket.toString()));
 		}
 	}
 	
 	public void run() {
 		
 		if (flag) {
+			/*
+			 * 2nd transaction logic
+			 */
 			try {
 				
 				byte[] packet = null;
+
+				if (flag) {
+					/*
+					 * recv a request
+					 */
+					
+					packet = recv(PacketHeader.getLength());
+					if (flag) log.debug(String.format("<- REQ RECV DATA [%s]", new String(packet)));
+				}
 				
 				if (flag) {
 					/*
-					 * create a request
+					 * process for the request and then make a result for response
 					 */
+					String trCode = PacketHeader.TR_CODE.getString(packet);
+					if (flag) log.debug("> TR_CODE = " + trCode);
+
+					// java 1.7 or higher
+					switch (trCode) {
+					case "TR0000": packet = new TR0001(this.socket, this.dis, this.dos, packet).execute(); break;
+					case "TR0100": packet = new TR0101(this.socket, this.dis, this.dos, packet).execute(); break;
+					case "TR0200": packet = new TR0201(this.socket, this.dis, this.dos, packet).execute(); break;
+					case "TR0500": packet = new TR0501(this.socket, this.dis, this.dos, packet).execute(); break;
+					default:
+						PacketHeader.RET_CODE.setVal(packet, "99999");
+						PacketHeader.FILLER.setVal(packet, "NO_TR_CODE");
+						break;
+					}
 					
-					packet = PacketHeader.makeBytes();
-					PacketHeader.TR_CODE.setVal(packet, trCode);
-					PacketHeader.DATA_LEN.setVal(packet, String.valueOf(1234567890123L));
 					if (!flag) log.debug("[" + new String(packet) + "]");
 				}
 				
 				if (flag) {
 					/*
-					 * send the request
+					 * send the response of the request
 					 */
 					
 					dos.write(packet, 0, PacketHeader.getLength());
-					if (flag) log.debug(String.format("-> REQ SEND DATA [%s]", new String(packet)));
+					if (flag) log.debug(String.format("-> RES SEND DATA [%s]", new String(packet)));
 				}
 				
-				if (flag) {
-					/*
-					 * execute transaction job
-					 */
-					executeTrJob();
-				}
-				
-				if (flag) {
-					/*
-					 * recv the response of the request
-					 */
-					
-					packet = recv(PacketHeader.getLength());
-					if (flag) log.debug(String.format("<- RES RECV DATA [%s]", new String(packet)));
-				}
-				
-				if (flag) {
+				if (!flag) {
 					/*
 					 * finish
 					 */
@@ -152,6 +162,10 @@ public class TR0000 extends Thread {
 				if (this.dos != null) try { this.dos.close(); } catch (Exception e) {}
 				if (this.socket != null) try { this.socket.close(); } catch (Exception e) {}
 			}
+		}
+		
+		if (flag) {
+			if (flag) log.debug(String.format("%s : ########## FINISH idxThr=%d ##########", this.getName(), this.idxThr));
 		}
 	}
 	
@@ -184,11 +198,4 @@ public class TR0000 extends Thread {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
-
-	private void executeTrJob() throws Exception {
-		
-		if (flag) {
-			
-		}
-	}
 }

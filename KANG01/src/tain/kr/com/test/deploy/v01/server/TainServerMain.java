@@ -19,6 +19,10 @@
  */
 package tain.kr.com.test.deploy.v01.server;
 
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ResourceBundle;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -45,4 +49,57 @@ public class TainServerMain {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
+	private static String className = null;
+	private static ResourceBundle resourceBundle = null;
+	
+	private static String port = null;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	private static void init() throws Exception {
+		
+		if (flag) {
+			className = new Object(){}.getClass().getEnclosingClass().getName();
+			
+			resourceBundle = ResourceBundle.getBundle(className.replace('.', '/'));
+			
+			port = resourceBundle.getString("tain.listen.port");
+		}
+		
+		if (flag) {
+			log.debug(">>>>> " + className);
+			log.debug(">>>>> port = " + port);
+		}
+	}
+	
+	private static void test01(String[] args) throws Exception {
+		
+		if (flag) {
+			/*
+			 * 1st socket program
+			 */
+			@SuppressWarnings("resource")
+			ServerSocket serverSocket = new ServerSocket(Integer.parseInt(port));
+			if (flag) log.debug(String.format("SERVER : listening by port %s [%s]", port, serverSocket.toString()));
+			
+			for (int idxThr = 0; ; idxThr ++) {
+				if (idxThr > 100000000)
+					idxThr = 0;
+				
+				Socket socket = serverSocket.accept();
+				if (flag) log.debug(String.format("SERVER : accept the connection(%d)", idxThr));
+				
+				new TainServerThread(idxThr, socket).start();
+			}
+		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+		
+		if (flag) init();
+		
+		if (flag) test01(args);
+	}
 }

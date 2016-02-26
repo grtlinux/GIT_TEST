@@ -25,6 +25,9 @@ import java.util.ResourceBundle;
 import org.apache.log4j.Logger;
 
 import tain.kr.com.test.deploy.v01.client.tr.TR0000;
+import tain.kr.com.test.deploy.v01.client.tr.TR0100;
+import tain.kr.com.test.deploy.v01.client.tr.TR0200;
+import tain.kr.com.test.deploy.v01.client.tr.TR0500;
 
 /**
  * Code Templates > Comments > Types
@@ -76,6 +79,7 @@ public class TainClientMain {
 			
 			String key = null;
 			String val = null;
+			Thread thr = null;
 			
 			for (int seq=0; seq < 100; seq++) {
 				
@@ -94,7 +98,22 @@ public class TainClientMain {
 				
 				switch (val) {
 				case "TR0000":
-					Thread thr = new TR0000();
+					thr = new TR0000();
+					thr.start();
+					thr.join();
+					break;
+				case "TR0100":
+					thr = new TR0100();
+					thr.start();
+					thr.join();
+					break;
+				case "TR0200":
+					thr = new TR0200();
+					thr.start();
+					thr.join();
+					break;
+				case "TR0500":
+					thr = new TR0500();
 					thr.start();
 					thr.join();
 					break;

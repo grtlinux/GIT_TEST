@@ -21,12 +21,13 @@ package tain.kr.com.test.deploy.v01.server.tr;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.net.Socket;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
+import tain.kr.com.test.deploy.v01.common.Exec;
 import tain.kr.com.test.deploy.v01.common.PacketHeader;
 
 /**
@@ -44,11 +45,11 @@ import tain.kr.com.test.deploy.v01.common.PacketHeader;
  *
  */
 @SuppressWarnings("unused")
-public class TR0001 {
+public class TR0101 {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TR0001.class);
+	private static final Logger log = Logger.getLogger(TR0101.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,6 +59,9 @@ public class TR0001 {
 	private String trCode = null;
 	private ResourceBundle resourceBundle = null;
 	private String comment = null;
+	
+	private String execCmd = null;
+	private String execLog = null;
 
 	private Socket socket = null;
 	private DataInputStream dis = null;
@@ -70,13 +74,16 @@ public class TR0001 {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	public TR0001(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
+	public TR0101(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
 		
 		if (flag) {
 			this.className = this.getClass().getName();
 			this.trCode = this.className.substring(this.className.lastIndexOf("TR"));
 			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
 			this.comment = this.resourceBundle.getString("tain.comment");
+
+			this.execCmd = this.resourceBundle.getString("tain.exec.cmd");
+			this.execLog = this.resourceBundle.getString("tain.exec.log");
 		}
 		
 		if (flag) {
@@ -87,9 +94,19 @@ public class TR0001 {
 		}
 		
 		if (flag) {
+			String yyyymmdd = PacketHeader.TR_DATE.getString(this.packet);
+			String hhmmss = PacketHeader.TR_TIME.getString(this.packet);
+			
+			this.execLog = this.execLog.replaceAll("YYYYMMDD", yyyymmdd);
+			this.execLog = this.execLog.replaceAll("HHMMSS", hhmmss);
+		}
+
+		if (flag) {
 			log.debug(">>>>> " + this.className);
 			log.debug(">>>>> " + this.comment);
 			log.debug(">>>>> trCode = " + this.trCode);
+			log.debug(">>>>> exec cmd = " + this.execCmd);
+			log.debug(">>>>> exec log = " + this.execLog);
 		}
 	}
 	
@@ -97,10 +114,14 @@ public class TR0001 {
 		
 		if (flag) {
 			/*
-			 * do the job for response
+			 * execute shell program.
 			 */
 			
-			log.debug(">>>>> [DATA_LEN:" + PacketHeader.DATA_LEN.getString(this.packet) + "]");
+			if (!flag) Exec.run(new String[] {"cmd", "/c", "D:/TR500.cmd"}, false);
+			if (!flag) Exec.run(new String[] {"cmd", "/c", "start"}, false);
+			if (!flag) Exec.run(new String[] {"cmd", "/c", "M:/TEMP/DEPLOY_TEST/CLIENT/mvn_dos.bat"}, false);
+
+			if (flag) Exec.run(new String[] {"cmd", "/c", execCmd}, new FileWriter(execLog), true);
 		}
 	
 		if (flag) {
@@ -121,3 +142,58 @@ public class TR0001 {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 }
+
+/*
+@echo on
+
+:: ----------------------------------------------------------------------------
+:: set environment
+
+set JAVA_HOME=M:\PROG\jdk1.7.0_79
+set M2_HOME=P:\maven\apache-maven-3.3.3
+set PATH=%PATH%;%JAVA_HOME%\bin;%M2_HOME%\bin;
+
+set JOB_HOME=M:\TEMP\DEPLOY_TEST\CLIENT
+
+:: ----------------------------------------------------------------------------
+:: version check
+
+cmd /c svnserve --version
+
+cmd /c java -version
+
+cmd /c mvn --version
+
+:: pause
+
+:: ----------------------------------------------------------------------------
+:: export
+
+del %JOB_HOME%\SASEMARTCMS-1.0.0.war
+
+rmdir /S /Q   %JOB_HOME%\SASEMARTCMS
+
+cmd /c svn export svn://localhost/REPO_02/SASEMARTCMS   %JOB_HOME%\SASEMARTCMS
+
+echo "########################## EXPORT SUCCESS ###########################"
+
+:: pause
+
+:: ----------------------------------------------------------------------------
+:: build
+
+cmd /c mvn -file  %JOB_HOME%\SASEMARTCMS       clean install
+
+echo "########################## MAVEN COMPILE SUCCESS ###########################"
+
+
+:: ----------------------------------------------------------------------------
+:: finish
+
+move %JOB_HOME%\SASEMARTCMS\target\SASEMARTCMS-1.0.0.war %JOB_HOME%
+
+echo "########################## ALL SUCCESS ###########################"
+
+
+ */
+

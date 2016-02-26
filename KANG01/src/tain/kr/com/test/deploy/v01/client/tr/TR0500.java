@@ -17,11 +17,10 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.test.deploy.v01.server.tr;
+package tain.kr.com.test.deploy.v01.client.tr;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.FileOutputStream;
 import java.net.Socket;
 import java.util.ResourceBundle;
 
@@ -33,8 +32,8 @@ import tain.kr.com.test.deploy.v01.common.PacketHeader;
  * Code Templates > Comments > Types
  *
  * <PRE>
- *   -. FileName   : TR0001.java
- *   -. Package    : tain.kr.com.test.deploy.v01.server.tr
+ *   -. FileName   : TR0000.java
+ *   -. Package    : tain.kr.com.test.deploy.v01.client.tr
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 2. 25. {time}
@@ -43,76 +42,141 @@ import tain.kr.com.test.deploy.v01.common.PacketHeader;
  * @author taincokr
  *
  */
-@SuppressWarnings("unused")
-public class TR0001 {
+public class TR0500 extends Thread {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TR0001.class);
+	private static final Logger log = Logger.getLogger(TR0500.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
-	
+
 	private String className = null;
 	private String trCode = null;
 	private ResourceBundle resourceBundle = null;
 	private String comment = null;
 
+	private String host = null;
+	private String port = null;
+	
 	private Socket socket = null;
 	private DataInputStream dis = null;
 	private DataOutputStream dos = null;
-	private byte[] packet = null;
-	
+
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	
-	public TR0001(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
+
+	public TR0500() throws Exception {
 		
 		if (flag) {
 			this.className = this.getClass().getName();
 			this.trCode = this.className.substring(this.className.lastIndexOf("TR"));
 			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
 			this.comment = this.resourceBundle.getString("tain.comment");
+			
+			this.host = this.resourceBundle.getString("tain.server.host");
+			this.port = this.resourceBundle.getString("tain.server.port");
 		}
 		
 		if (flag) {
-			this.socket = socket;
-			this.dis = dis;
-			this.dos = dos;
-			this.packet = packet;
+			this.socket = new Socket(this.host, Integer.parseInt(this.port));
+			this.dis = new DataInputStream(this.socket.getInputStream());
+			this.dos = new DataOutputStream(this.socket.getOutputStream());
 		}
 		
 		if (flag) {
 			log.debug(">>>>> " + this.className);
 			log.debug(">>>>> " + this.comment);
-			log.debug(">>>>> trCode = " + this.trCode);
+			log.debug(">>>>> host = " + this.host + ", port = " + this.port + ", trCode = " + this.trCode);
+			log.debug("Connection .....");
 		}
 	}
 	
-	public byte[] execute() throws Exception {
+	public void run() {
 		
 		if (flag) {
-			/*
-			 * do the job for response
-			 */
+			try {
+				
+				byte[] packet = null;
+				
+				if (flag) {
+					/*
+					 * create a request
+					 */
+					
+					packet = PacketHeader.makeBytes();
+					PacketHeader.TR_CODE.setVal(packet, trCode);
+					PacketHeader.DATA_LEN.setVal(packet, String.valueOf(1234567890123L));
+					if (!flag) log.debug("[" + new String(packet) + "]");
+				}
+				
+				if (flag) {
+					/*
+					 * send the request
+					 */
+					
+					dos.write(packet, 0, PacketHeader.getLength());
+					if (flag) log.debug(String.format("-> REQ SEND DATA [%s]", new String(packet)));
+				}
+				
+				if (flag) {
+					/*
+					 * execute transaction job
+					 */
+					executeTrJob();
+				}
+				
+				if (flag) {
+					/*
+					 * recv the response of the request
+					 */
+					
+					packet = recv(PacketHeader.getLength());
+					if (flag) log.debug(String.format("<- RES RECV DATA [%s]", new String(packet)));
+				}
+				
+				if (flag) {
+					/*
+					 * finish
+					 */
+					
+					try { Thread.sleep(1000); } catch (InterruptedException e) {}
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (this.dis != null) try { this.dis.close(); } catch (Exception e) {}
+				if (this.dos != null) try { this.dos.close(); } catch (Exception e) {}
+				if (this.socket != null) try { this.socket.close(); } catch (Exception e) {}
+			}
+		}
+	}
+	
+	private byte[] recv(final int size) throws Exception {
+		
+		int ret = 0;
+		int readed = 0;
+		byte[] buf = new byte[size];
+		
+		this.socket.setSoTimeout(0);
+		while (readed < size) {
+			ret = this.dis.read(buf, readed, size - readed);
+			if (!flag) log.debug("    size:" + size + "    readed:" + readed + "     ret:" + ret);
 			
-			log.debug(">>>>> [DATA_LEN:" + PacketHeader.DATA_LEN.getString(this.packet) + "]");
-		}
-	
-		if (flag) {
-			/*
-			 * response packet header
-			 */
-			PacketHeader.TR_CODE.setVal(this.packet, trCode);
-			PacketHeader.RET_CODE.setVal(this.packet, "00000");
-			PacketHeader.FILLER.setVal(this.packet, "SUCCESS");
+			if (ret <= 0) {
+				try { Thread.sleep(1000); } catch (Exception e) {}
+				continue;
+			} else {
+				if (flag) this.socket.setSoTimeout(1000);
+			}
+			
+			readed += ret;
 		}
 		
-		return this.packet;
+		return buf;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -120,4 +184,11 @@ public class TR0001 {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	private void executeTrJob() throws Exception {
+		
+		if (flag) {
+			
+		}
+	}
 }

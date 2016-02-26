@@ -21,6 +21,8 @@ package tain.kr.com.test.deploy.v01.client.tr;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.net.Socket;
 import java.util.ResourceBundle;
 
@@ -42,11 +44,11 @@ import tain.kr.com.test.deploy.v01.common.PacketHeader;
  * @author taincokr
  *
  */
-public class TR0000 extends Thread {
+public class TR0200 extends Thread {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TR0000.class);
+	private static final Logger log = Logger.getLogger(TR0200.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,6 +61,7 @@ public class TR0000 extends Thread {
 
 	private String host = null;
 	private String port = null;
+	private String fileName = null;
 	
 	private Socket socket = null;
 	private DataInputStream dis = null;
@@ -68,7 +71,7 @@ public class TR0000 extends Thread {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	public TR0000() throws Exception {
+	public TR0200() throws Exception {
 		
 		if (flag) {
 			this.className = this.getClass().getName();
@@ -78,6 +81,7 @@ public class TR0000 extends Thread {
 			
 			this.host = this.resourceBundle.getString("tain.server.host");
 			this.port = this.resourceBundle.getString("tain.server.port");
+			this.fileName = this.resourceBundle.getString("tain.deploy.file.name");
 		}
 		
 		if (flag) {
@@ -89,7 +93,7 @@ public class TR0000 extends Thread {
 		if (flag) {
 			log.debug(">>>>> " + this.className);
 			log.debug(">>>>> " + this.comment);
-			log.debug(">>>>> host = " + this.host + ", port = " + this.port + ", trCode = " + this.trCode);
+			log.debug(">>>>> host = " + this.host + ", port = " + this.port + ", trCode = " + this.trCode + ", file = " + this.fileName);
 			log.debug("Connection .....");
 		}
 	}
@@ -108,7 +112,7 @@ public class TR0000 extends Thread {
 					
 					packet = PacketHeader.makeBytes();
 					PacketHeader.TR_CODE.setVal(packet, trCode);
-					PacketHeader.DATA_LEN.setVal(packet, String.valueOf(1234567890123L));
+					PacketHeader.DATA_LEN.setVal(packet, String.valueOf(getFileSize()));
 					if (!flag) log.debug("[" + new String(packet) + "]");
 				}
 				
@@ -185,10 +189,53 @@ public class TR0000 extends Thread {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
+	private long getFileSize() throws Exception {
+		
+		long fileSize = -1;
+		
+		if (flag) {
+			File file = new File(fileName);
+			fileSize = file.length();
+		}
+		
+		return fileSize;
+	}
+	
 	private void executeTrJob() throws Exception {
 		
 		if (flag) {
+			/*
+			 * file transfer
+			 */
+			FileInputStream fis = null;
 			
+			try {
+				
+				fis = new FileInputStream(fileName);
+				
+				byte[] buf = new byte[10240];
+
+				for (int i=1; ; i++) {
+					int readed = fis.read(buf);
+					if (readed < 0)
+						break;
+					
+					this.dos.write(buf, 0, readed);
+					
+					if (flag) {
+						System.out.print("#");
+						if (i % 200 == 0)
+							System.out.println();
+					}
+				}
+				
+				if (flag) System.out.println();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (fis != null) try { fis.close(); } catch (Exception e) {}
+			}
 		}
 	}
 }

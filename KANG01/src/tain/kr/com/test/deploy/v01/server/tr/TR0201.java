@@ -44,11 +44,11 @@ import tain.kr.com.test.deploy.v01.common.PacketHeader;
  *
  */
 @SuppressWarnings("unused")
-public class TR0001 {
+public class TR0201 {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TR0001.class);
+	private static final Logger log = Logger.getLogger(TR0201.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,6 +59,9 @@ public class TR0001 {
 	private ResourceBundle resourceBundle = null;
 	private String comment = null;
 
+	private long fileSize = -1;
+	private String fileName = null;
+	
 	private Socket socket = null;
 	private DataInputStream dis = null;
 	private DataOutputStream dos = null;
@@ -70,13 +73,15 @@ public class TR0001 {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	public TR0001(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
+	public TR0201(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
 		
 		if (flag) {
 			this.className = this.getClass().getName();
 			this.trCode = this.className.substring(this.className.lastIndexOf("TR"));
 			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
 			this.comment = this.resourceBundle.getString("tain.comment");
+			
+			this.fileName = this.resourceBundle.getString("tain.deploy.file.name");
 		}
 		
 		if (flag) {
@@ -97,10 +102,52 @@ public class TR0001 {
 		
 		if (flag) {
 			/*
-			 * do the job for response
+			 * get file size
+			 */
+			this.fileSize = Long.parseLong(PacketHeader.DATA_LEN.getString(this.packet));
+			
+			if (flag) log.debug(String.format("fileSize = %,d", this.fileSize));
+		}
+
+		if (flag) {
+			/*
+			 * file receiver
 			 */
 			
-			log.debug(">>>>> [DATA_LEN:" + PacketHeader.DATA_LEN.getString(this.packet) + "]");
+			FileOutputStream fos = null;
+			
+			try {
+				
+				fos = new FileOutputStream(this.fileName);
+				
+				byte[] buf = new byte[10240];
+				
+				for (int i=1; ; i++) {
+				
+					int readed = this.dis.read(buf);
+					if (readed < 0)
+						break;
+					
+					fos.write(buf, 0, readed);
+					
+					if (flag) {
+						System.out.print("#");
+						if (i % 200 == 0)
+							System.out.println();
+					}
+					
+					fileSize -= readed;
+					if (fileSize <= 0) {
+						if (flag) System.out.println();
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (fos != null) try { fos.close(); } catch (Exception e) {}
+			}
 		}
 	
 		if (flag) {
