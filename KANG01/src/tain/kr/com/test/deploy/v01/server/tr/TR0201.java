@@ -23,6 +23,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
@@ -59,13 +62,17 @@ public class TR0201 {
 	private ResourceBundle resourceBundle = null;
 	private String comment = null;
 
-	private long fileSize = -1;
-	private String fileName = null;
-	
 	private Socket socket = null;
 	private DataInputStream dis = null;
 	private DataOutputStream dos = null;
-	private byte[] packet = null;
+
+	private byte[] header = null;
+	
+	private byte[] data = null;
+	private int dataLen = 0;
+
+	private String fileName = null;
+	private long fileSize = -1;
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,6 +83,9 @@ public class TR0201 {
 	public TR0201(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
 		
 		if (flag) {
+			/*
+			 * base parameter
+			 */
 			this.className = this.getClass().getName();
 			this.trCode = this.className.substring(this.className.lastIndexOf("TR"));
 			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
@@ -85,13 +95,21 @@ public class TR0201 {
 		}
 		
 		if (flag) {
+			/*
+			 * hired parameter
+			 */
 			this.socket = socket;
 			this.dis = dis;
 			this.dos = dos;
-			this.packet = packet;
+			this.header = packet;
+			
+			this.dataLen = Integer.parseInt(PacketHeader.DATA_LEN.getString(this.header));
 		}
 		
 		if (flag) {
+			/*
+			 * print information
+			 */
 			log.debug(">>>>> " + this.className);
 			log.debug(">>>>> " + this.comment);
 			log.debug(">>>>> trCode = " + this.trCode);
@@ -104,7 +122,7 @@ public class TR0201 {
 			/*
 			 * get file size
 			 */
-			this.fileSize = Long.parseLong(PacketHeader.DATA_LEN.getString(this.packet));
+			this.fileSize = Long.parseLong(PacketHeader.DATA_LEN.getString(this.header));
 			
 			if (flag) log.debug(String.format("fileSize = %,d", this.fileSize));
 		}
@@ -150,16 +168,92 @@ public class TR0201 {
 			}
 		}
 	
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		if (flag) {
 			/*
-			 * response packet header
+			 * 2. recv data
 			 */
-			PacketHeader.TR_CODE.setVal(this.packet, trCode);
-			PacketHeader.RET_CODE.setVal(this.packet, "00000");
-			PacketHeader.FILLER.setVal(this.packet, "SUCCESS");
+
+			data = recv(dataLen);
+			if (flag) log.debug(String.format("<- 2. REQ RECV DATA   [%s]", new String(data)));
 		}
 		
-		return this.packet;
+		if (flag) {
+			/*
+			 * 3. execute job
+			 */
+			
+			data = new SimpleDateFormat("yyyyMMdd HHmmss", Locale.KOREA).format(new Date()).getBytes("EUC-KR");
+			dataLen = data.length;
+
+			if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", dataLen, new String(data)));
+		}
+		
+		if (flag) {
+			/*
+			 * 4. send header
+			 */
+
+			header = PacketHeader.makeBytes();
+			PacketHeader.TR_CODE.setVal(header, trCode);
+			PacketHeader.RET_CODE.setVal(this.header, "00000");
+			PacketHeader.FILLER.setVal(this.header, "SUCCESS");
+			PacketHeader.DATA_LEN.setVal(header, String.valueOf(dataLen));
+			
+			dos.write(header, 0, header.length);
+			if (flag) log.debug(String.format("-> 4. RES SEND HEADER [%s]", new String(header)));
+		}
+		
+		if (flag) {
+			/*
+			 * 5. send data
+			 */
+
+			dos.write(data, 0, dataLen);
+			if (flag) log.debug(String.format("-> 5. RES SEND DATA   [%s]", new String(data)));
+		}
+		
+		if (flag) {
+			/*
+			 * 6. post job
+			 */
+			
+			if (flag) log.debug(String.format("-- 6. [%s] process is OK!!", this.trCode));
+		}
+		
+		return this.header;
+	}
+	
+	private byte[] recv(final int size) throws Exception {
+		
+		int ret = 0;
+		int readed = 0;
+		byte[] buf = new byte[size];
+		
+		this.socket.setSoTimeout(0);
+		while (readed < size) {
+			ret = this.dis.read(buf, readed, size - readed);
+			if (!flag) log.debug("    size:" + size + "    readed:" + readed + "     ret:" + ret);
+			
+			if (ret <= 0) {
+				try { Thread.sleep(1000); } catch (Exception e) {}
+				continue;
+			} else {
+				if (flag) this.socket.setSoTimeout(1000);
+			}
+			
+			readed += ret;
+		}
+		
+		return buf;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////

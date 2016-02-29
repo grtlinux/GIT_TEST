@@ -65,10 +65,11 @@ public class TR0001 {
 	private Socket socket = null;
 	private DataInputStream dis = null;
 	private DataOutputStream dos = null;
+	
 	private byte[] header = null;
-	private int dataLen = 0;
 
 	private byte[] data = null;
+	private int dataLen = 0;
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -101,6 +102,9 @@ public class TR0001 {
 		}
 		
 		if (flag) {
+			/*
+			 * print information
+			 */
 			log.debug(">>>>> " + this.className);
 			log.debug(">>>>> " + this.comment);
 			log.debug(">>>>> trCode = " + this.trCode);
@@ -114,18 +118,19 @@ public class TR0001 {
 			 * 2. recv data
 			 */
 
-			data = recv(dataLen);
-			if (flag) log.debug(String.format("<- 2. REQ RECV DATA   [%s]", new String(data)));
+			this.data = recv(this.dataLen);
+			if (flag) log.debug(String.format("<- 2. REQ RECV DATA   [%s]", new String(this.data)));
 		}
 		
 		if (flag) {
 			/*
 			 * 3. execute job
 			 */
-			data = new SimpleDateFormat("yyyyMMdd HHmmss", Locale.KOREA).format(new Date()).getBytes("EUC-KR");
-			dataLen = data.length;
+			
+			this.data = new SimpleDateFormat("yyyyMMdd HHmmss", Locale.KOREA).format(new Date()).getBytes("EUC-KR");
+			this.dataLen = this.data.length;
 
-			if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", dataLen, new String(data)));
+			if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", this.dataLen, new String(this.data)));
 		}
 		
 		if (flag) {
@@ -137,7 +142,7 @@ public class TR0001 {
 			PacketHeader.TR_CODE.setVal(header, trCode);
 			PacketHeader.RET_CODE.setVal(this.header, "00000");
 			PacketHeader.FILLER.setVal(this.header, "SUCCESS");
-			PacketHeader.DATA_LEN.setVal(header, String.valueOf(dataLen));
+			PacketHeader.DATA_LEN.setVal(header, String.valueOf(this.dataLen));
 			
 			dos.write(header, 0, header.length);
 			if (flag) log.debug(String.format("-> 4. RES SEND HEADER [%s]", new String(header)));
@@ -148,8 +153,8 @@ public class TR0001 {
 			 * 5. send data
 			 */
 
-			dos.write(data, 0, dataLen);
-			if (flag) log.debug(String.format("-> 5. RES SEND DATA   [%s]", new String(data)));
+			dos.write(this.data, 0, this.dataLen);
+			if (flag) log.debug(String.format("-> 5. RES SEND DATA   [%s]", new String(this.data)));
 		}
 		
 		if (flag) {
