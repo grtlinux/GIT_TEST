@@ -324,6 +324,7 @@ public class SocketSelector extends Thread
 								 * Socket.getChannel을 이용하여 생성한다.
 								 * connection timeout을 설정하기 위해서 사용함.
 								 */
+								@SuppressWarnings("resource")
 								Socket socket = new Socket();
 								socket.connect(new InetSocketAddress(conn.getStrConnHostIp(), conn.getiConnHostPort()), TRYCONNECT_TIMEOUT);
 								socketChannel = socket.getChannel();

@@ -329,6 +329,7 @@ public class SocketSelector extends Thread
 								 * Socket.getChannel을 이용하여 생성한다.
 								 * connection timeout을 설정하기 위해서 사용함.
 								 */
+								@SuppressWarnings("resource")
 								Socket socket = new Socket();
 								
 								if (flag) Logger.log("getKeepAlive=%s, getTcpNoDelay=%s, getSoTimeout=%d, getSoLinger=%d, getReuseAddress=%s"

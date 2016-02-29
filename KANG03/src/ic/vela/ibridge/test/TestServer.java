@@ -140,7 +140,7 @@ public class TestServer extends Thread {
 	/*
 	 * Main Entry Point
 	 */
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "resource" })
 	public static void main(String[] args) {
 		try {
 			
