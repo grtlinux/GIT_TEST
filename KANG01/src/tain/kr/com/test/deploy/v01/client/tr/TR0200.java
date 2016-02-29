@@ -74,6 +74,9 @@ public class TR0200 extends Thread {
 	public TR0200() throws Exception {
 		
 		if (flag) {
+			/*
+			 * base parameter
+			 */
 			this.className = this.getClass().getName();
 			this.trCode = this.className.substring(this.className.lastIndexOf("TR"));
 			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
@@ -85,12 +88,18 @@ public class TR0200 extends Thread {
 		}
 		
 		if (flag) {
+			/*
+			 * hired parameter
+			 */
 			this.socket = new Socket(this.host, Integer.parseInt(this.port));
 			this.dis = new DataInputStream(this.socket.getInputStream());
 			this.dos = new DataOutputStream(this.socket.getOutputStream());
 		}
 		
 		if (flag) {
+			/*
+			 * print information
+			 */
 			log.debug(">>>>> " + this.className);
 			log.debug(">>>>> " + this.comment);
 			log.debug(">>>>> host = " + this.host + ", port = " + this.port + ", trCode = " + this.trCode + ", file = " + this.fileName);
@@ -149,6 +158,109 @@ public class TR0200 extends Thread {
 					try { Thread.sleep(1000); } catch (InterruptedException e) {}
 				}
 
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (this.dis != null) try { this.dis.close(); } catch (Exception e) {}
+				if (this.dos != null) try { this.dos.close(); } catch (Exception e) {}
+				if (this.socket != null) try { this.socket.close(); } catch (Exception e) {}
+			}
+		}
+		if (flag) {
+			/*
+			 * TODO : version 0.2 at 2016.02.29
+			 *     
+			 *     1. pre job
+			 *     
+			 *       2. send header
+			 *       
+			 *         3. send data
+			 *         
+			 *           4. execute job
+			 *           
+			 *         5. recv header
+			 *         
+			 *       6. recv data
+			 *       
+			 *     7. post job
+			 *     
+			 */
+			try {
+				
+				byte[] header = null;
+				byte[] data = null;
+				int dataLen = 0;
+				
+				if (flag) {
+					/*
+					 * 1. pre job
+					 */
+					
+					data = String.format("%015d", getFileSize()).getBytes("EUC-KR");
+					dataLen = data.length;
+					
+					if (flag) log.debug(String.format("-- 1. DATA [%d:%s]", dataLen, new String(data)));
+				}
+				
+				if (flag) {
+					/*
+					 * 2. send header
+					 */
+					
+					header = PacketHeader.makeBytes();
+					PacketHeader.TR_CODE.setVal(header, trCode);
+					PacketHeader.DATA_LEN.setVal(header, String.valueOf(dataLen));
+					
+					dos.write(header, 0, header.length);
+					if (flag) log.debug(String.format("-> 2. REQ SEND HEADER [%s]", new String(header)));
+				}
+				
+				if (flag) {
+					/*
+					 * 3. send data
+					 */
+					
+					dos.write(data, 0, dataLen);
+					if (flag) log.debug(String.format("-> 3. REQ SEND DATA   [%s]", new String(data)));
+				}
+				
+				if (flag) {
+					/*
+					 * 4. execute job
+					 */
+					
+					if (flag) log.debug(String.format("-- 4. don't execute local job"));
+					//  executeTrJob();
+				}
+				
+				if (flag) {
+					/*
+					 * 5. recv header
+					 */
+					
+					header = recv(header.length);
+					if (flag) log.debug(String.format("<- 5. RES RECV HEADER [%s]", new String(header)));
+					
+					dataLen = Integer.parseInt(PacketHeader.DATA_LEN.getString(header));
+				}
+				
+				if (flag) {
+					/*
+					 * 6. recv data
+					 */
+					
+					data = recv(dataLen);
+					if (flag) log.debug(String.format("<- 6. RES RECV DATA   [%s]", new String(data)));
+				}
+				
+				if (flag) {
+					/*
+					 * 7. post job
+					 */
+					
+					if (flag) log.debug(String.format("-- 7. DATA [%d:%s]", dataLen, new String(data)));
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {

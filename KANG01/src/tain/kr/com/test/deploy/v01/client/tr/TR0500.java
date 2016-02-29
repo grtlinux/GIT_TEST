@@ -71,6 +71,9 @@ public class TR0500 extends Thread {
 	public TR0500() throws Exception {
 		
 		if (flag) {
+			/*
+			 * base parameter
+			 */
 			this.className = this.getClass().getName();
 			this.trCode = this.className.substring(this.className.lastIndexOf("TR"));
 			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
@@ -81,12 +84,18 @@ public class TR0500 extends Thread {
 		}
 		
 		if (flag) {
+			/*
+			 * hired parameter
+			 */
 			this.socket = new Socket(this.host, Integer.parseInt(this.port));
 			this.dis = new DataInputStream(this.socket.getInputStream());
 			this.dos = new DataOutputStream(this.socket.getOutputStream());
 		}
 		
 		if (flag) {
+			/*
+			 * print information
+			 */
 			log.debug(">>>>> " + this.className);
 			log.debug(">>>>> " + this.comment);
 			log.debug(">>>>> host = " + this.host + ", port = " + this.port + ", trCode = " + this.trCode);
@@ -97,54 +106,99 @@ public class TR0500 extends Thread {
 	public void run() {
 		
 		if (flag) {
+			/*
+			 * TODO : version 0.2 at 2016.02.29
+			 *     
+			 *     1. pre job
+			 *     
+			 *       2. send header
+			 *       
+			 *         3. send data
+			 *         
+			 *           4. execute job
+			 *           
+			 *         5. recv header
+			 *         
+			 *       6. recv data
+			 *       
+			 *     7. post job
+			 *     
+			 */
 			try {
 				
-				byte[] packet = null;
+				byte[] header = null;
+				byte[] data = null;
+				int dataLen = 0;
 				
 				if (flag) {
 					/*
-					 * create a request
+					 * 1. pre job
 					 */
 					
-					packet = PacketHeader.makeBytes();
-					PacketHeader.TR_CODE.setVal(packet, trCode);
-					PacketHeader.DATA_LEN.setVal(packet, String.valueOf(1234567890123L));
-					if (!flag) log.debug("[" + new String(packet) + "]");
+					data = "RUN_TR0501".getBytes("EUC-KR");
+					dataLen = data.length;
+					
+					if (flag) log.debug(String.format("-- 1. DATA [%d:%s]", dataLen, new String(data)));
 				}
 				
 				if (flag) {
 					/*
-					 * send the request
+					 * 2. send header
 					 */
 					
-					dos.write(packet, 0, PacketHeader.getLength());
-					if (flag) log.debug(String.format("-> REQ SEND DATA [%s]", new String(packet)));
+					header = PacketHeader.makeBytes();
+					PacketHeader.TR_CODE.setVal(header, trCode);
+					PacketHeader.DATA_LEN.setVal(header, String.valueOf(dataLen));
+					
+					dos.write(header, 0, header.length);
+					if (flag) log.debug(String.format("-> 2. REQ SEND HEADER [%s]", new String(header)));
 				}
 				
 				if (flag) {
 					/*
-					 * execute transaction job
-					 */
-					executeTrJob();
-				}
-				
-				if (flag) {
-					/*
-					 * recv the response of the request
+					 * 3. send data
 					 */
 					
-					packet = recv(PacketHeader.getLength());
-					if (flag) log.debug(String.format("<- RES RECV DATA [%s]", new String(packet)));
+					dos.write(data, 0, dataLen);
+					if (flag) log.debug(String.format("-> 3. REQ SEND DATA   [%s]", new String(data)));
 				}
 				
 				if (flag) {
 					/*
-					 * finish
+					 * 4. execute job
 					 */
 					
-					try { Thread.sleep(1000); } catch (InterruptedException e) {}
+					if (flag) log.debug(String.format("-- 4. don't execute local job"));
 				}
-
+				
+				if (flag) {
+					/*
+					 * 5. recv header
+					 */
+					
+					header = recv(header.length);
+					if (flag) log.debug(String.format("<- 5. RES RECV HEADER [%s]", new String(header)));
+					
+					dataLen = Integer.parseInt(PacketHeader.DATA_LEN.getString(header));
+				}
+				
+				if (flag) {
+					/*
+					 * 6. recv data
+					 */
+					
+					data = recv(dataLen);
+					if (flag) log.debug(String.format("<- 6. RES RECV DATA   [%s]", new String(data)));
+				}
+				
+				if (flag) {
+					/*
+					 * 7. post job
+					 */
+					
+					if (flag) log.debug(String.format("-- 7. DATA [%d:%s]", dataLen, new String(data)));
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -184,11 +238,4 @@ public class TR0500 extends Thread {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
-
-	private void executeTrJob() throws Exception {
-		
-		if (flag) {
-			
-		}
-	}
 }

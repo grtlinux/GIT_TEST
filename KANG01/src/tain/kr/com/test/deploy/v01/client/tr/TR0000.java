@@ -71,6 +71,9 @@ public class TR0000 extends Thread {
 	public TR0000() throws Exception {
 		
 		if (flag) {
+			/*
+			 * base parameter
+			 */
 			this.className = this.getClass().getName();
 			this.trCode = this.className.substring(this.className.lastIndexOf("TR"));
 			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
@@ -81,12 +84,18 @@ public class TR0000 extends Thread {
 		}
 		
 		if (flag) {
+			/*
+			 * hired parameter
+			 */
 			this.socket = new Socket(this.host, Integer.parseInt(this.port));
 			this.dis = new DataInputStream(this.socket.getInputStream());
 			this.dos = new DataOutputStream(this.socket.getOutputStream());
 		}
 		
 		if (flag) {
+			/*
+			 * print information
+			 */
 			log.debug(">>>>> " + this.className);
 			log.debug(">>>>> " + this.comment);
 			log.debug(">>>>> host = " + this.host + ", port = " + this.port + ", trCode = " + this.trCode);
@@ -96,70 +105,9 @@ public class TR0000 extends Thread {
 	
 	public void run() {
 		
-		if (!flag) {
-			/*
-			 * version 0.1
-			 */
-			try {
-				
-				byte[] packet = null;
-				
-				if (flag) {
-					/*
-					 * create a request
-					 */
-					
-					packet = PacketHeader.makeBytes();
-					PacketHeader.TR_CODE.setVal(packet, trCode);
-					PacketHeader.DATA_LEN.setVal(packet, String.valueOf(1234567890123L));
-					if (!flag) log.debug("[" + new String(packet) + "]");
-				}
-				
-				if (flag) {
-					/*
-					 * send the request
-					 */
-					
-					dos.write(packet, 0, PacketHeader.getLength());
-					if (flag) log.debug(String.format("-> REQ SEND DATA [%s]", new String(packet)));
-				}
-				
-				if (flag) {
-					/*
-					 * execute transaction job
-					 */
-					executeTrJob();
-				}
-				
-				if (flag) {
-					/*
-					 * recv the response of the request
-					 */
-					
-					packet = recv(PacketHeader.getLength());
-					if (flag) log.debug(String.format("<- RES RECV DATA [%s]", new String(packet)));
-				}
-				
-				if (flag) {
-					/*
-					 * finish
-					 */
-					
-					try { Thread.sleep(1000); } catch (InterruptedException e) {}
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (this.dis != null) try { this.dis.close(); } catch (Exception e) {}
-				if (this.dos != null) try { this.dos.close(); } catch (Exception e) {}
-				if (this.socket != null) try { this.socket.close(); } catch (Exception e) {}
-			}
-		}
-		
 		if (flag) {
 			/*
-			 * version 0.2
+			 * TODO : version 0.2 at 2016.02.29
 			 *     
 			 *     1. pre job
 			 *     
@@ -219,6 +167,7 @@ public class TR0000 extends Thread {
 					/*
 					 * 4. execute job
 					 */
+					
 					if (flag) log.debug(String.format("-- 4. don't execute local job"));
 				}
 				
@@ -289,11 +238,4 @@ public class TR0000 extends Thread {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
-
-	private void executeTrJob() throws Exception {
-		
-		if (flag) {
-			
-		}
-	}
 }
