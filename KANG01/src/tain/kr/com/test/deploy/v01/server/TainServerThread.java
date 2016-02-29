@@ -105,46 +105,37 @@ public class TainServerThread extends Thread {
 			 */
 			try {
 				
-				byte[] packet = null;
+				byte[] header = null;
 
 				if (flag) {
 					/*
-					 * recv a request
+					 * 1. recv header
 					 */
 					
-					packet = recv(PacketHeader.getLength());
-					if (flag) log.debug(String.format("<- REQ RECV DATA [%s]", new String(packet)));
+					header = recv(PacketHeader.getLength());
+					if (flag) log.debug(String.format("<- 1. REQ RECV HEADER [%s]", new String(header)));
 				}
 				
 				if (flag) {
 					/*
 					 * process for the request and then make a result for response
 					 */
-					String trCode = PacketHeader.TR_CODE.getString(packet);
+					String trCode = PacketHeader.TR_CODE.getString(header);
 					if (flag) log.debug("> TR_CODE = " + trCode);
 
 					// java 1.7 or higher
 					switch (trCode) {
-					case "TR0000": packet = new TR0001(this.socket, this.dis, this.dos, packet).execute(); break;
-					case "TR0100": packet = new TR0101(this.socket, this.dis, this.dos, packet).execute(); break;
-					case "TR0200": packet = new TR0201(this.socket, this.dis, this.dos, packet).execute(); break;
-					case "TR0500": packet = new TR0501(this.socket, this.dis, this.dos, packet).execute(); break;
+					case "TR0000": new TR0001(this.socket, this.dis, this.dos, header).execute(); break;
+					case "TR0100": new TR0101(this.socket, this.dis, this.dos, header).execute(); break;
+					case "TR0200": new TR0201(this.socket, this.dis, this.dos, header).execute(); break;
+					case "TR0500": new TR0501(this.socket, this.dis, this.dos, header).execute(); break;
 					default:
-						PacketHeader.RET_CODE.setVal(packet, "99999");
-						PacketHeader.FILLER.setVal(packet, "NO_TR_CODE");
+						PacketHeader.RET_CODE.setVal(header, "99999");
+						PacketHeader.FILLER.setVal(header, "NO_TR_CODE");
+						dos.write(header, 0, header.length);
+						if (flag) log.debug("[" + new String(header) + "]");
 						break;
 					}
-					
-					if (!flag) log.debug("[" + new String(packet) + "]");
-				}
-				
-				if (flag) {
-					/*
-					 * send the response of the request
-					 */
-					
-					dos.write(packet, 0, PacketHeader.getLength());
-					if (flag) log.debug(String.format("-> RES SEND DATA [%s]", new String(packet)));
 				}
 				
 				if (!flag) {
