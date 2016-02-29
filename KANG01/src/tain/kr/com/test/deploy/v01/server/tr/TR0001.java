@@ -23,6 +23,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
@@ -62,7 +65,10 @@ public class TR0001 {
 	private Socket socket = null;
 	private DataInputStream dis = null;
 	private DataOutputStream dos = null;
-	private byte[] packet = null;
+	private byte[] header = null;
+	private int dataLen = 0;
+
+	private byte[] data = null;
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,7 +76,7 @@ public class TR0001 {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	public TR0001(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
+	public TR0001(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] header) throws Exception {
 		
 		if (flag) {
 			this.className = this.getClass().getName();
@@ -83,7 +89,9 @@ public class TR0001 {
 			this.socket = socket;
 			this.dis = dis;
 			this.dos = dos;
-			this.packet = packet;
+			this.header = header;
+			
+			this.dataLen = Integer.parseInt(PacketHeader.DATA_LEN.getString(this.header));
 		}
 		
 		if (flag) {
@@ -97,22 +105,80 @@ public class TR0001 {
 		
 		if (flag) {
 			/*
-			 * do the job for response
+			 * 2. recv data
 			 */
-			
-			log.debug(">>>>> [DATA_LEN:" + PacketHeader.DATA_LEN.getString(this.packet) + "]");
-		}
-	
-		if (flag) {
-			/*
-			 * response packet header
-			 */
-			PacketHeader.TR_CODE.setVal(this.packet, trCode);
-			PacketHeader.RET_CODE.setVal(this.packet, "00000");
-			PacketHeader.FILLER.setVal(this.packet, "SUCCESS");
+
+			data = recv(dataLen);
+			if (flag) log.debug(String.format("<- 2. REQ RECV DATA   [%s]", new String(data)));
 		}
 		
-		return this.packet;
+		if (flag) {
+			/*
+			 * 3. execute job
+			 */
+			data = new SimpleDateFormat("yyyyMMdd HHmmss", Locale.KOREA).format(new Date()).getBytes("EUC-KR");
+			dataLen = data.length;
+
+			if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", dataLen, new String(data)));
+		}
+		
+		if (flag) {
+			/*
+			 * 4. send header
+			 */
+
+			header = PacketHeader.makeBytes();
+			PacketHeader.TR_CODE.setVal(header, trCode);
+			PacketHeader.RET_CODE.setVal(this.header, "00000");
+			PacketHeader.FILLER.setVal(this.header, "SUCCESS");
+			PacketHeader.DATA_LEN.setVal(header, String.valueOf(dataLen));
+			
+			dos.write(header, 0, header.length);
+			if (flag) log.debug(String.format("-> 4. RES SEND HEADER [%s]", new String(header)));
+		}
+		
+		if (flag) {
+			/*
+			 * 5. send data
+			 */
+
+			dos.write(data, 0, dataLen);
+			if (flag) log.debug(String.format("-> 5. RES SEND DATA   [%s]", new String(data)));
+		}
+		
+		if (flag) {
+			/*
+			 * 6. post job
+			 */
+			
+			if (flag) log.debug(String.format("-- 6. [%s] process is OK!!", this.trCode));
+		}
+		
+		return this.header;
+	}
+	
+	private byte[] recv(final int size) throws Exception {
+		
+		int ret = 0;
+		int readed = 0;
+		byte[] buf = new byte[size];
+		
+		this.socket.setSoTimeout(0);
+		while (readed < size) {
+			ret = this.dis.read(buf, readed, size - readed);
+			if (!flag) log.debug("    size:" + size + "    readed:" + readed + "     ret:" + ret);
+			
+			if (ret <= 0) {
+				try { Thread.sleep(1000); } catch (Exception e) {}
+				continue;
+			} else {
+				if (flag) this.socket.setSoTimeout(1000);
+			}
+			
+			readed += ret;
+		}
+		
+		return buf;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
