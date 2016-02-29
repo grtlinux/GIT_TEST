@@ -126,7 +126,7 @@ public class TainClientMain {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		
+
 		if (flag) init();
 		
 		if (flag) test01(args);
