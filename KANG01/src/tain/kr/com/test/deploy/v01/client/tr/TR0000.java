@@ -190,7 +190,7 @@ public class TR0000 extends Thread {
 					data = "REQ TIME".getBytes("EUC-KR");
 					dataLen = data.length;
 					
-					if (flag) log.debug(String.format("-> DATA [%d:%s]", dataLen, new String(data)));
+					if (flag) log.debug(String.format("-- 1. DATA [%d:%s]", dataLen, new String(data)));
 				}
 				
 				if (flag) {
@@ -203,7 +203,7 @@ public class TR0000 extends Thread {
 					PacketHeader.DATA_LEN.setVal(header, String.valueOf(dataLen));
 					
 					dos.write(header, 0, header.length);
-					if (flag) log.debug(String.format("-> REQ SEND HEADER [%s]", new String(header)));
+					if (flag) log.debug(String.format("-> 2. REQ SEND HEADER [%s]", new String(header)));
 				}
 				
 				if (flag) {
@@ -212,13 +212,14 @@ public class TR0000 extends Thread {
 					 */
 					
 					dos.write(data, 0, dataLen);
-					if (flag) log.debug(String.format("-> REQ SEND DATA   [%s]", new String(data)));
+					if (flag) log.debug(String.format("-> 3. REQ SEND DATA   [%s]", new String(data)));
 				}
 				
 				if (flag) {
 					/*
 					 * 4. execute job
 					 */
+					if (flag) log.debug(String.format("-- 4. don't execute local job"));
 				}
 				
 				if (flag) {
@@ -227,7 +228,7 @@ public class TR0000 extends Thread {
 					 */
 					
 					header = recv(header.length);
-					if (flag) log.debug(String.format("<- RES RECV HEADER [%s]", new String(header)));
+					if (flag) log.debug(String.format("<- 5. RES RECV HEADER [%s]", new String(header)));
 					
 					dataLen = Integer.parseInt(PacketHeader.DATA_LEN.getString(header));
 				}
@@ -238,7 +239,7 @@ public class TR0000 extends Thread {
 					 */
 					
 					data = recv(dataLen);
-					if (flag) log.debug(String.format("<- RES RECV DATA   [%s]", new String(data)));
+					if (flag) log.debug(String.format("<- 6. RES RECV DATA   [%s]", new String(data)));
 				}
 				
 				if (flag) {
@@ -246,7 +247,7 @@ public class TR0000 extends Thread {
 					 * 7. post job
 					 */
 					
-					if (flag) log.debug(String.format("-> DATA [%d:%s]", dataLen, new String(data)));
+					if (flag) log.debug(String.format("-- 7. DATA [%d:%s]", dataLen, new String(data)));
 				}
 				
 			} catch (Exception e) {
