@@ -126,9 +126,10 @@ public class TainClientMain {
 	}
 	
 	public static void main(String[] args) throws Exception {
+		System.out.println("Hello, world!!!");
 		
-		if (flag) init();
+		if (!flag) init();
 		
-		if (flag) test01(args);
+		if (!flag) test01(args);
 	}
 }
