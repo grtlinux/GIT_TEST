@@ -61,11 +61,12 @@ public class TR0200 extends Thread {
 
 	private String host = null;
 	private String port = null;
-	private String fileName = null;
 	
 	private Socket socket = null;
 	private DataInputStream dis = null;
 	private DataOutputStream dos = null;
+
+	private String fileName = null;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
