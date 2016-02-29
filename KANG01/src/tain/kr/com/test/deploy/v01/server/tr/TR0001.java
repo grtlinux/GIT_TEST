@@ -79,6 +79,9 @@ public class TR0001 {
 	public TR0001(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] header) throws Exception {
 		
 		if (flag) {
+			/*
+			 * base parameter
+			 */
 			this.className = this.getClass().getName();
 			this.trCode = this.className.substring(this.className.lastIndexOf("TR"));
 			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
@@ -86,6 +89,9 @@ public class TR0001 {
 		}
 		
 		if (flag) {
+			/*
+			 * hired parameter
+			 */
 			this.socket = socket;
 			this.dis = dis;
 			this.dos = dos;
