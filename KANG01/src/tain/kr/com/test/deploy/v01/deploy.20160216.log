@@ -100,6 +100,26 @@ set OPTION=%OPTION% -Dtest.rush.start.random=5
 
 
 ---------------------------------------------------------------------------------------------------
+
+tain.date.format = yyyyMMdd-HHmmss
+
+tain.client.host = 127.0.0.1
+tain.client.port = 2025
+
+tain.client.deploy.file.name = N:/TEMP/deploy/client/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+
+tain.client.exec.cmd = N:/TEMP/deploy/bin/TR0101.bat
+tain.client.exec.log = N:/TEMP/deploy/log/TR0101-YYYYMMDDHHMMSS.log
+
+tain.server.host = 127.0.0.1
+tain.server.port = 2025
+
+tain.server.deploy.file.name = N:/TEMP/deploy/server/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+
+tain.server.exec.cmd = N:/TEMP/deploy/bin/TR0501.bat
+tain.server.exec.log = N:/TEMP/deploy/log/TR0501-YYYYMMDDHHMMSS.log
+
+
 ---------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
