@@ -79,8 +79,8 @@ public class TR0000 extends Thread {
 			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
 			this.comment = this.resourceBundle.getString("tain.comment");
 			
-			this.host = this.resourceBundle.getString("tain.server.host");
-			this.port = this.resourceBundle.getString("tain.server.port");
+			this.host = this.resourceBundle.getString("tain.client.host");
+			this.port = this.resourceBundle.getString("tain.client.port");
 		}
 		
 		if (flag) {

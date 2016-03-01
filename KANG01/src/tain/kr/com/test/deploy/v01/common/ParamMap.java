@@ -61,7 +61,13 @@ public class ParamMap {
 			this.paramMap.put("tain.author", "Kiea Seok Kang");
 			this.paramMap.put("tain.company", "TAIN, Inc.");
 			this.paramMap.put("tain.version", "ver 1.0, 29 Feb 2016");
-			this.paramMap.put("tain.serial.key", "2ATC4TSQ6MMOUMM");
+			this.paramMap.put("tain.serial.key", "918X942YAAAZAA2K94C8");
+			
+			this.paramMap.put("tain.client.host", System.getProperty("tain.client.host"));
+			this.paramMap.put("tain.client.port", System.getProperty("tain.client.port"));
+			
+			this.paramMap.put("tain.server.host", System.getProperty("tain.server.host"));
+			this.paramMap.put("tain.server.port", System.getProperty("tain.server.port"));
 		}
 	}
 	
