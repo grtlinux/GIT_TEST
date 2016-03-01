@@ -52,8 +52,16 @@ public class ParamMap {
 	
 	private ParamMap() throws Exception {
 		
-		if (paramMap == null) {
-			paramMap = new HashMap<String, String>();
+		if (this.paramMap == null) {
+			this.paramMap = new HashMap<String, String>();
+			
+			/*
+			 * initialize base keys and values
+			 */
+			this.paramMap.put("tain.author", "Kiea Seok Kang");
+			this.paramMap.put("tain.company", "TAIN, Inc.");
+			this.paramMap.put("tain.version", "ver 1.0, 29 Feb 2016");
+			this.paramMap.put("tain.serial.key", "2ATC4TSQ6MMOUMM");
 		}
 	}
 	
@@ -78,7 +86,7 @@ public class ParamMap {
 	public void printList() throws Exception {
 		
 		if (flag) {
-			for (Map.Entry<String, String> entry : paramMap.entrySet()) {
+			for (Map.Entry<String, String> entry : this.paramMap.entrySet()) {
 				String key = entry.getKey();
 				String val = entry.getValue();
 				
@@ -119,6 +127,15 @@ public class ParamMap {
 			ParamMap.getInstance().put("param6", "param6val");
 			
 			ParamMap.getInstance().printList();
+		}
+		
+		if (flag) {
+			log.debug(String.format("> %s => %s", "param1", ParamMap.getInstance().get("param1")));
+			log.debug(String.format("> %s => %s", "param2", ParamMap.getInstance().get("param2")));
+			log.debug(String.format("> %s => %s", "param3", ParamMap.getInstance().get("param3")));
+			log.debug(String.format("> %s => %s", "param4", ParamMap.getInstance().get("param4")));
+			log.debug(String.format("> %s => %s", "param5", ParamMap.getInstance().get("param5")));
+			log.debug(String.format("> %s => %s", "param6", ParamMap.getInstance().get("param6")));
 		}
 	}
 	

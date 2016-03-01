@@ -81,9 +81,9 @@ public class TainClientMain {
 			String val = null;
 			Thread thr = null;
 			
-			for (int seq=0; seq < 100; seq++) {
+			for (int seq=0; seq < 10; seq++) {
 				
-				key = "tain.job.seq." + String.format("%02d", seq);
+				key = "tain.job.seq." + String.format("%2d", seq);
 				
 				try {
 					val = resourceBundle.getString(key);
