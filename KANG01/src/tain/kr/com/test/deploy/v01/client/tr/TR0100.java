@@ -27,6 +27,7 @@ import java.util.ResourceBundle;
 import org.apache.log4j.Logger;
 
 import tain.kr.com.test.deploy.v01.common.PacketHeader;
+import tain.kr.com.test.deploy.v01.common.ParamMap;
 
 /**
  * Code Templates > Comments > Types
@@ -78,9 +79,21 @@ public class TR0100 extends Thread {
 			this.trCode = this.className.substring(this.className.lastIndexOf("TR"));
 			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
 			this.comment = this.resourceBundle.getString("tain.comment");
-			
-			this.host = this.resourceBundle.getString("tain.client.host");
-			this.port = this.resourceBundle.getString("tain.client.port");
+		}
+		
+		if (flag) {
+			/*
+			 * parameters
+			 */
+			this.host = ParamMap.getInstance().get("tain.client.host");
+			if (this.host == null) {
+				this.host = this.resourceBundle.getString("tain.client.host");
+			}
+
+			this.port = ParamMap.getInstance().get("tain.client.port");
+			if (this.port == null) {
+				this.port = this.resourceBundle.getString("tain.client.port");
+			}
 		}
 		
 		if (flag) {

@@ -32,6 +32,7 @@ import org.apache.log4j.Logger;
 
 import tain.kr.com.test.deploy.v01.common.Exec;
 import tain.kr.com.test.deploy.v01.common.PacketHeader;
+import tain.kr.com.test.deploy.v01.common.ParamMap;
 
 /**
  * Code Templates > Comments > Types
@@ -91,9 +92,21 @@ public class TR0101 {
 			this.trCode = this.className.substring(this.className.lastIndexOf("TR"));
 			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
 			this.comment = this.resourceBundle.getString("tain.comment");
-
-			this.execCmd = this.resourceBundle.getString("tain.exec.cmd");
-			this.execLog = this.resourceBundle.getString("tain.exec.log");
+		}
+		
+		if (flag) {
+			/*
+			 * parameters
+			 */
+			this.execCmd = ParamMap.getInstance().get("tain.client.exec.cmd");
+			if (this.execCmd == null) {
+				this.execCmd = this.resourceBundle.getString("tain.client.exec.cmd");
+			}
+			
+			this.execLog = ParamMap.getInstance().get("tain.client.exec.log");
+			if (this.execLog == null) {
+				this.execLog = this.resourceBundle.getString("tain.client.exec.log");
+			}
 		}
 		
 		if (flag) {

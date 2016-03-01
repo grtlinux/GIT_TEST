@@ -31,6 +31,7 @@ import java.util.ResourceBundle;
 import org.apache.log4j.Logger;
 
 import tain.kr.com.test.deploy.v01.common.PacketHeader;
+import tain.kr.com.test.deploy.v01.common.ParamMap;
 
 /**
  * Code Templates > Comments > Types
@@ -71,6 +72,8 @@ public class TR0001 {
 	private byte[] body = null;
 	private int bodyLen = 0;
 	
+	private String dateFormat = null;
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,6 +90,16 @@ public class TR0001 {
 			this.trCode = this.className.substring(this.className.lastIndexOf("TR"));
 			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
 			this.comment = this.resourceBundle.getString("tain.comment");
+		}
+		
+		if (flag) {
+			/*
+			 * parameters
+			 */
+			this.dateFormat = ParamMap.getInstance().get("tain.date.format");
+			if (this.dateFormat == null) {
+				this.dateFormat = this.resourceBundle.getString("tain.date.format");
+			}
 		}
 		
 		if (flag) {
@@ -130,7 +143,7 @@ public class TR0001 {
 			if (flag) {
 				// make return body
 				
-				this.body = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.KOREA).format(new Date()).getBytes("EUC-KR");
+				this.body = new SimpleDateFormat(this.dateFormat, Locale.KOREA).format(new Date()).getBytes("EUC-KR");
 				this.bodyLen = this.body.length;
 
 				if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", this.bodyLen, new String(this.body)));

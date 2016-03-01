@@ -58,16 +58,37 @@ public class ParamMap {
 			/*
 			 * initialize base keys and values
 			 */
-			this.paramMap.put("tain.author", "Kiea Seok Kang");
-			this.paramMap.put("tain.company", "TAIN, Inc.");
-			this.paramMap.put("tain.version", "ver 1.0, 29 Feb 2016");
+			this.paramMap.put("tain.author", "Kiea_Seok_Kang");
+			this.paramMap.put("tain.company", "TAIN,Inc.");
+			this.paramMap.put("tain.version", "ver_1.0_29_Feb_2016");
 			this.paramMap.put("tain.serial.key", "918X942YAAAZAA2K94C8");
 			
+			/*
+			 * date format
+			 */
+			this.paramMap.put("tain.date.format", System.getProperty("tain.date.format"));
+
+			/*
+			 * client keys and values
+			 */
 			this.paramMap.put("tain.client.host", System.getProperty("tain.client.host"));
 			this.paramMap.put("tain.client.port", System.getProperty("tain.client.port"));
+
+			this.paramMap.put("tain.client.deploy.file.name", System.getProperty("tain.client.deploy.file.name"));
 			
+			this.paramMap.put("tain.client.exec.cmd", System.getProperty("tain.client.exec.cmd"));
+			this.paramMap.put("tain.client.exec.log", System.getProperty("tain.client.exec.log"));
+			
+			/*
+			 * server keys and values
+			 */
 			this.paramMap.put("tain.server.host", System.getProperty("tain.server.host"));
 			this.paramMap.put("tain.server.port", System.getProperty("tain.server.port"));
+
+			this.paramMap.put("tain.server.deploy.file.name", System.getProperty("tain.server.deploy.file.name"));
+			
+			this.paramMap.put("tain.server.exec.cmd", System.getProperty("tain.server.exec.cmd"));
+			this.paramMap.put("tain.server.exec.log", System.getProperty("tain.server.exec.log"));
 		}
 	}
 	

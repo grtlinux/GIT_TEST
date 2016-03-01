@@ -31,6 +31,7 @@ import java.util.ResourceBundle;
 import org.apache.log4j.Logger;
 
 import tain.kr.com.test.deploy.v01.common.PacketHeader;
+import tain.kr.com.test.deploy.v01.common.ParamMap;
 
 /**
  * Code Templates > Comments > Types
@@ -91,7 +92,17 @@ public class TR0201 {
 			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
 			this.comment = this.resourceBundle.getString("tain.comment");
 			
-			this.fileName = this.resourceBundle.getString("tain.deploy.file.name");
+			this.fileName = this.resourceBundle.getString("tain.server.deploy.file.name");
+		}
+		
+		if (flag) {
+			/*
+			 * parameters
+			 */
+			this.fileName = ParamMap.getInstance().get("tain.server.deploy.file.name");
+			if (this.fileName == null) {
+				this.fileName = this.resourceBundle.getString("tain.server.deploy.file.name");
+			}
 		}
 		
 		if (flag) {
