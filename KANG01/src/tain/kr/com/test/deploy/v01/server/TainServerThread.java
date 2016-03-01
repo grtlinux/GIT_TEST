@@ -156,7 +156,7 @@ public class TainServerThread extends Thread {
 		}
 		
 		if (flag) {
-			if (flag) log.debug(String.format("%s : ########## FINISH idxThr=%d ##########", this.getName(), this.idxThr));
+			if (flag) log.debug(String.format("%s : ########## FINISH idxThr=%d ##########\n\n", this.getName(), this.idxThr));
 		}
 	}
 	
