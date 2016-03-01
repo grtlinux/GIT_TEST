@@ -50,9 +50,9 @@ public enum PacketHeader {
 	TR_USER           ('C', ' ',  24,  10, "TR_USER"       , "TR 사용자"       , "USER"           ),
 	TR_PASS           ('C', ' ',  34,  10, "TR_PASS"       , "TR 비밀번호"     , "PASS"           ),
 	KEY_CODE          ('C', ' ',  44,  10, "KEY_CODE"      , "키코드"          , "0000000000"     ),
-	RET_CODE          ('C', ' ',  54,   5, "RET_CODE"      , "리턴코드"        , ""               ),
-	DATA_LEN          ('N', '0',  59,  15, "DATA_LEN"      , "DATA 길이"       , "000000000000000"),
-	FILLER            ('C', ' ',  74,  26, "FILLER"        , "RESERVED"        , ""               ),
+	BODY_LEN          ('N', '0',  54,   4, "BODY_LEN"      , "BODY 길이"       , "0000"           ),
+	RET_CODE          ('C', ' ',  58,   5, "RET_CODE"      , "리턴코드"        , ""               ),
+	RET_MSG           ('C', ' ',  63,  37, "RET_MSG"       , "리턴메시지"      , ""               ),
 	;
 	
 	private final char type;
@@ -256,9 +256,9 @@ public enum PacketHeader {
 			TR_USER .setVal(bytes, "QWERT12345");
 			TR_PASS .setVal(bytes, "1Q2WER4RKD");
 			KEY_CODE.setVal(bytes, "FK39SXK3M3");
+			BODY_LEN.setVal(bytes, String.valueOf(0));
 			RET_CODE.setVal(bytes, "");
-			DATA_LEN.setVal(bytes, String.valueOf(0));
-			FILLER  .setVal(bytes, "");
+			RET_MSG .setVal(bytes, "");
 		}
 
 		return bytes;
@@ -302,7 +302,7 @@ public enum PacketHeader {
 			for (PacketHeader fld : PacketHeader.values()) {
 				len = fld.getLen();
 				
-				if (flag) log.debug(String.format("[%s] [%s] [%3d:%3d] [%3d:%3d] [%20s] [%s] [%s]"
+				if (flag) log.debug(String.format("[%s] [%s] [%3d:%3d] [%3d:%3d] [%-10s] [%s] [%s]"
 						, name , fld.getType(), off, fld.getOff(), len, fld.getLen(), fld.getName(), fld.getDesc(), fld.getDefVal()));
 				
 				off += fld.getLen();

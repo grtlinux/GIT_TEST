@@ -69,8 +69,8 @@ public class TR0101 {
 	
 	private byte[] header = null;
 	
-	private byte[] data = null;
-	private int dataLen = 0;
+	private byte[] body = null;
+	private int bodyLen = 0;
 
 	private String execCmd = null;
 	private String execLog = null;
@@ -105,7 +105,7 @@ public class TR0101 {
 			this.dos = dos;
 			this.header = packet;
 			
-			this.dataLen = Integer.parseInt(PacketHeader.DATA_LEN.getString(this.header));
+			this.bodyLen = Integer.parseInt(PacketHeader.BODY_LEN.getString(this.header));
 		}
 		
 		if (flag) {
@@ -128,15 +128,15 @@ public class TR0101 {
 		}
 	}
 	
-	public byte[] execute() throws Exception {
+	public void execute() throws Exception {
 		
 		if (flag) {
 			/*
 			 * 2. recv data
 			 */
 
-			data = recv(dataLen);
-			if (flag) log.debug(String.format("<- 2. REQ RECV DATA   [%s]", new String(data)));
+			this.body = recv(this.bodyLen);
+			if (flag) log.debug(String.format("<- 2. REQ RECV DATA   [%s]", new String(this.body)));
 		}
 		
 		if (flag) {
@@ -144,16 +144,23 @@ public class TR0101 {
 			 * 3. execute job
 			 */
 			
-			if (!flag) Exec.run(new String[] {"cmd", "/c", "D:/TR500.cmd"}, false);
-			if (!flag) Exec.run(new String[] {"cmd", "/c", "start"}, false);
-			if (!flag) Exec.run(new String[] {"cmd", "/c", "M:/TEMP/DEPLOY_TEST/CLIENT/mvn_dos.bat"}, false);
+			if (flag) {
+				// Exec.run
+				if (!flag) Exec.run(new String[] {"cmd", "/c", "D:/TR500.cmd"}, false);
+				if (!flag) Exec.run(new String[] {"cmd", "/c", "start"}, false);
+				if (!flag) Exec.run(new String[] {"cmd", "/c", "M:/TEMP/DEPLOY_TEST/CLIENT/mvn_dos.bat"}, false);
 
-			if (flag) Exec.run(new String[] {"cmd", "/c", execCmd}, new FileWriter(execLog), true);
+				if (flag) Exec.run(new String[] {"cmd", "/c", this.execCmd}, new FileWriter(this.execLog), true);
+			}
 
-			data = "TR0101_OK".getBytes("EUC-KR");
-			dataLen = data.length;
+			if (flag) {
+				// make return body
 
-			if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", dataLen, new String(data)));
+				this.body = "TR0101_OK".getBytes("EUC-KR");
+				this.bodyLen = this.body.length;
+
+				if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", this.bodyLen, new String(this.body)));
+			}
 		}
 		
 		if (flag) {
@@ -161,14 +168,14 @@ public class TR0101 {
 			 * 4. send header
 			 */
 
-			header = PacketHeader.makeBytes();
-			PacketHeader.TR_CODE.setVal(header, trCode);
+			this.header = PacketHeader.makeBytes();
+			PacketHeader.TR_CODE.setVal(this.header, this.trCode);
+			PacketHeader.BODY_LEN.setVal(this.header, String.valueOf(this.bodyLen));
 			PacketHeader.RET_CODE.setVal(this.header, "00000");
-			PacketHeader.FILLER.setVal(this.header, "SUCCESS");
-			PacketHeader.DATA_LEN.setVal(header, String.valueOf(dataLen));
+			PacketHeader.RET_MSG.setVal(this.header, "SUCCESS");
 			
-			dos.write(header, 0, header.length);
-			if (flag) log.debug(String.format("-> 4. RES SEND HEADER [%s]", new String(header)));
+			this.dos.write(this.header, 0, this.header.length);
+			if (flag) log.debug(String.format("-> 4. RES SEND HEADER [%s]", new String(this.header)));
 		}
 		
 		if (flag) {
@@ -176,8 +183,8 @@ public class TR0101 {
 			 * 5. send data
 			 */
 
-			dos.write(data, 0, dataLen);
-			if (flag) log.debug(String.format("-> 5. RES SEND DATA   [%s]", new String(data)));
+			this.dos.write(this.body, 0, this.bodyLen);
+			if (flag) log.debug(String.format("-> 5. RES SEND DATA   [%s]", new String(this.body)));
 		}
 		
 		if (flag) {
@@ -187,8 +194,6 @@ public class TR0101 {
 			
 			if (flag) log.debug(String.format("-- 6. [%s] process is OK!!", this.trCode));
 		}
-		
-		return this.header;
 	}
 	
 	private byte[] recv(final int size) throws Exception {

@@ -131,7 +131,7 @@ public class TainServerThread extends Thread {
 					case "TR0500": new TR0501(this.socket, this.dis, this.dos, header).execute(); break;
 					default:
 						PacketHeader.RET_CODE.setVal(header, "99999");
-						PacketHeader.FILLER.setVal(header, "NO_TR_CODE");
+						PacketHeader.RET_MSG.setVal(header, "NO_TR_CODE");
 						dos.write(header, 0, header.length);
 						if (flag) log.debug("[" + new String(header) + "]");
 						break;

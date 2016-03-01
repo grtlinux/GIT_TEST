@@ -123,7 +123,7 @@ public class TR0200 extends Thread {
 					
 					packet = PacketHeader.makeBytes();
 					PacketHeader.TR_CODE.setVal(packet, trCode);
-					PacketHeader.DATA_LEN.setVal(packet, String.valueOf(getFileSize()));
+					PacketHeader.BODY_LEN.setVal(packet, String.valueOf(getFileSize()));
 					if (!flag) log.debug("[" + new String(packet) + "]");
 				}
 				
@@ -211,7 +211,7 @@ public class TR0200 extends Thread {
 					
 					header = PacketHeader.makeBytes();
 					PacketHeader.TR_CODE.setVal(header, trCode);
-					PacketHeader.DATA_LEN.setVal(header, String.valueOf(dataLen));
+					PacketHeader.BODY_LEN.setVal(header, String.valueOf(dataLen));
 					
 					dos.write(header, 0, header.length);
 					if (flag) log.debug(String.format("-> 2. REQ SEND HEADER [%s]", new String(header)));
@@ -243,7 +243,7 @@ public class TR0200 extends Thread {
 					header = recv(header.length);
 					if (flag) log.debug(String.format("<- 5. RES RECV HEADER [%s]", new String(header)));
 					
-					dataLen = Integer.parseInt(PacketHeader.DATA_LEN.getString(header));
+					dataLen = Integer.parseInt(PacketHeader.BODY_LEN.getString(header));
 				}
 				
 				if (flag) {

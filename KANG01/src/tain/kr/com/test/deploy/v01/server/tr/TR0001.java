@@ -68,8 +68,8 @@ public class TR0001 {
 	
 	private byte[] header = null;
 
-	private byte[] data = null;
-	private int dataLen = 0;
+	private byte[] body = null;
+	private int bodyLen = 0;
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -98,7 +98,7 @@ public class TR0001 {
 			this.dos = dos;
 			this.header = header;
 			
-			this.dataLen = Integer.parseInt(PacketHeader.DATA_LEN.getString(this.header));
+			this.bodyLen = Integer.parseInt(PacketHeader.BODY_LEN.getString(this.header));
 		}
 		
 		if (flag) {
@@ -111,15 +111,15 @@ public class TR0001 {
 		}
 	}
 	
-	public byte[] execute() throws Exception {
+	public void execute() throws Exception {
 		
 		if (flag) {
 			/*
 			 * 2. recv data
 			 */
 
-			this.data = recv(this.dataLen);
-			if (flag) log.debug(String.format("<- 2. REQ RECV DATA   [%s]", new String(this.data)));
+			this.body = recv(this.bodyLen);
+			if (flag) log.debug(String.format("<- 2. REQ RECV DATA   [%s]", new String(this.body)));
 		}
 		
 		if (flag) {
@@ -127,10 +127,14 @@ public class TR0001 {
 			 * 3. execute job
 			 */
 			
-			this.data = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.KOREA).format(new Date()).getBytes("EUC-KR");
-			this.dataLen = this.data.length;
+			if (flag) {
+				// make return body
+				
+				this.body = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.KOREA).format(new Date()).getBytes("EUC-KR");
+				this.bodyLen = this.body.length;
 
-			if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", this.dataLen, new String(this.data)));
+				if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", this.bodyLen, new String(this.body)));
+			}
 		}
 		
 		if (flag) {
@@ -138,14 +142,14 @@ public class TR0001 {
 			 * 4. send header
 			 */
 
-			header = PacketHeader.makeBytes();
-			PacketHeader.TR_CODE.setVal(header, trCode);
+			this.header = PacketHeader.makeBytes();
+			PacketHeader.TR_CODE.setVal(this.header, this.trCode);
+			PacketHeader.BODY_LEN.setVal(this.header, String.valueOf(this.bodyLen));
 			PacketHeader.RET_CODE.setVal(this.header, "00000");
-			PacketHeader.FILLER.setVal(this.header, "SUCCESS");
-			PacketHeader.DATA_LEN.setVal(header, String.valueOf(this.dataLen));
+			PacketHeader.RET_MSG.setVal(this.header, "SUCCESS");
 			
-			dos.write(header, 0, header.length);
-			if (flag) log.debug(String.format("-> 4. RES SEND HEADER [%s]", new String(header)));
+			this.dos.write(this.header, 0, this.header.length);
+			if (flag) log.debug(String.format("-> 4. RES SEND HEADER [%s]", new String(this.header)));
 		}
 		
 		if (flag) {
@@ -153,8 +157,8 @@ public class TR0001 {
 			 * 5. send data
 			 */
 
-			dos.write(this.data, 0, this.dataLen);
-			if (flag) log.debug(String.format("-> 5. RES SEND DATA   [%s]", new String(this.data)));
+			this.dos.write(this.body, 0, this.bodyLen);
+			if (flag) log.debug(String.format("-> 5. RES SEND DATA   [%s]", new String(this.body)));
 		}
 		
 		if (flag) {
@@ -164,8 +168,6 @@ public class TR0001 {
 			
 			if (flag) log.debug(String.format("-- 6. [%s] process is OK!!", this.trCode));
 		}
-		
-		return this.header;
 	}
 	
 	private byte[] recv(final int size) throws Exception {

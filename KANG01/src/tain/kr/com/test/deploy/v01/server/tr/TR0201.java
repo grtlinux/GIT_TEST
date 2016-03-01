@@ -68,8 +68,8 @@ public class TR0201 {
 
 	private byte[] header = null;
 	
-	private byte[] data = null;
-	private int dataLen = 0;
+	private byte[] body = null;
+	private int bodyLen = 0;
 
 	private String fileName = null;
 	private long fileSize = -1;
@@ -103,7 +103,7 @@ public class TR0201 {
 			this.dos = dos;
 			this.header = packet;
 			
-			this.dataLen = Integer.parseInt(PacketHeader.DATA_LEN.getString(this.header));
+			this.bodyLen = Integer.parseInt(PacketHeader.BODY_LEN.getString(this.header));
 		}
 		
 		if (flag) {
@@ -116,74 +116,15 @@ public class TR0201 {
 		}
 	}
 	
-	public byte[] execute() throws Exception {
-		
-		if (flag) {
-			/*
-			 * get file size
-			 */
-			this.fileSize = Long.parseLong(PacketHeader.DATA_LEN.getString(this.header));
-			
-			if (flag) log.debug(String.format("fileSize = %,d", this.fileSize));
-		}
-
-		if (flag) {
-			/*
-			 * file receiver
-			 */
-			
-			FileOutputStream fos = null;
-			
-			try {
-				
-				fos = new FileOutputStream(this.fileName);
-				
-				byte[] buf = new byte[10240];
-				
-				for (int i=1; ; i++) {
-				
-					int readed = this.dis.read(buf);
-					if (readed < 0)
-						break;
-					
-					fos.write(buf, 0, readed);
-					
-					if (flag) {
-						System.out.print("#");
-						if (i % 200 == 0)
-							System.out.println();
-					}
-					
-					fileSize -= readed;
-					if (fileSize <= 0) {
-						if (flag) System.out.println();
-						break;
-					}
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (fos != null) try { fos.close(); } catch (Exception e) {}
-			}
-		}
-	
-		
-		
-		
-		
-		
-		
-		
-		
+	public void execute() throws Exception {
 		
 		if (flag) {
 			/*
 			 * 2. recv data
 			 */
 
-			data = recv(dataLen);
-			if (flag) log.debug(String.format("<- 2. REQ RECV DATA   [%s]", new String(data)));
+			this.body = recv(this.bodyLen);
+			if (flag) log.debug(String.format("<- 2. REQ RECV DATA   [%s]", new String(this.body)));
 		}
 		
 		if (flag) {
@@ -191,10 +132,60 @@ public class TR0201 {
 			 * 3. execute job
 			 */
 			
-			data = new SimpleDateFormat("yyyyMMdd HHmmss", Locale.KOREA).format(new Date()).getBytes("EUC-KR");
-			dataLen = data.length;
+			if (flag) {
+				// get file size
 
-			if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", dataLen, new String(data)));
+				this.fileSize = Long.parseLong(new String(this.body));
+				if (flag) log.debug(String.format("fileSize = %,d", this.fileSize));
+			}
+			
+			if (flag) {
+				// get file content
+				
+				FileOutputStream fos = null;
+				
+				try {
+					
+					fos = new FileOutputStream(this.fileName);
+					
+					byte[] buf = new byte[10240];
+					
+					for (int i=1; ; i++) {
+					
+						int readed = this.dis.read(buf);
+						if (readed < 0)
+							break;
+						
+						fos.write(buf, 0, readed);
+						
+						if (flag) {
+							System.out.print("#");
+							if (i % 200 == 0)
+								System.out.println();
+						}
+						
+						fileSize -= readed;
+						if (fileSize <= 0) {
+							if (flag) System.out.println();
+							break;
+						}
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (fos != null) try { fos.close(); } catch (Exception e) {}
+				}
+			}
+			
+			if (flag) {
+				// make return body
+				
+				this.body = "FILE_TRANSFER_OK".getBytes("EUC-KR");
+				this.bodyLen = this.body.length;
+
+				if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", bodyLen, new String(this.body)));
+			}
 		}
 		
 		if (flag) {
@@ -202,14 +193,14 @@ public class TR0201 {
 			 * 4. send header
 			 */
 
-			header = PacketHeader.makeBytes();
-			PacketHeader.TR_CODE.setVal(header, trCode);
+			this.header = PacketHeader.makeBytes();
+			PacketHeader.TR_CODE.setVal(this.header, this.trCode);
+			PacketHeader.BODY_LEN.setVal(this.header, String.valueOf(this.bodyLen));
 			PacketHeader.RET_CODE.setVal(this.header, "00000");
-			PacketHeader.FILLER.setVal(this.header, "SUCCESS");
-			PacketHeader.DATA_LEN.setVal(header, String.valueOf(dataLen));
+			PacketHeader.RET_MSG.setVal(this.header, "SUCCESS");
 			
-			dos.write(header, 0, header.length);
-			if (flag) log.debug(String.format("-> 4. RES SEND HEADER [%s]", new String(header)));
+			this.dos.write(this.header, 0, this.header.length);
+			if (flag) log.debug(String.format("-> 4. RES SEND HEADER [%s]", new String(this.header)));
 		}
 		
 		if (flag) {
@@ -217,8 +208,8 @@ public class TR0201 {
 			 * 5. send data
 			 */
 
-			dos.write(data, 0, dataLen);
-			if (flag) log.debug(String.format("-> 5. RES SEND DATA   [%s]", new String(data)));
+			this.dos.write(this.body, 0, this.bodyLen);
+			if (flag) log.debug(String.format("-> 5. RES SEND DATA   [%s]", new String(this.body)));
 		}
 		
 		if (flag) {
@@ -228,8 +219,6 @@ public class TR0201 {
 			
 			if (flag) log.debug(String.format("-- 6. [%s] process is OK!!", this.trCode));
 		}
-		
-		return this.header;
 	}
 	
 	private byte[] recv(final int size) throws Exception {
