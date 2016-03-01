@@ -96,6 +96,8 @@ public class TainClientMain {
 				if (val == null)
 					continue;
 				
+				if (flag) log.debug("########## START ########## [trCode:" + val + "]");
+
 				switch (val) {
 				case "TR0000":
 					thr = new TR0000();
@@ -121,6 +123,8 @@ public class TainClientMain {
 					if (flag) log.error(String.format("tr code error [%s]", val));
 					break;
 				}
+				
+				if (flag) log.debug("########## FINISH ########## [trCode:" + val + "]\n\n");
 			}
 		}
 	}
