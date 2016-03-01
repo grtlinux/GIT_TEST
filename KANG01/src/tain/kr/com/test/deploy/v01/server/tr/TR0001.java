@@ -127,7 +127,7 @@ public class TR0001 {
 			 * 3. execute job
 			 */
 			
-			this.data = new SimpleDateFormat("yyyyMMdd HHmmss", Locale.KOREA).format(new Date()).getBytes("EUC-KR");
+			this.data = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.KOREA).format(new Date()).getBytes("EUC-KR");
 			this.dataLen = this.data.length;
 
 			if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", this.dataLen, new String(this.data)));
