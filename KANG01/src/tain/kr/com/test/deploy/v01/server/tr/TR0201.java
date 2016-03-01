@@ -113,6 +113,7 @@ public class TR0201 {
 			log.debug(">>>>> " + this.className);
 			log.debug(">>>>> " + this.comment);
 			log.debug(">>>>> trCode = " + this.trCode);
+			log.debug(">>>>> file name = " + this.fileName);
 		}
 	}
 	
