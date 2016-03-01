@@ -104,70 +104,16 @@ public class TR0200 extends Thread {
 			 */
 			log.debug(">>>>> " + this.className);
 			log.debug(">>>>> " + this.comment);
-			log.debug(">>>>> host = " + this.host + ", port = " + this.port + ", trCode = " + this.trCode + ", file = " + this.fileName);
+			log.debug(">>>>> host = " + this.host);
+			log.debug(">>>>> port = " + this.port);
+			log.debug(">>>>> trCode = " + this.trCode);
+			log.debug(">>>>> file = " + this.fileName);
 			log.debug("Connection .....");
 		}
 	}
 	
 	public void run() {
 		
-		if (flag) {
-			try {
-				
-				byte[] packet = null;
-				
-				if (flag) {
-					/*
-					 * create a request
-					 */
-					
-					packet = PacketHeader.makeBytes();
-					PacketHeader.TR_CODE.setVal(packet, trCode);
-					PacketHeader.BODY_LEN.setVal(packet, String.valueOf(getFileSize()));
-					if (!flag) log.debug("[" + new String(packet) + "]");
-				}
-				
-				if (flag) {
-					/*
-					 * send the request
-					 */
-					
-					dos.write(packet, 0, PacketHeader.getLength());
-					if (flag) log.debug(String.format("-> REQ SEND DATA [%s]", new String(packet)));
-				}
-				
-				if (flag) {
-					/*
-					 * execute transaction job
-					 */
-					executeTrJob();
-				}
-				
-				if (flag) {
-					/*
-					 * recv the response of the request
-					 */
-					
-					packet = recv(PacketHeader.getLength());
-					if (flag) log.debug(String.format("<- RES RECV DATA [%s]", new String(packet)));
-				}
-				
-				if (flag) {
-					/*
-					 * finish
-					 */
-					
-					try { Thread.sleep(1000); } catch (InterruptedException e) {}
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (this.dis != null) try { this.dis.close(); } catch (Exception e) {}
-				if (this.dos != null) try { this.dos.close(); } catch (Exception e) {}
-				if (this.socket != null) try { this.socket.close(); } catch (Exception e) {}
-			}
-		}
 		if (flag) {
 			/*
 			 * TODO : version 0.2 at 2016.02.29
@@ -190,18 +136,18 @@ public class TR0200 extends Thread {
 			try {
 				
 				byte[] header = null;
-				byte[] data = null;
-				int dataLen = 0;
+				byte[] body = null;
+				int bodyLen = 0;
 				
 				if (flag) {
 					/*
 					 * 1. pre job
 					 */
 					
-					data = String.format("%015d", getFileSize()).getBytes("EUC-KR");
-					dataLen = data.length;
+					body = String.format("%015d", getFileSize()).getBytes("EUC-KR");
+					bodyLen = body.length;
 					
-					if (flag) log.debug(String.format("-- 1. DATA [%d:%s]", dataLen, new String(data)));
+					if (flag) log.debug(String.format("-- 1. DATA [%d:%s]", bodyLen, new String(body)));
 				}
 				
 				if (flag) {
@@ -211,9 +157,9 @@ public class TR0200 extends Thread {
 					
 					header = PacketHeader.makeBytes();
 					PacketHeader.TR_CODE.setVal(header, trCode);
-					PacketHeader.BODY_LEN.setVal(header, String.valueOf(dataLen));
+					PacketHeader.BODY_LEN.setVal(header, String.valueOf(bodyLen));
 					
-					dos.write(header, 0, header.length);
+					this.dos.write(header, 0, header.length);
 					if (flag) log.debug(String.format("-> 2. REQ SEND HEADER [%s]", new String(header)));
 				}
 				
@@ -222,8 +168,8 @@ public class TR0200 extends Thread {
 					 * 3. send data
 					 */
 					
-					dos.write(data, 0, dataLen);
-					if (flag) log.debug(String.format("-> 3. REQ SEND DATA   [%s]", new String(data)));
+					this.dos.write(body, 0, bodyLen);
+					if (flag) log.debug(String.format("-> 3. REQ SEND DATA   [%s]", new String(body)));
 				}
 				
 				if (flag) {
@@ -231,8 +177,8 @@ public class TR0200 extends Thread {
 					 * 4. execute job
 					 */
 					
-					if (flag) log.debug(String.format("-- 4. don't execute local job"));
-					//  executeTrJob();
+					if (flag) log.debug(String.format("-- 4. execute local job -> FILE TRANSFER JOB"));
+					executeTrJob();
 				}
 				
 				if (flag) {
@@ -243,7 +189,7 @@ public class TR0200 extends Thread {
 					header = recv(header.length);
 					if (flag) log.debug(String.format("<- 5. RES RECV HEADER [%s]", new String(header)));
 					
-					dataLen = Integer.parseInt(PacketHeader.BODY_LEN.getString(header));
+					bodyLen = Integer.parseInt(PacketHeader.BODY_LEN.getString(header));
 				}
 				
 				if (flag) {
@@ -251,8 +197,8 @@ public class TR0200 extends Thread {
 					 * 6. recv data
 					 */
 					
-					data = recv(dataLen);
-					if (flag) log.debug(String.format("<- 6. RES RECV DATA   [%s]", new String(data)));
+					body = recv(bodyLen);
+					if (flag) log.debug(String.format("<- 6. RES RECV DATA   [%s]", new String(body)));
 				}
 				
 				if (flag) {
@@ -260,7 +206,7 @@ public class TR0200 extends Thread {
 					 * 7. post job
 					 */
 					
-					if (flag) log.debug(String.format("-- 7. DATA [%d:%s]", dataLen, new String(data)));
+					if (flag) log.debug(String.format("-- 7. DATA [%d:%s]", bodyLen, new String(body)));
 				}
 				
 			} catch (Exception e) {
@@ -308,7 +254,7 @@ public class TR0200 extends Thread {
 		long fileSize = -1;
 		
 		if (flag) {
-			File file = new File(fileName);
+			File file = new File(this.fileName);
 			fileSize = file.length();
 		}
 		
@@ -325,7 +271,7 @@ public class TR0200 extends Thread {
 			
 			try {
 				
-				fis = new FileInputStream(fileName);
+				fis = new FileInputStream(this.fileName);
 				
 				byte[] buf = new byte[10240];
 

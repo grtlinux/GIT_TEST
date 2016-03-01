@@ -255,7 +255,7 @@ public enum PacketHeader {
 			TR_TIME .setVal(bytes, new SimpleDateFormat("HHmmss"  , Locale.KOREA).format(new Date()));
 			TR_USER .setVal(bytes, "QWERT12345");
 			TR_PASS .setVal(bytes, "1Q2WER4RKD");
-			KEY_CODE.setVal(bytes, "FK39SXK3M3");
+			KEY_CODE.setVal(bytes, "FK39SXKMMM");
 			BODY_LEN.setVal(bytes, String.valueOf(0));
 			RET_CODE.setVal(bytes, "");
 			RET_MSG .setVal(bytes, "");

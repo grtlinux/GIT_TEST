@@ -98,7 +98,9 @@ public class TR0000 extends Thread {
 			 */
 			log.debug(">>>>> " + this.className);
 			log.debug(">>>>> " + this.comment);
-			log.debug(">>>>> host = " + this.host + ", port = " + this.port + ", trCode = " + this.trCode);
+			log.debug(">>>>> host = " + this.host);
+			log.debug(">>>>> port = " + this.port);
+			log.debug(">>>>> trCode = " + this.trCode);
 			log.debug("Connection .....");
 		}
 	}
@@ -127,18 +129,18 @@ public class TR0000 extends Thread {
 			try {
 				
 				byte[] header = null;
-				byte[] data = null;
-				int dataLen = 0;
+				byte[] body = null;
+				int bodyLen = 0;
 				
 				if (flag) {
 					/*
 					 * 1. pre job
 					 */
 					
-					data = "REQ TIME".getBytes("EUC-KR");
-					dataLen = data.length;
+					body = "REQ TIME".getBytes("EUC-KR");
+					bodyLen = body.length;
 					
-					if (flag) log.debug(String.format("-- 1. DATA [%d:%s]", dataLen, new String(data)));
+					if (flag) log.debug(String.format("-- 1. DATA [%d:%s]", bodyLen, new String(body)));
 				}
 				
 				if (flag) {
@@ -148,9 +150,9 @@ public class TR0000 extends Thread {
 					
 					header = PacketHeader.makeBytes();
 					PacketHeader.TR_CODE.setVal(header, trCode);
-					PacketHeader.BODY_LEN.setVal(header, String.valueOf(dataLen));
+					PacketHeader.BODY_LEN.setVal(header, String.valueOf(bodyLen));
 					
-					dos.write(header, 0, header.length);
+					this.dos.write(header, 0, header.length);
 					if (flag) log.debug(String.format("-> 2. REQ SEND HEADER [%s]", new String(header)));
 				}
 				
@@ -159,8 +161,8 @@ public class TR0000 extends Thread {
 					 * 3. send data
 					 */
 					
-					dos.write(data, 0, dataLen);
-					if (flag) log.debug(String.format("-> 3. REQ SEND DATA   [%s]", new String(data)));
+					this.dos.write(body, 0, bodyLen);
+					if (flag) log.debug(String.format("-> 3. REQ SEND DATA   [%s]", new String(body)));
 				}
 				
 				if (flag) {
@@ -179,7 +181,7 @@ public class TR0000 extends Thread {
 					header = recv(header.length);
 					if (flag) log.debug(String.format("<- 5. RES RECV HEADER [%s]", new String(header)));
 					
-					dataLen = Integer.parseInt(PacketHeader.BODY_LEN.getString(header));
+					bodyLen = Integer.parseInt(PacketHeader.BODY_LEN.getString(header));
 				}
 				
 				if (flag) {
@@ -187,8 +189,8 @@ public class TR0000 extends Thread {
 					 * 6. recv data
 					 */
 					
-					data = recv(dataLen);
-					if (flag) log.debug(String.format("<- 6. RES RECV DATA   [%s]", new String(data)));
+					body = recv(bodyLen);
+					if (flag) log.debug(String.format("<- 6. RES RECV DATA   [%s]", new String(body)));
 				}
 				
 				if (flag) {
@@ -196,7 +198,7 @@ public class TR0000 extends Thread {
 					 * 7. post job
 					 */
 					
-					if (flag) log.debug(String.format("-- 7. DATA [%d:%s]", dataLen, new String(data)));
+					if (flag) log.debug(String.format("-- 7. DATA [%d:%s]", bodyLen, new String(body)));
 				}
 				
 			} catch (Exception e) {

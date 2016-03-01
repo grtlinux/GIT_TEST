@@ -98,7 +98,9 @@ public class TR0500 extends Thread {
 			 */
 			log.debug(">>>>> " + this.className);
 			log.debug(">>>>> " + this.comment);
-			log.debug(">>>>> host = " + this.host + ", port = " + this.port + ", trCode = " + this.trCode);
+			log.debug(">>>>> host = " + this.host);
+			log.debug(">>>>> port = " + this.port);
+			log.debug(">>>>> trCode = " + this.trCode);
 			log.debug("Connection .....");
 		}
 	}
@@ -150,7 +152,7 @@ public class TR0500 extends Thread {
 					PacketHeader.TR_CODE.setVal(header, trCode);
 					PacketHeader.BODY_LEN.setVal(header, String.valueOf(dataLen));
 					
-					dos.write(header, 0, header.length);
+					this.dos.write(header, 0, header.length);
 					if (flag) log.debug(String.format("-> 2. REQ SEND HEADER [%s]", new String(header)));
 				}
 				
@@ -159,7 +161,7 @@ public class TR0500 extends Thread {
 					 * 3. send data
 					 */
 					
-					dos.write(data, 0, dataLen);
+					this.dos.write(data, 0, dataLen);
 					if (flag) log.debug(String.format("-> 3. REQ SEND DATA   [%s]", new String(data)));
 				}
 				
