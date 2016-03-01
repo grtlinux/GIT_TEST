@@ -85,6 +85,7 @@ public class TR0200 extends Thread {
 			
 			this.host = this.resourceBundle.getString("tain.server.host");
 			this.port = this.resourceBundle.getString("tain.server.port");
+			
 			this.fileName = this.resourceBundle.getString("tain.deploy.file.name");
 		}
 		
