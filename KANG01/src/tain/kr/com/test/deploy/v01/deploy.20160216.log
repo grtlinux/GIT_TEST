@@ -98,6 +98,35 @@ set OPTION=%OPTION% -Dtest.rush.start.random=5
 
 ::pause
 
+---------------------------------------------------------------------------------------------------
+
+	@echo off
+	
+	if "%1" == "dir" (
+		DIR /W
+	) ELSE (
+		IF EXIST "%1" (
+			:: %1 means a external program included .bat file
+			CALL %1
+			GOTO EXIT
+		) ELSE (
+			ECHO ERROR
+		)
+	)
+	
+	:EXIT
+
+---------------------------------------------------------------------------------------------------
+
+	@echo off
+	
+	call %1
+	
+	if ERRORLEVEL 0 (
+		echo SUCCESS
+	) else (
+		echo FAIL RET=%ERRORLEVEL%
+	)
 
 ---------------------------------------------------------------------------------------------------
 
@@ -121,6 +150,21 @@ tain.server.exec.log = N:/TEMP/deploy/log/TR0501-YYYYMMDDHHMMSS.log
 
 
 ---------------------------------------------------------------------------------------------------
+
+[ VM arguments ]
+
+-Dtain.date.format=yyyyMMdd-HHmmss
+-Dtain.client.host=127.0.0.1
+-Dtain.client.port=2025
+-Dtain.client.deploy.file.name=N:/TEMP/deploy/client/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+-Dtain.client.exec.cmd=N:/TEMP/deploy/bin/TR0101.bat
+-Dtain.client.exec.log=N:/TEMP/deploy/log/TR0101-YYYYMMDDHHMMSS.log
+-Dtain.server.host=127.0.0.1
+-Dtain.server.port=2025
+-Dtain.server.deploy.file.name=N:/TEMP/deploy/server/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+-Dtain.server.exec.cmd=N:/TEMP/deploy/bin/TR0501.bat
+-Dtain.server.exec.log=N:/TEMP/deploy/log/TR0501-YYYYMMDDHHMMSS.log
+
 ---------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------

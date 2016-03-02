@@ -25,6 +25,8 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
+import tain.kr.com.test.deploy.v01.common.ParamMap;
+
 /**
  * Code Templates > Comments > Types
  *
@@ -68,6 +70,8 @@ public class TainServerMain {
 			port = resourceBundle.getString("tain.listen.port");
 		}
 		
+		if (flag) ParamMap.getInstance().printList();
+		
 		if (flag) {
 			log.debug(">>>>> " + className);
 			log.debug(">>>>> port = " + port);
@@ -91,7 +95,9 @@ public class TainServerMain {
 				Socket socket = serverSocket.accept();
 				if (flag) log.debug(String.format("SERVER : accept the connection(%d)", idxThr));
 				
-				new TainServerThread(idxThr, socket).start();
+				Thread thr = new TainServerThread(idxThr, socket);
+				thr.start();
+				thr.join();
 			}
 		}
 	}

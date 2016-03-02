@@ -122,14 +122,6 @@ public class TR0101 {
 		}
 		
 		if (flag) {
-			String yyyymmdd = PacketHeader.TR_DATE.getString(this.header);
-			String hhmmss = PacketHeader.TR_TIME.getString(this.header);
-			
-			this.execLog = this.execLog.replaceAll("YYYYMMDD", yyyymmdd);
-			this.execLog = this.execLog.replaceAll("HHMMSS", hhmmss);
-		}
-
-		if (flag) {
 			/*
 			 * print information
 			 */
@@ -157,19 +149,30 @@ public class TR0101 {
 			 * 3. execute job
 			 */
 			
+			String strKeyTime = "";
+			
+			if (flag) {
+				String[] arrParams = new String(this.body).split(";");
+				String trCmd = arrParams[0];
+				strKeyTime = arrParams[1];
+				
+				this.execLog = this.execLog.replaceAll("YYYYMMDDHHMMSS", strKeyTime);
+				if (flag) log.debug(">>>>> exec log = " + this.execLog);
+			}
+
 			if (flag) {
 				// Exec.run
 				if (!flag) Exec.run(new String[] {"cmd", "/c", "D:/TR500.cmd"}, false);
 				if (!flag) Exec.run(new String[] {"cmd", "/c", "start"}, false);
 				if (!flag) Exec.run(new String[] {"cmd", "/c", "M:/TEMP/DEPLOY_TEST/CLIENT/mvn_dos.bat"}, false);
 
-				if (flag) Exec.run(new String[] {"cmd", "/c", this.execCmd}, new FileWriter(this.execLog), true);
+				if (flag) Exec.run(new String[] {"cmd", "/c", this.execCmd, strKeyTime}, new FileWriter(this.execLog), true);
 			}
 
 			if (flag) {
 				// make return body
 
-				this.body = "TR0101_OK".getBytes("EUC-KR");
+				this.body = String.format("%s", "TR0101_OK").getBytes("EUC-KR");
 				this.bodyLen = this.body.length;
 
 				if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", this.bodyLen, new String(this.body)));
