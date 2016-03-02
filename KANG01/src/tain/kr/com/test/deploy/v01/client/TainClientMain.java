@@ -57,6 +57,9 @@ public class TainClientMain {
 	private static String className = null;
 	private static ResourceBundle resourceBundle = null;
 	
+	private static int seqStart = -1;
+	private static int seqFinish = -1;
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,10 +72,28 @@ public class TainClientMain {
 			resourceBundle = ResourceBundle.getBundle(className.replace('.', '/'));
 		}
 		
+		if (flag) {
+			/*
+			 * sequence range
+			 */
+			String strSeqRange = null;
+			if (!flag)
+				strSeqRange = System.getProperty("tain.job.seq.range", "1-10");
+			else
+				strSeqRange = System.getProperty("tain.job.seq.range");
+			
+			String[] arrSeq = strSeqRange.split("-");
+			
+			seqStart = Integer.parseInt(arrSeq[0]);
+			seqFinish = Integer.parseInt(arrSeq[1]);
+		}
+		
 		if (flag) ParamMap.getInstance().printList();
 		
 		if (flag) {
 			log.debug(">>>>> " + className);
+			log.debug(">>>>> seqStart=" + seqStart + ", seqFinish=" + seqFinish);
+			System.exit(0);
 		}
 	}
 	
@@ -84,7 +105,7 @@ public class TainClientMain {
 			String val = null;
 			Thread thr = null;
 			
-			for (int seq=0; seq < 10; seq++) {
+			for (int seq=seqStart; seq <= seqFinish; seq++) {
 				
 				key = "tain.job.seq." + String.format("%d", seq);
 				

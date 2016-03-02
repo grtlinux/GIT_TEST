@@ -213,6 +213,11 @@ tain.server.exec.log = N:/TEMP/deploy/log/TR0501-YYYYMMDDHHMMSS.log
 
 [ VM arguments ver 0.3 ]
 
+-Dtain.job.seq.range=1-2
+-Dtain.job.seq.range=1-4
+-Dtain.job.seq.range=2-4
+-Dtain.job.seq.range=1-6
+
 -Dtain.date.format=yyyyMMdd-HHmmss
 -Dtain.client.host=127.0.0.1
 -Dtain.client.port=2025

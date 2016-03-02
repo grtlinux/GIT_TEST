@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="x-windows-949" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+	<rercord>
+		<date>2009-05-25T17:08:34</date>
+		<millis>1243238914375</millis>
+		<sequence>0</sequence>
+		<logger>TestLog</logger>
+		<level>INFO</level>
+		<class>LoggerTestMain</class>
+		<method>main</method>
+		<thread>10</thread>
+		<message>30</message>
+	</rercord>
+</log>
