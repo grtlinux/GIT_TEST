@@ -150,7 +150,7 @@ public class TR0500 extends Thread {
 					 * 1. pre job
 					 */
 					
-					data = "RUN_TR0501".getBytes("EUC-KR");
+					data = String.format("%s;%s", "RUN_TR0501", ParamMap.getInstance().get("tain.key.time")).getBytes("EUC-KR");
 					dataLen = data.length;
 					
 					if (flag) log.debug(String.format("-- 1. DATA [%d:%s]", dataLen, new String(data)));

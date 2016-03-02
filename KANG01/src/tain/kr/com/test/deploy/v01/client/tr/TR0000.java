@@ -150,7 +150,7 @@ public class TR0000 extends Thread {
 					 * 1. pre job
 					 */
 					
-					body = "REQ TIME".getBytes("EUC-KR");
+					body = "KEY TIME".getBytes("EUC-KR");
 					bodyLen = body.length;
 					
 					if (flag) log.debug(String.format("-- 1. DATA [%d:%s]", bodyLen, new String(body)));
@@ -211,7 +211,11 @@ public class TR0000 extends Thread {
 					 * 7. post job
 					 */
 					
+					ParamMap.getInstance().put("tain.key.time", new String(body));
+					
 					if (flag) log.debug(String.format("-- 7. DATA [%d:%s]", bodyLen, new String(body)));
+					
+					if (flag) ParamMap.getInstance().printList();
 				}
 				
 			} catch (Exception e) {

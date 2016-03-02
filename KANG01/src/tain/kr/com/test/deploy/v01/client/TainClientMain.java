@@ -28,6 +28,7 @@ import tain.kr.com.test.deploy.v01.client.tr.TR0000;
 import tain.kr.com.test.deploy.v01.client.tr.TR0100;
 import tain.kr.com.test.deploy.v01.client.tr.TR0200;
 import tain.kr.com.test.deploy.v01.client.tr.TR0500;
+import tain.kr.com.test.deploy.v01.common.ParamMap;
 
 /**
  * Code Templates > Comments > Types
@@ -68,6 +69,8 @@ public class TainClientMain {
 			resourceBundle = ResourceBundle.getBundle(className.replace('.', '/'));
 		}
 		
+		if (flag) ParamMap.getInstance().printList();
+		
 		if (flag) {
 			log.debug(">>>>> " + className);
 		}
@@ -83,7 +86,7 @@ public class TainClientMain {
 			
 			for (int seq=0; seq < 10; seq++) {
 				
-				key = "tain.job.seq." + String.format("%2d", seq);
+				key = "tain.job.seq." + String.format("%d", seq);
 				
 				try {
 					val = resourceBundle.getString(key);
