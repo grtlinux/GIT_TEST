@@ -215,7 +215,7 @@ public class TR0000 extends Thread {
 					
 					if (flag) log.debug(String.format("-- 7. DATA [%d:%s]", bodyLen, new String(body)));
 					
-					if (flag) ParamMap.getInstance().printList();
+					if (!flag) ParamMap.getInstance().printList();
 				}
 				
 			} catch (Exception e) {

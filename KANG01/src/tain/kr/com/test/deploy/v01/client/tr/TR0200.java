@@ -160,7 +160,13 @@ public class TR0200 extends Thread {
 					 * 1. pre job
 					 */
 					
-					body = String.format("%015d", getFileSize()).getBytes("EUC-KR");
+					if (flag) {
+						// set fileName from YYYYMMDDHHMMSS to tain.key.time.
+						this.fileName = this.fileName.replaceAll("YYYYMMDDHHMMSS", ParamMap.getInstance().get("tain.key.time"));
+						if (flag) log.debug(">>>>> file = " + this.fileName);
+					}
+					
+					body = String.format("%s;%015d;%s", "FILE_TRANSFER", getFileSize(), ParamMap.getInstance().get("tain.key.time")).getBytes("EUC-KR");
 					bodyLen = body.length;
 					
 					if (flag) log.debug(String.format("-- 1. DATA [%d:%s]", bodyLen, new String(body)));
@@ -308,7 +314,8 @@ public class TR0200 extends Thread {
 				if (flag) System.out.println();
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				// e.printStackTrace();
+				throw e;
 			} finally {
 				if (fis != null) try { fis.close(); } catch (Exception e) {}
 			}
