@@ -143,7 +143,9 @@ public class TR0001 {
 			if (flag) {
 				// make return body
 				
-				this.body = new SimpleDateFormat(this.dateFormat, Locale.KOREA).format(new Date()).getBytes("EUC-KR");
+				this.body = "00000000-000000".getBytes("EUC-KR");   // TODO 2016.0302 : for test
+				if (flag) this.body = new SimpleDateFormat(this.dateFormat, Locale.KOREA).format(new Date()).getBytes("EUC-KR");
+				
 				this.bodyLen = this.body.length;
 
 				if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", this.bodyLen, new String(this.body)));

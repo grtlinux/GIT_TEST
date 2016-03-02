@@ -144,11 +144,23 @@ public class TR0201 {
 			 * 3. execute job
 			 */
 			
+			String trCmd = null;
+			String strFileSize = null;
+			String strKeyTime = null;
+			
 			if (flag) {
-				// get file size
+				// get transfer informations
 
-				this.fileSize = Long.parseLong(new String(this.body));
+				String[] arrParams = new String(this.body).split(";");
+				trCmd = arrParams[0];
+				strFileSize = arrParams[1];
+				strKeyTime = arrParams[2];
+				
+				this.fileSize = Long.parseLong(strFileSize);
+				this.fileName = this.fileName.replaceAll("YYYYMMDDHHMMSS", strKeyTime);
+
 				if (flag) log.debug(String.format("fileSize = %,d", this.fileSize));
+				if (flag) log.debug(String.format("fileName = %s", this.fileName));
 			}
 			
 			if (flag) {
@@ -184,7 +196,8 @@ public class TR0201 {
 					}
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					// e.printStackTrace();
+					throw e;
 				} finally {
 					if (fos != null) try { fos.close(); } catch (Exception e) {}
 				}
