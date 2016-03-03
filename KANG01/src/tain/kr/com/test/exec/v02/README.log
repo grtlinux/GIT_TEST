@@ -119,7 +119,8 @@ Actually, if we take time out of busy day and look at the source code
 
 ----------------------------------------------------------------------------------------------------
 
-
+	// pro = rt.exec("chrome.exe");
+	pro = rt.exec("C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\Application\\Chrome.exe");
 
 
 
