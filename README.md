@@ -39,6 +39,7 @@ You have to set Preferences > Java > Editor > Content Assist > Syntax Coloring  
 
 1. [http://pyrasis.com/private/2014/07/19/open-windows-project-essential-utility-book](http://pyrasis.com/private/2014/07/19/open-windows-project-essential-utility-book)
 2. [http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91](http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91)
+3. [http://central.maven.org/maven2](http://central.maven.org/maven2/)
 
 ----------------------------------------------------------------------------------------
 
