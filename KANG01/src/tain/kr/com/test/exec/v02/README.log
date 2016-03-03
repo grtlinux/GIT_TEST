@@ -106,7 +106,18 @@ Actually, if we take time out of busy day and look at the source code
 
 ----------------------------------------------------------------------------------------------------
 
+	public class Ex0129_02 {
+		public static void main(String[] args) {
+			Runtime rt = Runtime.getRuntime();
+			
+			try {
+				// rt.exec("exlorer.exe " + "http://www.daum.net");
+				rt.exec("c:/Program Files/Inetnet Explorer/iexplore.exe " + "http://www.google.co.kr/search?hl=ko&lr=lang-ko&........");
+			} catch (IOException e) {}
+		}
+	}
 
+----------------------------------------------------------------------------------------------------
 
 
 
