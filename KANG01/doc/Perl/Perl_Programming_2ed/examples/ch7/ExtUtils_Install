@@ -1,3 +1,0 @@
-use ExtUtils::Install;
-install($hashref, $verbose, $nonono);
-uninstall($packlistfile, $verbose, $nonono);

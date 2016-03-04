@@ -1,5 +1,0 @@
-#!/usr/bin/perl   
-# findlogin1 - print all lines containing the string "login"   
-while (<>) {		# loop over files on command line 	
-    print if /login/;     
-}

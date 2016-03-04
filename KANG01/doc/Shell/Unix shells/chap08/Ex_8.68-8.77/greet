@@ -1,6 +1,0 @@
-#!/bin/sh
-# Script name: greet
-for name in $*        # same as for name in $@
-do
-    echo Hi $name         
-done

@@ -1,1 +1,0 @@
-use ExtUtils::MM_OS2; # Done internally by ExtUtils::MakeMaker if needed

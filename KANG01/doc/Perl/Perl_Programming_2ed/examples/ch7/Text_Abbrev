@@ -1,4 +1,0 @@
-use Text::Abbrev;
-
-%hash = ();
-abbrev(*hash, LIST);

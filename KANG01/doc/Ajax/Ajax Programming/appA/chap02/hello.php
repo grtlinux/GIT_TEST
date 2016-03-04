@@ -1,5 +1,0 @@
-<?php
-	header("Content-Type: text/plain; charset=euc-kr");
-	$name = iconv("utf-8", "euc-kr", $name);
-	echo "¾È³çÇÏ¼¼¿ä, $name È¸¿ø´Ô!";
-?>

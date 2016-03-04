@@ -1,9 +1,0 @@
-#!/bin/bash
-# Scriptname: num
-num=0                   # Initialize num
-while (( $num < 10 ))   #   or  while [ num -lt 10 ]
-do
-   echo  -n "$num "
-   let num+=1        # Increment num
-done
-echo -e "\nAfter loop exits, continue running here"

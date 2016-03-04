@@ -1,9 +1,0 @@
-#!/bin/ksh
-# Script name: doit
-# Example 10.109
-# Usage: doit [args]
-while (( $# > 0 ))
-do
-    print $*
-    shift
-done

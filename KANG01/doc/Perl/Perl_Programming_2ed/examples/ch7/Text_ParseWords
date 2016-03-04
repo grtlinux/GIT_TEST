@@ -1,2 +1,0 @@
-use Text::ParseWords;
-@words = quotewords($delim, $keep, @lines);
