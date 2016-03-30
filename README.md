@@ -42,7 +42,8 @@ You have to set Preferences > Java > Editor > Content Assist > Syntax Coloring  
 3. [MAVEN-jar-http://central.maven.org/maven2](http://central.maven.org/maven2/)
 4. [JAVA7-http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
 5. [w3schools www.w3schools.com](http://www.w3schools.com/)
-6. [devdocs devdocs.io](http://devdocs.io)
+6. [devdocs devdocs.io](http://devdocs.io/)
+7. [jQuery jquery.com](http://jquery.com/)
 
 ----------------------------------------------------------------------------------------
 
