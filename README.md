@@ -46,6 +46,8 @@ You have to set Preferences > Java > Editor > Content Assist > Syntax Coloring  
 7. [jQuery - jquery.com](http://jquery.com/)
 8. [tomcat - tomcat.apache.org](http://tomcat.apache.org/)
 9. [commons apache - commons.apache.org](http://commons.apache.org/)
+10. [eclipse - www.eclipse.org](http://www.eclipse.org/)
+11. [java oracle - www.oracle.com/java/](https://www.oracle.com/java/index.html)
 
 ----------------------------------------------------------------------------------------
 
