@@ -44,6 +44,7 @@ You have to set Preferences > Java > Editor > Content Assist > Syntax Coloring  
 5. [w3schools www.w3schools.com](http://www.w3schools.com/)
 6. [devdocs devdocs.io](http://devdocs.io/)
 7. [jQuery jquery.com](http://jquery.com/)
+8. [tomcat tomcat.apache.org](http://tomcat.apache.org/)
 
 ----------------------------------------------------------------------------------------
 
