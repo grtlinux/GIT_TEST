@@ -49,7 +49,7 @@ You have to set Preferences > Java > Editor > Content Assist > Syntax Coloring  
 10. [eclipse - www.eclipse.org](http://www.eclipse.org/)
 11. [java oracle - www.oracle.com/java/](https://www.oracle.com/java/index.html)
 12. [node.js - nodejs.org](https://nodejs.org/en/)
-13. [KornShell - www.kornshell.com](http://www.kornshell.com/)
+13. [KornShell - www.kornshell.com](http://www.kornshell.com/) [cafe.naver.com/itupandup/3490](http://cafe.naver.com/itupandup/3490)
 
 
 
