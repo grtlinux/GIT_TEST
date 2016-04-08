@@ -2,6 +2,7 @@
 
 2. MarkdownPad [http://www.markdownpad.com/](http://www.markdownpad.com/)
 
+3. GitHub Mastering Markdown [https://guides.github.com/features/mastering-markdown/](https://guides.github.com/features/mastering-markdown/)
 
 
 
