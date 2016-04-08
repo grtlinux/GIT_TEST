@@ -4,6 +4,9 @@
 
 3. GitHub Mastering Markdown [https://guides.github.com/features/mastering-markdown/](https://guides.github.com/features/mastering-markdown/)
 
+4. Daring Fireball: Markdown [http://daringfireball.net/projects/markdown/](http://daringfireball.net/projects/markdown/)
+
+
 
 
 Welcome to StackEdit!
