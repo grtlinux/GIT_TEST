@@ -67,6 +67,28 @@ You have to set Preferences > Java > Editor > Content Assist > Syntax Coloring  
 
 
 
+----------------------------------------------------------------------------------------
+## Chart
+
+1) ExtJS_sencha [http://www.sencha.com/products/extjs/examples/](http://www.sencha.com/products/extjs/examples/)
+
+2) Jqplot [http://www.jqplot.com/tests/](http://www.jqplot.com/tests/)
+
+3) FusionChart [http://www.fusioncharts.com/](http://www.fusioncharts.com/)
+
+4) Highchart [http://www.highcharts.com](http://www.highcharts.com)
+
+5) jQuery Sparklines [http://omnipotent.net/jquery.sparkline/#s-about](http://omnipotent.net/jquery.sparkline/#s-about)
+
+6) jQWidgets [http://www.jqwidgets.com/jquery-widgets-demo/index.htm](http://www.jqwidgets.com/jquery-widgets-demo/index.htm)
+
+7) JS Chart [http://www.jscharts.com/examples](http://www.jscharts.com/examples)
+
+8) OpenFlashChart [http://teethgrinder.co.uk/open-flash-chart/](http://teethgrinder.co.uk/open-flash-chart/)
+
+9) Google Chart [https://developers.google.com/chart/?hl=ko](https://developers.google.com/chart/?hl=ko)
+
+10) Flotr2 [http://humblesoftware.com/flotr2/index](http://humblesoftware.com/flotr2/index)
 
 
 ----------------------------------------------------------------------------------------
