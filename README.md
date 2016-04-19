@@ -42,6 +42,7 @@ You have to set Preferences > Java > Editor > Content Assist > Syntax Coloring  
 02. [Subversion - http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91](http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91)
 03. [MAVEN-jar - http://central.maven.org/maven2](http://central.maven.org/maven2/)
 	m2eclipse - http://m2eclipse.sonatype.org/sites/m2e
+	eclipse-maven - http://5553.tistory.com/99
 04. [JAVA7 - http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
 05. [w3schools - www.w3schools.com](http://www.w3schools.com/)
 06. [devdocs - devdocs.io](http://devdocs.io/)
