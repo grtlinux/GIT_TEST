@@ -58,7 +58,7 @@ You have to set Preferences > Java > Editor > Content Assist > Syntax Coloring  
 16. [stackoverflow](http://stackoverflow.com/)
 17. [Tutorials Point](http://www.tutorialspoint.com/)
 18. [Developers Google](https://developers.google.com/)
-19. [google gson API](https://github.com/google/gson)[json-simple API](https://code.google.com/p/json-simple)
+19. [google gson API](https://github.com/google/gson) / [json-simple API](https://code.google.com/p/json-simple)
 
 
 
