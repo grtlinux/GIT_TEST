@@ -59,7 +59,7 @@ You have to set Preferences > Java > Editor > Content Assist > Syntax Coloring  
 17. [Tutorials Point](http://www.tutorialspoint.com/)
 18. [Developers Google](https://developers.google.com/)
 19. [google gson API](https://github.com/google/gson) / [json-simple API](https://code.google.com/p/json-simple)
-20. [github 형상관리](http://cafe.naver.com/lgucamp/232)
+20. [github 형상관리](http://cafe.naver.com/lgucamp/232)  naver search : github contributions graph
 
 
 
