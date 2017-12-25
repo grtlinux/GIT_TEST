@@ -1,0 +1,84 @@
+<script src="https://unpkg.com/vue"></script>
+
+<script>
+	var mixin = {
+		data: function() {
+			return {
+				message: 'mixin message',
+				str: 'mixin other message',
+			}
+		},
+		created: function() {
+			console.log('mixin: create', this)
+		},
+		methods: {
+			fn_print: function() {
+				console.log('mixin:', this.message)
+			},
+			fn_dummy: function() {
+				console.log('mixin:', this)
+			},
+		},
+	}
+</script>
+
+
+<template id="comp_template">
+	<div>
+		<input v-model="message">
+	</div>
+</template>
+<script>
+	Vue.component('comp_tag', {
+		template: '#comp_template',
+		props: {
+		},
+		data: function() {
+			return {
+				message: 'comp template',
+			}
+		},
+		mixins: [ mixin ],
+		created: function() {
+			console.log("comp:", this, this._data, this.$root.$data)
+			this.fn_dummy()
+			//this.$root.fn_dummy()
+			//this.$parent.fn_dummy()
+		},
+		methods: {
+			fn_dummy: function() {
+				console.log("comp:", 'fn_dummy')
+				this.fn_print()
+			},
+		}
+	})
+</script>
+
+
+<div id="app">
+	<div>{{ str }}</div>
+	<p>
+	<input v-model="str">
+	<p>
+	<comp_tag></comp_tag>
+</div>
+<script>
+	new Vue({
+		el: '#app',
+		data: {
+			message: 'hello app',
+		},
+		mixins: [ mixin ],
+		created: function() {
+			console.log("app:", this)
+			this.fn_dummy()
+		},
+		methods: {
+			fn_dummy: function() {
+				console.log("app:", 'fn_dummy')
+				this.fn_print()
+			},
+		}
+	})
+</script>
+	
